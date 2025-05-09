@@ -22,9 +22,11 @@ jobs:
         python -m pip install --upgrade pip
         pip install setuptools wheel twine
 
+    - name: Clean previous builds
+      run: rm -rf dist/
+
     - name: Build distribution
-      run: |
-        python setup.py sdist bdist_wheel
+      run: python -m build
 
     - name: Upload package to PyPI
       run: |
