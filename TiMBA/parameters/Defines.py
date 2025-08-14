@@ -44,6 +44,39 @@ class VarNames(Enum):
     OPT_MB = "optional_MB"
 
 
+class ParamNames(Enum):
+    """
+    Closs to hold names of parameters
+    """
+    year = "year"
+    max_period = "max_period"
+    product_price = "product_price"
+    world_price = "world_price"
+    transportation_factor = "transportation_factor"
+    material_balance = "material_balance"
+    serialization = "serialization"
+    constants = "constants"
+    dynamization_activated = "dynamization_activated"
+    capped_prices = "capped_prices"
+    cleaned_opt_quantity = "cleaned_opt_quantity"
+    global_material_balance = "global_material_balance"
+    verbose_optimization_logger = "verbose_optimization_logger"
+    verbose_calculation_logger = "verbose_calculation_logger"
+    addInfo = "addInfo"
+    test_timba_results = "test_timba_results"
+    activate_cmodule = "activate_add_on_cmodule"
+    read_in_pkl = "read_in_pkl"
+    calc_c_forest_agb = "calc_c_forest_agb"
+    calc_c_forest_bgb = "calc_c_forest_bgb"
+    calc_c_forest_soil = "calc_c_forest_soil"
+    calc_c_forest_dwl = "calc_c_forest_dwl"
+    calc_c_hwp = "calc_c_hwp"
+    c_hwp_accounting_approach = "c_hwp_accounting_approach"
+    historical_c_hwp = "historical_c_hwp"
+    hist_hwp_start_year = "hist_hwp_start_year"
+    hist_hwp_start_year_default = "hist_hwp_start_year_default"
+
+
 class Constants(Enum):
     """
     Class to hold computational and floating point constants
