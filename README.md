@@ -22,7 +22,7 @@
     - [Settings as parameters](#settings-as-parameters)
     - [Advanced settings](#advanced-settings)
 - [TiMBA extended model description](#timba-extended-model-description)
-- [Add-on modules for TiMBA](#add-on-modules-for-timba)
+- [Extensions for TiMBA](#extensions-for-timba)
 - [Roadmap and project status](#roadmap-and-project-status)
 - [Contributing to the project](#contributing-to-the-project)
 - [Authors](#authors)
@@ -219,22 +219,22 @@ obtained from three global databases: The FAO forestry statistics (FAOSTAT), the
 Indicators (World Bank). The model output comprises information about production, consumption and trade quantities, and prices as well as forest development. The 
 model concept bases on the formal description of the Global Forest Products Model (GFPM) (Buongiorno et al. 2015, Buongiorno et al. 2003). 
 
-## Add-on modules for TiMBA
-TiMBA is a flexible modelling framework that can be extended with add-on modules to enable additional functionalities. 
-Depending on the use case and the research question, users can activate or deactivate these add-on modules via the CLI or
+## Extensions for TiMBA
+TiMBA is a flexible modelling framework that can be extended with additional applications to enable further functionalities. 
+Depending on the use case and the research question, users can activate or deactivate these modular extensions via the CLI or
 through the `default_parameters`. In this way, the computational load is tailored to the user's needs. The modules are designed
 as separate packages which can be imported into the main TiMBA application. These packages are usually hosted on the
 TI-FSM [GitHub](https://github.com/orgs/TI-Forest-Sector-Modelling/repositories) or [PyPI](https://pypi.org/user/TI-FSM/)
-pages. While full compatibility of add-on modules with each other is targeted, certain combinations of functionalities may
+pages. While full compatibility of extensions with each other is targeted, certain combinations of functionalities may
 cause errors or lead to longer calculation times. Such issues can be reported in the respective repositories.
 
-This sections provides an overview of available add-on modules. Beyond the activation, the add-on modules offer a range of
+This sections provides an overview of available extensions. Beyond the activation, the extensions offer a range of
 settings to adapt their functionality to specific use cases. For details about each module and its configuration options,
 users should refer the respective GitHub repositories.   
 
-|    Module     |                                                                                                                    Description                                                                                                                     |                                      Activation                                       |                           GitHub project                           |                       Citation                        |
-|:-------------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------:|:------------------------------------------------------------------:|:-----------------------------------------------------:|
-| Carbon Module | tracks carbon stocks and stock changes across pools in the forestry sector including aboveground and belowground biomass, forest soils, deadwood and litter, and harvested wood products. The module applies updated guidelines of the IPCC (2019) | `activate_cmodule=True` in `default_parameters.py` <br/>or<br/> `-CC=True` in the CLI | [C-Module](https://github.com/TI-Forest-Sector-Modelling/C-Module) | [Honkomp (2025)](https://zenodo.org/records/16884230) |
+|    Module     |                                                                                                                    Description                                                                                                                     |                                      Activation                                       |                           GitHub project                            |                       Citation                        |
+|:-------------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------:|:-------------------------------------------------------------------:|:-----------------------------------------------------:|
+| Carbon Module | tracks carbon stocks and stock changes across pools in the forestry sector including aboveground and belowground biomass, forest soils, deadwood and litter, and harvested wood products. The module applies updated guidelines of the IPCC (2019) | `activate_cmodule=True` in `default_parameters.py` <br/>or<br/> `-CC=True` in the CLI | [C-Module](https://github.com/TI-Forest-Sector-Modelling/C-Module)  | [Honkomp (2025)](https://zenodo.org/records/16912178) |
 
 
 
