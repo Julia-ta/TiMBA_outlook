@@ -8,11 +8,8 @@ from TiMBA.data_management.ParameterCollector import ParameterCollector
 from TiMBA.results_logging.base_logger import get_logger
 from TiMBA.data_management.DataManager import DataManager
 from TiMBA.data_management.DataContainer import WorldDataCollector, DataContainer, AdditionalInformation
-from TiMBA.parameters.Defines import (SolverParameters, ParamNames)
+from TiMBA.parameters.Defines import SolverParameters
 import os
-
-from c_module.logic.main import C_Module
-
 
 def main(UserIO: ParameterCollector, world_version: list, time_stamp: str, package_dir, sc_name: str):
     """
@@ -84,23 +81,6 @@ def main(UserIO: ParameterCollector, world_version: list, time_stamp: str, packa
                                   world_version=world_version,
                                   logger=Logger,
                                   output_path=output_path)
-    # Add-on carbon module
-    if UserIO.activate_cmodule:
-        Logger.info(f"Launch carbon module")
-        c_module = C_Module(UserInput={
-            ParamNames.activate_cmodule.value: UserIO.activate_cmodule,
-            ParamNames.read_in_pkl.value: UserIO.read_in_pkl,
-            ParamNames.calc_c_forest_agb.value: UserIO.calc_c_forest_agb,
-            ParamNames.calc_c_forest_bgb.value: UserIO.calc_c_forest_bgb,
-            ParamNames.calc_c_forest_soil.value: UserIO.calc_c_forest_soil,
-            ParamNames.calc_c_forest_dwl.value: UserIO.calc_c_forest_dwl,
-            ParamNames.calc_c_hwp.value: UserIO.calc_c_hwp,
-            ParamNames.c_hwp_accounting_approach.value: UserIO.c_hwp_accounting_approach,
-            ParamNames.historical_c_hwp.value: UserIO.historical_c_hwp,
-            ParamNames.hist_hwp_start_year.value: UserIO.hist_hwp_start_year,
-            ParamNames.hist_hwp_start_year_default.value: UserIO.hist_hwp_start_year_default
-        })
-        c_module.run()
 
     Logger.info(f"Computing TiMBA complete")
     duration = round(default_timer() - start, 3)

@@ -1,4 +1,5 @@
 from TiMBA.main_runner.main_runner import main
+from TiMBA.logic.model_extensions import run_extensions
 from TiMBA.data_management.ParameterCollector import ParameterCollector
 from TiMBA.parameters import INPUT_WORLD_PATH
 from pathlib import Path
@@ -37,4 +38,5 @@ if __name__ == '__main__':
              package_dir=PACKAGEDIR,
              sc_name=world[:len(world) - 5])
 
+    run_extensions(UserIO=Parameters)
 

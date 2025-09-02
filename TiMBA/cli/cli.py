@@ -3,6 +3,7 @@ import click
 import os
 import datetime as dt
 from TiMBA.main_runner.main_runner import main
+from TiMBA.logic.model_extensions import run_extensions
 from TiMBA.data_management.ParameterCollector import ParameterCollector
 from TiMBA.parameters import INPUT_WORLD_PATH
 from TiMBA.parameters.Defines import ParamNames
@@ -128,6 +129,8 @@ def cli(year, max_period, calc_product_price, calc_world_price, material_balance
              time_stamp=current_dt,
              package_dir=PACKAGEDIR,
              sc_name=world[:len(world) - 5])
+
+    run_extensions(UserIO=Parameters)
 
 
 if __name__ == '__main__':
