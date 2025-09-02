@@ -17,7 +17,7 @@ from TiMBA.user_io.default_parameters import (default_year, default_max_period, 
                                               read_additional_information_file, activate_cmodule, read_in_pkl,
                                               calc_c_forest_agb, calc_c_forest_bgb, calc_c_forest_soil, calc_c_forest_dwl,
                                               calc_c_hwp, c_hwp_accounting_approach, historical_c_hwp,
-                                              hist_hwp_start_year, hist_hwp_start_year_default)
+                                              hist_hwp_start_year, hist_hwp_start_year_default, show_carbon_dashboard)
 
 
 @click.command()
@@ -101,7 +101,8 @@ def cli(year, max_period, calc_product_price, calc_world_price, material_balance
                       ParamNames.c_hwp_accounting_approach.value: c_hwp_accounting_approach,
                       ParamNames.historical_c_hwp.value: historical_c_hwp,
                       ParamNames.hist_hwp_start_year.value: hist_hwp_start_year,
-                      ParamNames.hist_hwp_start_year_default.value: hist_hwp_start_year_default
+                      ParamNames.hist_hwp_start_year_default.value: hist_hwp_start_year_default,
+                      ParamNames.show_carbon_dashboard.value: show_carbon_dashboard,
                       }
     
     Parameters = ParameterCollector(user_input=user_input_cli, folderpath=folderpath)

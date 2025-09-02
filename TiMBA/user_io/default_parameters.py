@@ -35,6 +35,7 @@ c_hwp_accounting_approach = "stock-change"  # Options: "stock-change" or "produc
 historical_c_hwp = "average"  # Options: "average" or "historical"
 hist_hwp_start_year = "default"  # Options: "country-specific" or "default"
 hist_hwp_start_year_default = default_year
+show_carbon_dashboard = True
 
 user_input = {ParamNames.year.value: default_year,
               ParamNames.max_period.value: default_max_period,
@@ -63,4 +64,5 @@ user_input = {ParamNames.year.value: default_year,
               ParamNames.historical_c_hwp.value: historical_c_hwp,
               ParamNames.hist_hwp_start_year.value: hist_hwp_start_year,
               ParamNames.hist_hwp_start_year_default.value: hist_hwp_start_year_default,
+              ParamNames.show_carbon_dashboard.value: show_carbon_dashboard,
               }

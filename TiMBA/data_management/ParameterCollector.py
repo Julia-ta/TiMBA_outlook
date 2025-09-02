@@ -46,6 +46,7 @@ class ParameterCollector:
         self._historical_c_hwp = user_input[ParamNames.historical_c_hwp.value]
         self._hist_hwp_start_year = user_input[ParamNames.hist_hwp_start_year.value]
         self._hist_hwp_start_year_default = user_input[ParamNames.hist_hwp_start_year_default.value]
+        self._show_carbon_dashboard = user_input[ParamNames.show_carbon_dashboard.value]
 
         # Run directly after __init__ to ensure correct user IO
         self.input_data_check()
@@ -273,6 +274,14 @@ class ParameterCollector:
     @hist_hwp_start_year_default.setter
     def hist_hwp_start_year_default(self, value: int):
         self._hist_hwp_start_year_default = value
+
+    @property
+    def show_carbon_dashboard(self) -> bool:
+        return self._show_carbon_dashboard
+
+    @show_carbon_dashboard.setter
+    def show_carbon_dashboard(self, value: bool):
+        self._show_carbon_dashboard = value
 
     def __repr__(self):
         return repr(f"year={self.year}, "
