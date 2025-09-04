@@ -23,7 +23,7 @@ class TiMBAExtensions(object):
                 ParamNames.hist_hwp_start_year.value: self.UserOptions.hist_hwp_start_year,
                 ParamNames.hist_hwp_start_year_default.value: self.UserOptions.hist_hwp_start_year_default,
                 ParamNames.show_carbon_dashboard.value: self.UserOptions.show_carbon_dashboard})
-        c_module.run()
+            c_module.run()
 
 
 def run_extensions(UserIO):
