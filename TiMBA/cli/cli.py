@@ -15,6 +15,10 @@ from TiMBA.user_io.default_parameters import (default_year, default_max_period, 
                                               verbose_optimization_logger, verbose_calculation_logger,
                                               read_additional_information_file)
 
+@click.group()
+def cli():
+    pass
+
 @click.command()
 @click.option('-Y', '--year', default=default_year, 
               show_default=True, required=True, type=int, 
@@ -68,7 +72,7 @@ from TiMBA.user_io.default_parameters import (default_year, default_max_period, 
     file_okay=False, writable=True, path_type=Path), help="Path to directory with Input/Output folder.")
 
 
-def cli(year, max_period, calc_product_price, calc_world_price, material_balance, global_material_balance,
+def timba_cli(year, max_period, calc_product_price, calc_world_price, material_balance, global_material_balance,
         transportation_impexp_factor, serialization, dynamization_activated, cleaned_opt_quantity, capped_prices,
         verbose_optimization_logger, verbose_calculation_logger, folderpath):
     
@@ -107,7 +111,7 @@ def cli(year, max_period, calc_product_price, calc_world_price, material_balance
              package_dir=PACKAGEDIR,
              sc_name=world[:len(world) - 5])
 
-@click.command()
+@cli.command()
 @click.option('-U', '--user', default="TI-Forest-Sector-Modelling", 
               show_default=True, required=True, type=str, 
               help="User of the GitHub Repo.")
@@ -131,7 +135,10 @@ def cli(user,repo,branch,folder,destination):
             source_folder=folder,
             dest_repo_path=PACKAGEDIR,
             dest_folder=destination)
+    
+cli.add_command(timba_cli, name="timba")
+cli.add_command(load_data, name="load_data")
 
 
-if __name__ == '__main__':
-    cli()
+# if __name__ == '__main__':
+#     cli()
