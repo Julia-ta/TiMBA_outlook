@@ -45,7 +45,7 @@ Issues = "https://github.com/TI-Forest-Sector-Modelling/TiMBA/issues"
 
 [project.scripts]
 timba_run = "TiMBA.cli.cli:timba_cli"
-timba_load_data = "TiMBA.cli.cli:load_data"
+timba_load_data = "TiMBA.cli.cli:load_data_cli"
 
 [tool.setuptools]
 include-package-data = true
