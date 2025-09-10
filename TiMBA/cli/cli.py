@@ -4,6 +4,7 @@ import os
 import datetime as dt
 from TiMBA.main_runner.main_runner import main
 from TiMBA.data_management.ParameterCollector import ParameterCollector
+from TiMBA.data_management.Load_Data import load_data
 from TiMBA.parameters import INPUT_WORLD_PATH
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
@@ -105,6 +106,31 @@ def cli(year, max_period, calc_product_price, calc_world_price, material_balance
              time_stamp=current_dt,
              package_dir=PACKAGEDIR,
              sc_name=world[:len(world) - 5])
+
+@click.command()
+@click.option('-U', '--user', default="TI-Forest-Sector-Modelling", 
+              show_default=True, required=True, type=str, 
+              help="User of the GitHub Repo.")
+@click.option('-R', '--repo', default="TiMBA_Additional_Informationg", 
+              show_default=True, required=True, type=str, 
+              help="Name of the GitHub Repo.")
+@click.option('-B', '--branch', default="main_add_TiMBA_input_data", 
+              show_default=True, required=True, type=str, 
+              help="Branch where the data is stored within the GitHub Repo.")
+@click.option('-F', '--folder', default="Input_Data/default_scenario", 
+              show_default=True, required=True, type=str, 
+              help="Folder that should be loaded.")
+@click.option('-D', '--destination', default="data/input/", 
+              show_default=True, required=True, type=str, 
+              help="Destination folder where the data should be loaded to.")
+def cli(user,repo,branch,folder,destination):
+    PACKAGEDIR = Path(__file__).parents[1]
+    load_data(user=user,
+            repo=repo,
+            branch=branch,
+            source_folder=folder,
+            dest_repo_path=PACKAGEDIR,
+            dest_folder=destination)
 
 
 if __name__ == '__main__':
