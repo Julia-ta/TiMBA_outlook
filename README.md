@@ -92,14 +92,14 @@ Enable the virtual environment to isolate TiMBA dependencies.
 
 ### Double check installation and test suite
 Double check if installation was successful by running following command from terminal:  
-   >run_timba --help
+   >timba_run --help
 
 The help provides you information about the basic model settings which changed to adapt model runs to your needs 
 (see section [Model settings](#model-settings) for further details).
 
 Test if TiMBA is running by executing the model only for the first period:
 
-  >run_timba -MP=1
+  >timba_run -MP=1
 
 
 The TiMBA model comes with a test suite to ensure its functionality.
@@ -117,7 +117,7 @@ The coverage report of the TiMBA model can be accessed using:
 
 
 ## Use TiMBA
-The package comes with a built-in CLI to compute the TiMBA for various inputs. While the parametric input can be seen in cmd output calling `run_timba --help` from the terminal, an important part to mention is user input data that need to be imported from a selected folder. You shall not change the following structure within the data folder:
+The package comes with a built-in CLI to compute the TiMBA for various inputs. While the parametric input can be seen in cmd output calling `timba_run --help` from the terminal, an important part to mention is user input data that need to be imported from a selected folder. You shall not change the following structure within the data folder:
 TiMBA is provided with an input file (scenario_input.xlsx), including all input data necessary to run the model. The section [TiMBA extended model description](#timba-extended-model-description-) delivers a detailed description of the included input data.
 ```bash
 .
@@ -175,10 +175,10 @@ TiMBA is delivered with a set of default settings, which were tested and validat
 The CLI provides to access basic model settings, and their default values. 
 Check if CLI command is registered and available on your computer by executing either:
 
-- >run_timba --help
+- >timba_run --help
 
 Default settings can be changed in the following way:
-- > run_timba -MP=5 -PP="calculated_PP" -WP="shadow_WP"
+- >timba_run -MP=5 -PP="calculated_PP" -WP="shadow_WP"
 
 For this example, TiMBA will simulate 5 periods using calculated prices as product prices and shadow prices as world market prices.
 
