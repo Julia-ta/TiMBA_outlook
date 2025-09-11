@@ -2,11 +2,12 @@ from pathlib import Path
 import click
 import os
 import datetime as dt
+from urllib.error import URLError
 from TiMBA.main_runner.main_runner import main
 from TiMBA.data_management.ParameterCollector import ParameterCollector
 from TiMBA.data_management.Load_Data import load_data
 from TiMBA.parameters import INPUT_WORLD_PATH
-from TiMBA.parameters.paths import OUTPUT_DIR, ADDINFOPTHTOOLBOX 
+from TiMBA.parameters.paths import OUTPUT_DIR, ADDINFOPTHTOOLBOX,GIT_USER,GIT_REPO,GIT_BRANCH,GIT_FOLDER,DESTINATION_PATH
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 from TiMBA.user_io.default_parameters import (default_year, default_max_period, default_calc_product_price,
@@ -83,52 +84,67 @@ def timba_cli(year, max_period, calc_product_price, calc_world_price, material_b
                       "capped_prices": capped_prices, "verbose_optimization_logger": verbose_optimization_logger,
                       "verbose_calculation_logger": verbose_calculation_logger,
                       "addInfo": read_additional_information_file}
-    
-    Parameters = ParameterCollector(user_input=user_input_cli, folderpath=folderpath)
-    PACKAGEDIR = Path(__file__).parents[1]
-    world_list = os.listdir(INPUT_WORLD_PATH)
-    for world in world_list:
-        current_dt = dt.datetime.now().strftime("%Y%m%dT%H-%M-%S")
-        print(f"The model starts now:", (dt.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")),"\n")
-        print(f"Path:", INPUT_WORLD_PATH)
-        print(f"Name of input file:", world[:len(world) - 5],"\n")
-        print(f"User input for model settings:\n",
-              f"Start year: {Parameters.year}\n",
-              f"Number of periods: {Parameters.max_period}\n",
-              f"Calculation of prices by: {Parameters.calc_product_prices}\n",
-              f"Calculation of world prices by: {Parameters.calc_world_prices}\n",
-              f"Material balance: {Parameters.material_balance}\n",
-              f"Input data through serialization: {Parameters.serialization}\n",
-              f"Dynamization activated: {Parameters.dynamization_activated}\n",
-              f"Prices are capped: {Parameters.capped_prices}\n",
-              f"Optimization gives verbose logs: {Parameters.verbose_optimization_logger}\n",
-              f"TiMBA gives verbose logs: {Parameters.verbose_calculation_logger}\n",
-              f"Read additional informations: {Parameters.addInfo}\n")
-        main(UserIO=Parameters,
-             world_version=world,
-             time_stamp=current_dt,
-             package_dir=PACKAGEDIR,
-             sc_name=world[:len(world) - 5])
-        world_count = len(world_list)
+    try:
+        Parameters = ParameterCollector(user_input=user_input_cli, folderpath=folderpath)
+        PACKAGEDIR = Path(__file__).parents[1]
+        world_list = os.listdir(INPUT_WORLD_PATH)
+        for world in world_list:
+            current_dt = dt.datetime.now().strftime("%Y%m%dT%H-%M-%S")
+            print(f"The model starts now:", (dt.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")),"\n")
+            print(f"Path:", INPUT_WORLD_PATH)
+            print(f"Name of input file:", world[:len(world) - 5],"\n")
+            print(f"User input for model settings:\n",
+                f"Start year: {Parameters.year}\n",
+                f"Number of periods: {Parameters.max_period}\n",
+                f"Calculation of prices by: {Parameters.calc_product_prices}\n",
+                f"Calculation of world prices by: {Parameters.calc_world_prices}\n",
+                f"Material balance: {Parameters.material_balance}\n",
+                f"Input data through serialization: {Parameters.serialization}\n",
+                f"Dynamization activated: {Parameters.dynamization_activated}\n",
+                f"Prices are capped: {Parameters.capped_prices}\n",
+                f"Optimization gives verbose logs: {Parameters.verbose_optimization_logger}\n",
+                f"TiMBA gives verbose logs: {Parameters.verbose_calculation_logger}\n",
+                f"Read additional informations: {Parameters.addInfo}\n")
+
+            main(UserIO=Parameters,
+                world_version=world,
+                time_stamp=current_dt,
+                package_dir=PACKAGEDIR,
+                sc_name=world[:len(world) - 5])
+            world_count = len(world_list)
+    except FileNotFoundError:
+        print(f"No input files found at {INPUT_WORLD_PATH}. \nPlease add input data to this folder manually",
+              "or by using the timba_load_data command.\nAlternatively,",
+              "another folder can be specified where the data is stored with the option -FP.")
 
 
 @click.command()
-@click.option('-U', '--user', default="TI-Forest-Sector-Modelling", show_default=True, required=True)
-@click.option('-R', '--repo', default="TiMBA_Additional_Information", show_default=True, required=True)
-@click.option('-B', '--branch', default="main_add_TiMBA_input_data", show_default=True, required=True)
-@click.option('-F', '--folder', default="Input_Data/default_scenario", show_default=True, required=True)
-@click.option('-D', '--destination', default="data/input/", show_default=True, required=True)
+@click.option('-U', '--user', default=GIT_USER, show_default=True, required=True,
+              help="Name of the GitHub user who stored the data.")
+@click.option('-R', '--repo', default=GIT_REPO, show_default=True, required=True,
+              help="Name of the GitHub repository where stored the data.")
+@click.option('-B', '--branch', default=GIT_BRANCH, show_default=True, required=True,
+              help="Name of the branch where stored the data.")
+@click.option('-F', '--folder', default=GIT_FOLDER, show_default=True, required=True,
+              help="The folder path within the repository where stored the data.")
+@click.option('-D', '--destination', default=DESTINATION_PATH, show_default=True, required=True,
+              help="The destination where the data should be copied to.")
 def load_data_cli(user, repo, branch, folder, destination):
     """CLI wrapper for loading additional input data from GitHub"""
     PACKAGEDIR = Path(__file__).parents[1]
-    load_data(
-        user=user,
-        repo=repo,
-        branch=branch,
-        source_folder=folder,
-        dest_repo_path=PACKAGEDIR,
-        dest_folder=destination
-    )
+    try:
+        load_data(
+            user=user,
+            repo=repo,
+            branch=branch,
+            source_folder=folder,
+            dest_repo_path=PACKAGEDIR,
+            dest_folder=destination
+        )
+    except URLError:
+        print(f"Failed to download input data from GitHub.\n",
+              "Please check your internet connection, ensure that",
+              "'https://github.com' is reachable from your environment and try again.")
 
 cli.add_command(timba_cli, name="timba")
 cli.add_command(load_data_cli, name="load_data")

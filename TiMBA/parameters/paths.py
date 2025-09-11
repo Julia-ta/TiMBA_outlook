@@ -24,3 +24,10 @@ ADDINFOPTHTOOLBOX = r"data/input/02_Additional_Information/"
 OUTPUT_FILE = "\\data\\output\\results_D*.csv"
 OUTPUT_DIR = "\\data\\output\\"
 INPUT_DIR = "\\analysis\\Data\\TiMBA\\"
+
+# Input data storage
+GIT_USER="TI-Forest-Sector-Modelling"
+GIT_REPO="TiMBA_Additional_Information"
+GIT_BRANCH="main_add_TiMBA_input_data"
+GIT_FOLDER="Input_Data/default_scenario"
+DESTINATION_PATH="data/input/"
