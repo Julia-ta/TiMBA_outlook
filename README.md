@@ -14,21 +14,22 @@
 
 <!-- TOC -->
 
-- [Cite TiMBA](#cite-timba)
-- [Install TiMBA](#install-timba)
-  - [Double check installation and test suite](#double-check-installation-and-test-suite)
-- [Use TiMBA](#use-timba)
-  - [Model settings](#model-settings)
-    - [Settings as parameters](#settings-as-parameters)
-    - [Advanced settings](#advanced-settings)
-- [TiMBA extended model description](#timba-extended-model-description)
-- [Roadmap and project status](#roadmap-and-project-status)
-- [Contributing to the project](#contributing-to-the-project)
-- [Authors](#authors)
-- [Contribution statement](#contribution-statement)
-- [License and copyright note](#license-and-copyright-note)
-- [Acknowledgements](#acknowledgements)
-- [References](#references)
+- [TiMBA - Timber market Model for policy-Based Analysis](#timba---timber-market-model-for-policy-based-analysis)
+  - [Cite TiMBA](#cite-timba)
+  - [Install TiMBA](#install-timba)
+    - [Double check installation and test suite](#double-check-installation-and-test-suite)
+  - [Use TiMBA](#use-timba)
+    - [Model settings](#model-settings)
+      - [Settings as parameters](#settings-as-parameters)
+      - [Advanced settings](#advanced-settings)
+  - [TiMBA extended model description](#timba-extended-model-description)
+  - [Roadmap and project status](#roadmap-and-project-status)
+  - [Contributing to the project](#contributing-to-the-project)
+  - [Authors](#authors)
+  - [Contribution statement](#contribution-statement)
+  - [License and copyright note](#license-and-copyright-note)
+  - [Acknowledgements](#acknowledgements)
+  - [References](#references)
 
 <!-- /TOC -->
 
@@ -81,9 +82,11 @@ Enable the virtual environment to isolate TiMBA dependencies.
 5. Install TiMBA in the editable mode  
    >pip install -e .
 
-If the following error occurs: "ERROR: File "setup.py" or "setup.cfg" not found."
-you might need to update the pip version you use with: 
->python.exe -m pip install --upgrade pip
+    If the following error occurs: "ERROR: File "setup.py" or "setup.cfg" not found."
+    you might need to update the pip version you use with: 
+    >python.exe -m pip install --upgrade pip
+6. The package does not come with predefined data. To download the default input data along with additional information needed to run TiMBA use the command
+   >timba_load_data
 
    
 
