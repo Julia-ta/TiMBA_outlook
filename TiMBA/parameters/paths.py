@@ -20,6 +20,7 @@ MANUFACTURE_OUTPUT = "data/output/manufacture_D"
 LOGGING_OUTPUT_FOLDER = r"data/output"
 
 # plot
+ADDINFOPTHTOOLBOX = r"data/input/02_Additional_Information/"
 OUTPUT_FILE = "\\data\\output\\results_D*.csv"
 OUTPUT_DIR = "\\data\\output\\"
 INPUT_DIR = "\\analysis\\Data\\TiMBA\\"
