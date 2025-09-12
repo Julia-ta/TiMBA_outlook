@@ -7,6 +7,7 @@ from TiMBA.logic.model_extensions import run_extensions
 from TiMBA.data_management.ParameterCollector import ParameterCollector
 from TiMBA.parameters import INPUT_WORLD_PATH
 from TiMBA.parameters.Defines import ParamNames
+from c_module.logic.main import C_Module
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 from TiMBA.user_io.default_parameters import (default_year, default_max_period, default_calc_product_price,
@@ -14,10 +15,16 @@ from TiMBA.user_io.default_parameters import (default_year, default_max_period, 
                                               global_material_balance, serialization_flag, constants,
                                               dynamization_activated, cleaned_opt_quantity, capped_prices,
                                               verbose_optimization_logger, verbose_calculation_logger,
-                                              read_additional_information_file, activate_cmodule, read_in_pkl,
-                                              calc_c_forest_agb, calc_c_forest_bgb, calc_c_forest_soil, calc_c_forest_dwl,
-                                              calc_c_hwp, c_hwp_accounting_approach, historical_c_hwp,
-                                              hist_hwp_start_year, hist_hwp_start_year_default, show_carbon_dashboard)
+                                              read_additional_information_file, activate_add_on_cmodule, sc_num,
+                                              read_in_pkl, calc_c_forest_agb, calc_c_forest_bgb, calc_c_forest_soil,
+                                              calc_c_forest_dwl, calc_c_hwp, c_hwp_accounting_approach,
+                                              historical_c_hwp, hist_hwp_start_year, hist_hwp_start_year_default,
+                                              show_carbon_dashboard)
+
+
+@click.group()
+def cli():
+    pass
 
 
 @click.command()
@@ -69,12 +76,12 @@ from TiMBA.user_io.default_parameters import (default_year, default_max_period, 
 @click.option('-FP', '--folderpath', 'folderpath', required=False, type=click.Path(
     file_okay=False, writable=True, path_type=Path), help="Path to directory with Input/Output folder.")
 @click.option('-AC', '--activate_cmodule', 'activate_cmodule',
-              default=activate_cmodule, show_default=True, required=False, type=bool,
+              default=False, show_default=True, required=False, type=bool,
               help="Flag to activate carbon module.")
 
-def cli(year, max_period, calc_product_price, calc_world_price, material_balance, global_material_balance,
-        transportation_impexp_factor, serialization, dynamization_activated, cleaned_opt_quantity, capped_prices,
-        verbose_optimization_logger, verbose_calculation_logger, folderpath, activate_cmodule):
+def timba_cli(year, max_period, calc_product_price, calc_world_price, material_balance, global_material_balance,
+              transportation_impexp_factor, serialization, dynamization_activated, cleaned_opt_quantity, capped_prices,
+              verbose_optimization_logger, verbose_calculation_logger, folderpath, activate_cmodule):
     
     user_input_cli = {ParamNames.year.value: year,
                       ParamNames.max_period.value: max_period,
@@ -92,6 +99,7 @@ def cli(year, max_period, calc_product_price, calc_world_price, material_balance
                       ParamNames.verbose_calculation_logger.value: verbose_calculation_logger,
                       ParamNames.addInfo.value: read_additional_information_file,
                       ParamNames.activate_cmodule.value: activate_cmodule,
+                      ParamNames.sc_num.value: sc_num,
                       ParamNames.read_in_pkl.value: read_in_pkl,
                       ParamNames.calc_c_forest_agb.value: calc_c_forest_agb,
                       ParamNames.calc_c_forest_bgb.value: calc_c_forest_bgb,
@@ -133,6 +141,63 @@ def cli(year, max_period, calc_product_price, calc_world_price, material_balance
 
     run_extensions(UserIO=Parameters)
 
+
+# Carbon Module command
+@click.command()
+@click.option('-SC', '--sc_num', "sc_num",
+              default=sc_num, show_default=True, required=True, type=int,
+              help="Flag to control the number of processed scenarios.")
+@click.option('-CF_AGB', '--calc_c_forest_agb', "calc_c_forest_agb",
+              default=calc_c_forest_agb, show_default=True, required=True, type=bool,
+              help="Flag to activate carbon calculation for aboveground forest biomass.")
+@click.option('-CF_BGB', '--calc_c_forest_bgb', "calc_c_forest_bgb",
+              default=calc_c_forest_bgb, show_default=True, required=True, type=bool,
+              help="Flag to activate carbon calculation for belowground forest biomass.")
+@click.option('-CF_S', '--calc_c_forest_soil', "calc_c_forest_soil",
+              default=calc_c_forest_soil, show_default=True, required=True, type=bool,
+              help="Flag to activate carbon calculation for forest soil.")
+@click.option('-CF_DWL', '--calc_c_forest_dwl', "calc_c_forest_dwl",
+              default=calc_c_forest_dwl, show_default=True, required=True, type=bool,
+              help="Flag to activate carbon calculation for dead wood and litter.")
+@click.option('-C_HWP', '--calc_c_hwp', "calc_c_hwp",
+              default=calc_c_hwp, show_default=True, required=True, type=bool,
+              help="Flag to activate carbon calculation for harvested wood products.")
+@click.option('-C_HWP_A', '--c_hwp_accounting_approach', "c_hwp_accounting_approach",
+              default=c_hwp_accounting_approach, show_default=True, required=True,
+              type=str, help="Flag to select the accounting approach for carbon in harvested wood products.")
+@click.option('-R', '--read_in_pkl', "read_in_pkl",
+              default=read_in_pkl, show_default=True, required=True, type=bool,
+              help="Flag to control if pkl- or csv-files are read; reads in if True.")
+@click.option('-SD', '--show_carbon_dashboard', 'show_carbon_dashboard',
+              default=show_carbon_dashboard, show_default=True, required=False, type=bool,
+              help="Flag to launch carbon dashboard.")
+
+def carbon_cli(calc_c_forest_agb, sc_num, calc_c_forest_bgb, calc_c_forest_soil, calc_c_forest_dwl, calc_c_hwp,
+               c_hwp_accounting_approach, read_in_pkl, show_carbon_dashboard):
+
+    user_input_cli = {
+        ParamNames.activate_cmodule.value: activate_add_on_cmodule,
+        ParamNames.sc_num.value: sc_num,
+        ParamNames.read_in_pkl.value: read_in_pkl,
+        ParamNames.calc_c_forest_agb.value: calc_c_forest_agb,
+        ParamNames.calc_c_forest_bgb.value: calc_c_forest_bgb,
+        ParamNames.calc_c_forest_soil.value: calc_c_forest_soil,
+        ParamNames.calc_c_forest_dwl.value: calc_c_forest_dwl,
+        ParamNames.calc_c_hwp.value: calc_c_hwp,
+        ParamNames.c_hwp_accounting_approach.value: c_hwp_accounting_approach,
+        ParamNames.show_carbon_dashboard.value: show_carbon_dashboard,
+        # Adavanced settings not available via CLI
+        ParamNames.historical_c_hwp.value: historical_c_hwp,
+        ParamNames.hist_hwp_start_year.value: hist_hwp_start_year,
+        ParamNames.hist_hwp_start_year_default.value: hist_hwp_start_year_default,
+    }
+
+    c_module = C_Module(UserInput=user_input_cli)
+    c_module.run()
+
+
+cli.add_command(timba_cli, name="timba")
+cli.add_command(carbon_cli, name="carbon")
 
 if __name__ == '__main__':
     cli()
