@@ -35,7 +35,8 @@ class ParameterCollector:
         self._verbose_calculation_logger = user_input[ParamNames.verbose_calculation_logger.value]
         self._addInfo = user_input[ParamNames.addInfo.value]
         self._folderpath = folderpath
-        self._activate_cmodule = user_input[ParamNames.activate_cmodule.value]
+        self._activate_add_on_cmodule = user_input[ParamNames.activate_cmodule.value]
+        self._sc_num = user_input[ParamNames.sc_num.value]
         self._read_in_pkl = user_input[ParamNames.read_in_pkl.value]
         self._calc_c_forest_agb = user_input[ParamNames.calc_c_forest_agb.value]
         self._calc_c_forest_bgb = user_input[ParamNames.calc_c_forest_bgb.value]
@@ -180,12 +181,20 @@ class ParameterCollector:
         self._cleaned_opt_quantity = value
 
     @property
-    def activate_cmodule(self) -> bool:
-        return self._activate_cmodule
+    def activate_add_on_cmodule(self) -> bool:
+        return self._activate_add_on_cmodule
 
-    @activate_cmodule.setter
-    def activate_cmodule(self, value: bool):
-        self._activate_cmodule = value
+    @activate_add_on_cmodule.setter
+    def activate_add_on_cmodule(self, value: bool):
+        self._activate_add_on_cmodule = value
+
+    @property
+    def sc_num(self) -> int:
+        return self._sc_num
+
+    @sc_num.setter
+    def sc_num(self, value: int):
+        self._sc_num = value
 
     @property
     def read_in_pkl(self) -> bool:
@@ -308,7 +317,8 @@ class ParameterCollector:
         assert isinstance(self.verbose_calculation_logger, bool)
         assert isinstance(self.addInfo, bool)
         assert type(self.transportation_imp_exp_bound_factor) in [float, int]
-        assert isinstance(self.activate_cmodule, bool)
+        assert isinstance(self.activate_add_on_cmodule, bool)
+        assert isinstance(self.sc_num, int)
         assert isinstance(self.read_in_pkl, bool)
         assert isinstance(self.calc_c_forest_agb, bool)
         assert isinstance(self.calc_c_forest_bgb, bool)
