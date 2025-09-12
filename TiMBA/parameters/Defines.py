@@ -65,6 +65,7 @@ class ParamNames(Enum):
     addInfo = "addInfo"
     test_timba_results = "test_timba_results"
     activate_cmodule = "activate_add_on_cmodule"
+    sc_num = "sc_num"
     read_in_pkl = "read_in_pkl"
     calc_c_forest_agb = "calc_c_forest_agb"
     calc_c_forest_bgb = "calc_c_forest_bgb"

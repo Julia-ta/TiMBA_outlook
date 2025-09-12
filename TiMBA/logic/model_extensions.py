@@ -11,7 +11,8 @@ class TiMBAExtensions(object):
     def run_carbon_module(self):
         if self.UserOptions.activate_cmodule:
             c_module = C_Module(UserInput={
-                ParamNames.activate_cmodule.value: self.UserOptions.activate_cmodule,
+                ParamNames.activate_cmodule.value: self.UserOptions.activate_add_on_cmodule,
+                ParamNames.sc_num.value: self.UserOptions.sc_num,
                 ParamNames.read_in_pkl.value: self.UserOptions.read_in_pkl,
                 ParamNames.calc_c_forest_agb.value: self.UserOptions.calc_c_forest_agb,
                 ParamNames.calc_c_forest_bgb.value: self.UserOptions.calc_c_forest_bgb,

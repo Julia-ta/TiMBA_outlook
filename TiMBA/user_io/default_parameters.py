@@ -23,7 +23,8 @@ read_additional_information_file = True
 test_timba_results = True  # activate unittest to compare TiMBA results with validated results
 
 # Carbon module related parameters
-activate_cmodule = True
+activate_add_on_cmodule = True
+sc_num = 4  # Activate if run with CLI
 read_in_pkl = True  # Caution False option not implemented yet
 calc_c_forest_agb = True
 calc_c_forest_bgb = True
