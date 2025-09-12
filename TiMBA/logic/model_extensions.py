@@ -9,7 +9,7 @@ class TiMBAExtensions(object):
         self.UserOptions = UserOptions
 
     def run_carbon_module(self):
-        if self.UserOptions.activate_cmodule:
+        if self.UserOptions.activate_add_on_cmodule:
             c_module = C_Module(UserInput={
                 ParamNames.activate_cmodule.value: self.UserOptions.activate_add_on_cmodule,
                 ParamNames.sc_num.value: self.UserOptions.sc_num,
