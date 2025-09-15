@@ -199,5 +199,3 @@ def carbon_cli(calc_c_forest_agb, sc_num, calc_c_forest_bgb, calc_c_forest_soil,
 cli.add_command(timba_cli, name="timba")
 cli.add_command(carbon_cli, name="carbon")
 
-if __name__ == '__main__':
-    cli()
