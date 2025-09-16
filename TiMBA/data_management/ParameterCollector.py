@@ -318,7 +318,7 @@ class ParameterCollector:
         assert isinstance(self.addInfo, bool)
         assert type(self.transportation_imp_exp_bound_factor) in [float, int]
         assert isinstance(self.activate_add_on_cmodule, bool)
-        assert isinstance(self.sc_num, int)
+        assert isinstance(self.sc_num, (int, type(None)))
         assert isinstance(self.read_in_pkl, bool)
         assert isinstance(self.calc_c_forest_agb, bool)
         assert isinstance(self.calc_c_forest_bgb, bool)
