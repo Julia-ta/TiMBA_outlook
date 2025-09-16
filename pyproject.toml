@@ -46,7 +46,7 @@ Issues = "https://github.com/TI-Forest-Sector-Modelling/TiMBA/issues"
 
 [project.scripts]
 timba_run = "TiMBA.cli.cli:timba_cli"
-timba_run_carbon = "TiMBA.cli.cli:carbon_cli"
+carbon_module_run = "TiMBA.cli.cli:carbon_cli"
 
 [tool.setuptools]
 include-package-data = true
