@@ -7,6 +7,7 @@ class TiMBAExtensions(object):
     def __init__(self,
                  UserOptions):
         self.UserOptions = UserOptions
+        self.c_module = None
 
     def run_carbon_module(self):
         if self.UserOptions.activate_add_on_cmodule:
@@ -25,6 +26,7 @@ class TiMBAExtensions(object):
                 ParamNames.hist_hwp_start_year_default.value: self.UserOptions.hist_hwp_start_year_default,
                 ParamNames.show_carbon_dashboard.value: self.UserOptions.show_carbon_dashboard})
             c_module.run()
+            self.c_module = c_module
 
 
 def run_extensions(UserIO):
