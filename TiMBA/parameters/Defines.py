@@ -77,6 +77,7 @@ class ParamNames(Enum):
     hist_hwp_start_year = "hist_hwp_start_year"
     hist_hwp_start_year_default = "hist_hwp_start_year_default"
     show_carbon_dashboard = "show_carbon_dashboard"
+    fao_data_update = "fao_data_update"
 
 
 class Constants(Enum):

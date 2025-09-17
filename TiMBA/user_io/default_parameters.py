@@ -37,6 +37,7 @@ historical_c_hwp = "average"  # Options: "average" or "historical"
 hist_hwp_start_year = "default"  # Options: "country-specific" or "default"
 hist_hwp_start_year_default = default_year
 show_carbon_dashboard = True
+fao_data_update = False
 
 user_input = {ParamNames.year.value: default_year,
               ParamNames.max_period.value: default_max_period,
@@ -67,4 +68,5 @@ user_input = {ParamNames.year.value: default_year,
               ParamNames.hist_hwp_start_year.value: hist_hwp_start_year,
               ParamNames.hist_hwp_start_year_default.value: hist_hwp_start_year_default,
               ParamNames.show_carbon_dashboard.value: show_carbon_dashboard,
+              ParamNames.fao_data_update.value: fao_data_update
               }

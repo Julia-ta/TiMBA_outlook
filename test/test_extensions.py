@@ -45,7 +45,7 @@ class TestTiMBAExtensionsClass(unittest.TestCase):
             ParamNames.hist_hwp_start_year.value: "default",
             ParamNames.hist_hwp_start_year_default.value: default_year,
             ParamNames.show_carbon_dashboard.value: False,
-
+            ParamNames.fao_data_update.value: False
         }
         Parameters = ParameterCollector(user_input=user_input)
         extensions = TiMBAExtensions(UserOptions=Parameters)

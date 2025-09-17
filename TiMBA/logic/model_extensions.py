@@ -24,7 +24,9 @@ class TiMBAExtensions(object):
                 ParamNames.historical_c_hwp.value: self.UserOptions.historical_c_hwp,
                 ParamNames.hist_hwp_start_year.value: self.UserOptions.hist_hwp_start_year,
                 ParamNames.hist_hwp_start_year_default.value: self.UserOptions.hist_hwp_start_year_default,
-                ParamNames.show_carbon_dashboard.value: self.UserOptions.show_carbon_dashboard})
+                ParamNames.show_carbon_dashboard.value: self.UserOptions.show_carbon_dashboard,
+                ParamNames.fao_data_update.value: self.UserOptions.fao_data_update
+            })
             c_module.run()
             self.c_module = c_module
 
