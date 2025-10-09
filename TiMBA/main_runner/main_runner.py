@@ -35,6 +35,7 @@ def main(UserIO: ParameterCollector, world_version: list, time_stamp: str, packa
     AddInfoContent = AdditionalInformation(add_info_path)
     WorldPriceContent = DataContainer(world_price_path)
     OUTPUT_PATH, latest_file, PKL_OUTPUT_PATH = get_output_paths(package_dir, time_stamp, sc_name)
+    DataManager.save_sc_info_as_yaml(sc_name=sc_name, Parameters=UserIO,time_stamp=time_stamp)
 
     # TODO rebase name for serialization_flag
     if not UserIO.serialization or (not os.path.exists(get_pkl_paths(UserIO.folderpath)[0])):
