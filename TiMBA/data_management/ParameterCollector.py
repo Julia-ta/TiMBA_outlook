@@ -48,7 +48,7 @@ class ParameterCollector:
         self._hist_hwp_start_year = user_input[ParamNames.hist_hwp_start_year.value]
         self._hist_hwp_start_year_default = user_input[ParamNames.hist_hwp_start_year_default.value]
         self._show_carbon_dashboard = user_input[ParamNames.show_carbon_dashboard.value]
-        self.fao_data_update = user_input[ParamNames.fao_data_update.value]
+        self._fao_data_update = user_input[ParamNames.fao_data_update.value]
 
         # Run directly after __init__ to ensure correct user IO
         self.input_data_check()
