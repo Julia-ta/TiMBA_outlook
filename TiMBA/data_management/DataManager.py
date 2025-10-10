@@ -857,13 +857,19 @@ class DataManager:
         DataManager.get_manufacture_output(WorldData)
 
     @staticmethod
-    def save_sc_info_as_yaml(sc_name: str, Parameters: dict, time_stamp: str):        
+    def save_sc_info_as_yaml(sc_name: str, Parameters: dict, time_stamp: str):
+        """
+        Saves scenario information in a yaml file.
+        :param sc_name: Name of the scenario
+        :param Parameters: Parameters of the scenario
+        :param time_stamp: Timestamp of the start of the scenario calculation
+        """
         import yaml
         filepath = os.path.join(LOGGING_OUTPUT_FOLDER, f"{sc_name}_{time_stamp}_info.yml")
         sc_name = {"Scenario name": sc_name}
         params = {"CLI Model Parameters": Parameters}
         constants_dict = {item.name: item.value for item in Constants}
-        sc_info = {**sc_name,**params,"Other Model Parameters": constants_dict}
+        sc_info = {**sc_name, **params, "Other Model Parameters": constants_dict}
         with open(filepath, "w", encoding="utf-8") as f:
             for key, value in sc_info.items():
                 yaml.dump({key: value}, f, allow_unicode=True, sort_keys=False)
