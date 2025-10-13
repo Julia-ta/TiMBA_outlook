@@ -174,7 +174,7 @@ def timba_cli(year, max_period, calc_product_price, calc_world_price, material_b
               help="Flag to launch carbon dashboard.")
 
 def carbon_cli(calc_c_forest_agb, sc_num, calc_c_forest_bgb, calc_c_forest_soil, calc_c_forest_dwl, calc_c_hwp,
-               c_hwp_accounting_approach, read_in_pkl, show_carbon_dashboard):
+               c_hwp_accounting_approach, read_in_pkl, show_carbon_dashboard, fao_data_update):
 
     user_input_cli = {
         ParamNames.activate_cmodule.value: activate_add_on_cmodule,
@@ -191,6 +191,7 @@ def carbon_cli(calc_c_forest_agb, sc_num, calc_c_forest_bgb, calc_c_forest_soil,
         ParamNames.historical_c_hwp.value: historical_c_hwp,
         ParamNames.hist_hwp_start_year.value: hist_hwp_start_year,
         ParamNames.hist_hwp_start_year_default.value: hist_hwp_start_year_default,
+        ParamNames.fao_data_update.value: fao_data_update
     }
 
     c_module = C_Module(UserInput=user_input_cli)
