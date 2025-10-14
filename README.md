@@ -187,8 +187,9 @@ Check if CLI command is registered and available on your computer by executing e
 
 - >run_timba --help
 
-Default settings can be changed in the following way:
-- > run_timba -MP=5 -PP="calculated_PP" -WP="shadow_WP"
+Default settings can be changed in the following way: (Note: The change of default settings as described below is for demonstration purposes only, and the results have not been validated.):
+- > run_timba -MP=5 -MB="RCG_specific" -CP="True"
+ 
 
 For this example, TiMBA will simulate 5 periods using calculated prices as product prices and shadow prices as world market prices.
 
