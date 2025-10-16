@@ -1,6 +1,6 @@
 ---
 title: 'TiMBA'
-# TH: we should maybe use uniform tags and keywords throughout the project (requires to adapt the .toml for instance)
+
 tags:
   - Python
   - Forest sector model
@@ -11,19 +11,19 @@ authors:
   - name: TI-FSM
     affiliation: 1
   - name: Tomke Honkomp
-    orcid: 'https://orcid.org/0000-0002-6719-0190'
+    orcid: 0000-0002-6719-0190
     equal-contrib: true
     affiliation: 1
   - name: Christian Morland
-    orcid: 'https://orcid.org/0000-0001-6600-570X'
+    orcid: 0000-0001-6600-570X
     equal-contrib: true
     affiliation: 1
   - name: Franziska Schier
-    orcid: 'https://orcid.org/0000-0002-3378-1371'
+    orcid: 0000-0002-3378-1371
     equal-contrib: true
     affiliation: 1
   - name: Julia Tandetzki
-    orcid: 'https://orcid.org/0000-0002-0630-9434'
+    orcid: 0000-0002-0630-9434
     equal-contrib: true
     affiliation: 1
 affiliations:
@@ -35,7 +35,6 @@ bibliography: paper.bib
 ---
 
 # Summary
-[comment]: <> (TH: As TiMBA covers supply and demand sides, I would prefer the wording global forest sector and global forest sector model instead of global forest product market. This could further be a distinction from the original GFPM)
 TiMBA is a partial economic equilibrium model to simulate interdependencies and developments of the global forest products market for 180 countries and 16 forest-based products. The model determines the market equilibrium by ensuring market clearance, balancing raw material needs with the manufacturing and demand of wood products while imposing constraints on trade, following principles similar to those of @Samuelson:1952. TiMBA recursively calculates the market equilibrium for each country and product endogenously over a given period by maximizing social surplus in the global forest sector. Scenario simulations are driven by both exogenous and endogenous parameters and assumptions about future market dynamics and policy directives. The model’s output includes detailed information on production, consumption, trade volumes, cost and prices, as well as forest area and stock developments.
 
 ![timba_product_transformation\label{fig:1}](https://github.com/TI-Forest-Sector-Modelling/TiMBA_Additional_Information/raw/main/images/timba_product_transformation.png)
