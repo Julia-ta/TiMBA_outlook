@@ -1,21 +1,19 @@
 from typing import Union
 import os
 from pathlib import Path
-import datetime as dt
 import logging
 from TiMBA.parameters import LOGGING_OUTPUT_FOLDER
 
 
-def get_logger(user_path: Union[str, Path, None]):
-    current_dt = dt.datetime.now().strftime("%Y%m%d")
-    filename = rf"{current_dt}_TiMBA.log"
+def get_logger(user_path: Union[str, Path, None],time_stamp:str):
+    filename = rf"{time_stamp}_TiMBA.log"
 
     if user_path is None:
-        filepath = os.path.join(LOGGING_OUTPUT_FOLDER, filename)
+        filepath = LOGGING_OUTPUT_FOLDER / filename
     else:
-        filepath = os.path.join(user_path, "output", filename)
+        filepath = user_path / LOGGING_OUTPUT_FOLDER / filename
     if not os.path.exists(filepath):
-        os.makedirs(Path(filepath).parent, exist_ok=True)
+        os.makedirs(user_path / LOGGING_OUTPUT_FOLDER, exist_ok=True)
 
     Logger = logging.getLogger("TiMBA")
     if not Logger.hasHandlers():

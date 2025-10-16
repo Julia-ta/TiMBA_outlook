@@ -1,33 +1,27 @@
-import datetime as dt
+# Data folder
+DATA_FOLDER = r"data/"
 
-current_dt = dt.datetime.now().strftime("%Y%m%dT%H-%M-%S")
+# Paths for input files
+INPUT_WORLD_PATH = r"input/01_Input_Files/"
+ADDITIONAL_INFORMATION_PATH = r"input/02_Additional_Information/additional_information.xlsx"
+WORLDPRICE_PATH = r"input/02_Additional_Information/worldprice_world500.xlsx"
+PKL_WORLD_PATH = r"input/03_Serialization/WorldDataContent.pkl"
+PKL_ADD_INFO_PATH = r"input/03_Serialization/AddInfoContent.pkl"
+PKL_WORLDPRICE_PATH = r"input/03_Serialization/WorldPriceContent.pkl"
 
-# input
-INPUT_WORLD_PATH = r"data/input/01_Input_Files/"
-ADDITIONAL_INFORMATION_PATH = r"data/input/02_Additional_Information/additional_information.xlsx"
-WORLDPRICE_PATH = r"data/input/02_Additional_Information/worldprice_world500.xlsx"
-PKL_WORLD_PATH = r"data/input/03_Serialization/WorldDataContent.pkl"
-PKL_ADD_INFO_PATH = r"data/input/03_Serialization/AddInfoContent.pkl"
-PKL_WORLDPRICE_PATH = r"data/input/03_Serialization/WorldPriceContent.pkl"
-PKL_OUTPUT_PATH = "E:\\GFPM\\Toolbox for TiMBA\\Archive\\BEPASO_results_with_TiMBA\\"
+# Paths for output files
+output_name = "results_D"
+output_agg_name = "results_aggregated_D"
+forest_output_name = "forest_D"
+world_price_output_name = "world_prices_D"
+manufacture_output_name = "manufacture_D"
 
-# output
-RESULTS_OUTPUT = "data/output/results_D"
-RESULTS_OUTPUT_AGG = "data/output/results_aggregated_D"
-FOREST_OUTPUT = "data/output/forest_D"
-WORLD_PRICE_OUTPUT = "data/output/world_prices_D"
-MANUFACTURE_OUTPUT = "data/output/manufacture_D"
-LOGGING_OUTPUT_FOLDER = r"data/output"
+LOGGING_OUTPUT_FOLDER = r"output/logs/"
+OUTPUT_DIR = r"output/data/"
 
-# plot
-ADDINFOPTHTOOLBOX = r"data/input/02_Additional_Information/"
-OUTPUT_FILE = "\\data\\output\\results_D*.csv"
-OUTPUT_DIR = "\\data\\output\\"
-INPUT_DIR = "\\analysis\\Data\\TiMBA\\"
-
-# Input data storage
+# Input to adress data storage in GIT Repo
 GIT_USER="TI-Forest-Sector-Modelling"
 GIT_REPO="TiMBA_Additional_Information"
 GIT_BRANCH="main_add_TiMBA_input_data"
 GIT_FOLDER="Input_Data/default_scenario"
-DESTINATION_PATH="data/input/"
+DESTINATION_PATH=r"data/input/"
