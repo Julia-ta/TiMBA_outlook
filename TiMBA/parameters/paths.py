@@ -4,8 +4,8 @@ current_dt = dt.datetime.now().strftime("%Y%m%dT%H-%M-%S")
 
 # input
 INPUT_WORLD_PATH = r"data/input/01_Input_Files/"
-ADDITIONAL_INFORMATION_PATH = r"data/input/02_Additional_Informations/additional_information.xlsx"
-WORLDPRICE_PATH = r"data/input/02_Additional_Informations/worldprice_world500.xlsx"
+ADDITIONAL_INFORMATION_PATH = r"data/input/02_Additional_Information/additional_information.xlsx"
+WORLDPRICE_PATH = r"data/input/02_Additional_Information/worldprice_world500.xlsx"
 PKL_WORLD_PATH = r"data/input/03_Serialization/WorldDataContent.pkl"
 PKL_ADD_INFO_PATH = r"data/input/03_Serialization/AddInfoContent.pkl"
 PKL_WORLDPRICE_PATH = r"data/input/03_Serialization/WorldPriceContent.pkl"

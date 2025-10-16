@@ -129,7 +129,7 @@ class DataManager:
             lambda x: PERIOD_PATTERN.findall(x)[0] if PERIOD_PATTERN.findall(x) else None).dropna()
         split_indices = regex_res.index.values
 
-        for i, (idx, (period, forcast_years)) in enumerate(regex_res.iteritems()):
+        for i, (idx, (period, forcast_years)) in enumerate(regex_res.items()):
             next_idx = split_indices[i + 1] - 1 if i + 1 < len(split_indices) else Data.data.shape[0]
             Data.data.loc[idx:next_idx, 'Period'] = int(period)
             Data.data.loc[idx:next_idx, 'ForecastYears'] = int(forcast_years)
@@ -699,7 +699,6 @@ class DataManager:
             Domains.Forest.fraction_fuelwood,
             Domains.Forest.forest_growth_without_harvest,
             Domains.Forest.supply_from_forest,
-            Domains.Forest.price_CO2
         ]]
 
         WorldData.Forest.set_attribute("forest_output", forest_output)

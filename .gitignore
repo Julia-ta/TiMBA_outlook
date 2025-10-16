@@ -2,6 +2,7 @@
 .vscode/
 __pycache__/
 /data/output/
+TiMBA/data/input/
 TiMBA/data/output/
 *.py[cod]
 *$py.class

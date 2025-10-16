@@ -470,13 +470,7 @@ def dynamize_forest(Data: pd.DataFrame, DataChange: pd.DataFrame, DataSupply: pd
                                                     DataChange[Domains.ExogChangeForest.max_ratio_inventory_drain],
                                                     Shifter.except_shifter_zero.value,
                                                     period_block=period_info["block"])
-
-    price_CO2 = growth_dynamization(Data[Domains.Forest.price_CO2],
-                                    DataChange[Domains.ExogChangeForest.price_CO2],
-                                    Shifter.except_shifter_zero.value,
-                                    period_block=period_info["block"],
-                                    period_length=period_info["length"])
-
+    
     if not Data[Data[Domains.Forest.forest_stock] < 0].index.any():
         pass
     else:
@@ -542,6 +536,26 @@ def dynamize_forest(Data: pd.DataFrame, DataChange: pd.DataFrame, DataSupply: pd
     stock_growth = ((periodic_area_growth + periodic_stock_growth_without_harvest +
                      adjustment_endogenous_growth_rate_stock) * forest_stock_prev)
     forest_stock_new = forest_stock_prev + stock_growth - (ratio_inventory_drain * roundwood_supply[:len(Data)])
+
+    try:
+        forest_stock_max_index = Data[
+            Data[Domains.Forest.max_forest_density] != Shifter.except_shifter_minus_one.value].index
+        forest_stock_oth_index = Data[
+            Data[Domains.Forest.max_forest_density] == Shifter.except_shifter_minus_one.value].index
+
+        forest_stock_max = (Data.loc[forest_stock_max_index, Domains.Forest.max_forest_density] *
+                            forest_area_new[forest_stock_max_index]) / ConversionParameters.MIO_FACTOR.value
+        forest_stock_max = pd.DataFrame(np.where(
+            forest_stock_new[forest_stock_max_index] > forest_stock_max[forest_stock_max_index],
+            forest_stock_max[forest_stock_max_index],
+            forest_stock_new[forest_stock_max_index])).set_index(forest_stock_max_index)
+        forest_stock_oth = forest_stock_new[forest_stock_oth_index]
+        forest_stock_new = pd.concat([forest_stock_max, forest_stock_oth], axis=0).sort_index()
+        forest_stock_new = forest_stock_new.reset_index(drop=True)
+        forest_stock_new = pd.Series(forest_stock_new[0])
+
+    except KeyError:
+        pass
 
     periodic_change_rate_stock = (forest_stock_new - forest_stock_prev) / forest_stock_prev
     growth_df = pd.concat([Data[Domains.Forest.region_code], periodic_change_rate_stock,

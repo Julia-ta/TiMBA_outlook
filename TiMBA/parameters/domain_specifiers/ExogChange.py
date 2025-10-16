@@ -74,7 +74,6 @@ class ExogChangeForest(DomainNameSpecifier, RegionCodeSpecifier, FinalDomainSpec
     fraction_fuelwood = "FuelwoodForest"
     ratio_inventory_drain = "InventoryDrain"
     max_ratio_inventory_drain = "MaxRatioInventoryDrain"
-    price_CO2 = "CO2Price"
 
     header_description = {
         "Unnamed: 1": region_code,
@@ -88,7 +87,6 @@ class ExogChangeForest(DomainNameSpecifier, RegionCodeSpecifier, FinalDomainSpec
         "Unnamed: 14": fraction_fuelwood,
         "Unnamed: 15": ratio_inventory_drain,
         "Unnamed: 16": max_ratio_inventory_drain,
-        "Unnamed: 17": price_CO2
     }
 
     # Excel Start Idx

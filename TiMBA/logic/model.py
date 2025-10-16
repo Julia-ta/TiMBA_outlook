@@ -388,15 +388,17 @@ class TiMBA(object):
 
             wastepaper_supply_upper_bound = (recycled_quantity_supply.groupby('RegionCode')["recycled_quantity"].sum() # TODO Hard code (future work)
                                              ).reset_index()
-            supply_upper_bound = pd.DataFrame(self.Data.Supply.data_aligned[Domains.Supply.commodity_code])
-            supply_upper_bound_commodity = pd.DataFrame(self.Data.Supply.data_aligned[Domains.Supply.commodity_code])[
-                np.isclose(supply_upper_bound["CommodityCode"], 90)] # TODO: Hard Code change to list with all paperproducts in defines
-            supply_upper_bound_commodity = supply_upper_bound_commodity.reset_index()
+
+            supply_upper_bound_commodity = self.Data.Supply.data_aligned[
+                self.Data.Supply.data_aligned[Domains.Supply.commodity_code] == 90][Domains.Supply.commodity_code]
+            supply_upper_bound_commodity = pd.DataFrame(supply_upper_bound_commodity).reset_index(drop=True)
+
             supply_upper_bound = pd.concat([supply_upper_bound_commodity, wastepaper_supply_upper_bound], axis=1)
-            supply_upper_bound = self.Data.Supply.data_aligned.merge(supply_upper_bound,
-                                                                     left_on=["CommodityCode", "RegionCode"], # TODO Hard code (future work)
-                                                                     right_on=["CommodityCode", "RegionCode"], # TODO Hard code (future work)
-                                                                     how="left").fillna(0)
+            supply_upper_bound = self.Data.Supply.data_aligned.merge(
+                supply_upper_bound,
+                left_on=[Domains.Supply.commodity_code, Domains.Supply.region_code],
+                right_on=[Domains.Supply.commodity_code, Domains.Supply.region_code],
+                how="left").fillna(0)
 
             if dynamization_activated:
                 supply_upper_bound["SUB"] = supply_upper_bound["SUB"] + supply_upper_bound["recycled_quantity"] # TODO Hard code (future work)
