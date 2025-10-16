@@ -177,7 +177,9 @@ Basic model settings include:
 - A flag to show verbose optimization output [default: True]
 - A flag to show verbose calculation information [default: False]
 
-TiMBA is delivered with a set of default settings, which were tested and validated. The default settings can be changed when executing the package in the CMD or in `default_parameters.py` (changes in settings by the CLI will overwrite parameters in `default_parameters.py`).
+***Note:***  
+TiMBA is delivered with a validated set of default settings that were tested for stability and consistency. These default parameters can be modified when executing the package via CLI or directly in `default_parameters.py`. Please note that any parameters specified in the CLI will overwrite those defined in `default_parameters.py`.  
+Not all combinations of functionalities and settings have been tested or validated. In particular, shadow and calculated price modes for country- and product-level (PP) and world (WP) prices must be applied consistently. Mixing the two (e.g., PP="calculated_PP" and WP="shadow_WP") is currently not supported and may result in an error. 
   
 #### Settings as parameters
 The CLI provides to access basic model settings, and their default values. 
@@ -185,8 +187,9 @@ Check if CLI command is registered and available on your computer by executing e
 
 - >run_timba --help
 
-Default settings can be changed in the following way:
-- > run_timba -MP=5 -PP="calculated_PP" -WP="shadow_WP"
+Default settings can be changed in the following way: (Note: The change of default settings as described below is for demonstration purposes only, and the results have not been validated.):
+- > run_timba -MP=5 -MB="RCG_specific" -CP="True"
+ 
 
 For this example, TiMBA will simulate 5 periods using calculated prices as product prices and shadow prices as world market prices.
 
