@@ -7,7 +7,7 @@ from TiMBA.main_runner.main_runner import main
 from TiMBA.data_management.ParameterCollector import ParameterCollector
 from TiMBA.data_management.Load_Data import load_data
 from TiMBA.parameters import INPUT_WORLD_PATH
-from TiMBA.parameters.paths import OUTPUT_DIR, ADDINFOPTHTOOLBOX,GIT_USER,GIT_REPO,GIT_BRANCH,GIT_FOLDER,DESTINATION_PATH
+from TiMBA.parameters.paths import OUTPUT_DIR, GIT_USER,GIT_REPO,GIT_BRANCH,GIT_FOLDER,DESTINATION_PATH
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 from TiMBA.user_io.default_parameters import (default_year, default_max_period, default_calc_product_price,
