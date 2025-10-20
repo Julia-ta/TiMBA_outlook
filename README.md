@@ -13,14 +13,15 @@
 -----------------
 
 <!-- TOC -->
-
 - [Cite TiMBA](#cite-timba)
 - [Install TiMBA](#install-timba)
-  - [Double check installation and test suite](#double-check-installation-and-test-suite)
+    - [Known Issues](#known-issues)
+    - [Installation Process](#installation-process)
+    - [Double check installation and test suite](#double-check-installation-and-test-suite)
 - [Use TiMBA](#use-timba)
-  - [Model settings](#model-settings)
-    - [Settings as parameters](#settings-as-parameters)
-    - [Advanced settings](#advanced-settings)
+    - [Model settings](#model-settings)
+      - [Settings as parameters](#settings-as-parameters)
+      - [Advanced settings](#advanced-settings)
 - [TiMBA extended model description](#timba-extended-model-description)
 - [Extensions for TiMBA](#extensions-for-timba)
 - [Roadmap and project status](#roadmap-and-project-status)
@@ -49,10 +50,18 @@ The authors' collective is named Thünen Institute Forest Sector Modelling (TI-F
 Co-authors in alphabetical order. 
 ## Install TiMBA
 
-The package is developed and tested with Python 3.9 on Windows. TiMBA is compatible with all Python versions up to 3.12.6
+The package is developed and tested with Python 3.9 on Windows. TiMBA is compatible with Python versions between 3.9–3.11
 with Windows and Ubuntu OS. The functionality with Python versions and different OS is continuously tested using GitHub
-Actions Before proceeding, please ensure that Python is installed on your system. It can be downloaded and installed
-from [Python.org](https://www.python.org/downloads/release/python-3126/).
+Actions. 
+
+### Known Issues
+TiMBA currently has compatibility issues on macOS and with Python 3.12 and 3.13. Users may experience unexpected behavior during the optimization 
+process on macOS, as well as package installation problems when using Python 3.12 and 3.13.
+We recommend using Python 3.9–3.11 on Ubuntu or Windows for best results, until full support for Python 3.12 and 3.13 and macOS is implemented.
+
+### Installation Process
+Before proceeding, please ensure that Python is installed on your system. 
+It can be downloaded and installed from [Python.org](https://www.python.org/downloads/release/python-3119/).
 
 1. Clone the repository
 Begin by cloning the repository to your local machine using the following command: 
@@ -64,13 +73,13 @@ Navigate into the TiMBA project folder on your local machine.
    >
 3. Create a virtual environment  
 It is recommended to set up a virtual environment for TiMBA to manage dependencies. The package is tested for 
-   Python versions up to 3.12.6. With a newer Python version, we can not guarantee the full functionality of the package.
+   Python versions up to 3.11. With a newer Python version, we can not guarantee the full functionality of the package.
    Select the correct Python interpreter.   
    Show installed versions: 
    >py -0  
    >
    - If you have installed multiple versions of Python, activate the correct version using the py-Launcher.
-   >py -3.12.6 -m venv venv 
+   >py -3.11 -m venv venv 
    > 
    - If you are using only a single version of Python on your computer:
    >python -m venv venv
@@ -170,7 +179,9 @@ Basic model settings include:
 Basic add-on module settings include (see [add-on modules for TiMBA](#add-on-modules-for-timba)):
 - The activation of the carbon module [default: True]
 
-TiMBA is delivered with a set of default settings, which were tested and validated. The default settings can be changed when executing the package in the CMD or in `default_parameters.py` (changes in settings by the CLI will overwrite parameters in `default_parameters.py`).
+***Note:***  
+TiMBA is delivered with a validated set of default settings that were tested for stability and consistency. These default parameters can be modified when executing the package via CLI or directly in `default_parameters.py`. Please note that any parameters specified in the CLI will overwrite those defined in `default_parameters.py`.  
+Not all combinations of functionalities and settings have been tested or validated. In particular, shadow and calculated price modes for country- and product-level (PP) and world (WP) prices must be applied consistently. Mixing the two (e.g., PP="calculated_PP" and WP="shadow_WP") is currently not supported and may result in an error. 
   
 #### Settings as parameters
 The CLI provides to access basic model settings, and their default values. 
@@ -178,8 +189,9 @@ Check if CLI command is registered and available on your computer by executing e
 
 - >run_timba --help
 
-Default settings can be changed in the following way:
-- > run_timba -MP=5 -PP="calculated_PP" -WP="shadow_WP"
+Default settings can be changed in the following way: (Note: The change of default settings as described below is for demonstration purposes only, and the results have not been validated.):
+- > run_timba -MP=5 -MB="RCG_specific" -CP="True"
+ 
 
 For this example, TiMBA will simulate 5 periods using calculated prices as product prices and shadow prices as world market prices.
 

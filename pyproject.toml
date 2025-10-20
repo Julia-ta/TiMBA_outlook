@@ -11,7 +11,7 @@ readme = "README.md"
 license = {file = "COPYING.txt"}
 keywords = ["timba", "model", "optimization", "thuenen institute", "economics of forests", "research"]
 
-requires-python = ">=3.8.9"
+requires-python = ">=3.9,<3.12 "
 dependencies = [
     "click==8.1.7",
     "coverage==7.6.3",
@@ -30,6 +30,9 @@ dependencies = [
 
 classifiers = [
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3 :: Only",
     "Operating System :: Microsoft :: Windows",
     "Operating System :: Microsoft :: Windows :: Windows 10",

@@ -5,6 +5,7 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -13,7 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
-        python-version: ["3.9", "3.10", "3.11", "3.12.6"]
+        python-version: ["3.9", "3.10", "3.11"]
         # Add <, macOS-latest> to os to test TiMBA's functionality for macOS. Currently, macOS produces different results
         # compared to ubuntu and windows without clear reason.
         # Newest Python version 3.12 cannot be tested as Python >3.12.6 is not compatible with pandas < 2.0
