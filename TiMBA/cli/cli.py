@@ -75,7 +75,7 @@ def cli():
               help="If true the logs will show verbose calculation informations.")
 @click.option('-FP', '--folderpath', 'folderpath', required=False, type=click.Path(
     file_okay=False, writable=True, path_type=Path), help="Path to directory with Input/Output folder.")
-@click.option('-AC', '--activate_cmodule', 'activate_cmodule',
+@click.option('-C', '--activate_cmodule', 'activate_cmodule',
               default=False, show_default=True, required=False, type=bool,
               help="Flag to activate carbon module.")
 
