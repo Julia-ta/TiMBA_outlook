@@ -1,78 +1,64 @@
-from pathlib import Path
-import os
 import unittest
-from sys import argv
-import pandas as pd
-import numpy as np
-
-from TiMBA.parameters.headers import RESULTS_HEADER
-from TiMBA.parameters import INPUT_WORLD_PATH, WORLDPRICE_PATH, ADDITIONAL_INFORMATION_PATH
-from TiMBA.results_logging.base_logger import get_logger
-from TiMBA.results_logging.ResultsWriter import ResultsWriter
+from pathlib import Path
+import shutil
 from TiMBA.data_management.DataManager import DataManager
-from TiMBA.data_management.DataContainer import DataContainer, WorldDataCollector, AdditionalInformation
-from TiMBA.logic.model import TiMBA
-from TiMBA.user_io.default_parameters import user_input
 from TiMBA.data_management.ParameterCollector import ParameterCollector
-from TiMBA.parameters.Defines import SolverParameters
 from TiMBA.data_validation.DataValidator import DataValidator
+from TiMBA.main import run_timba
+from TiMBA.user_io.default_parameters import user_input
+from TiMBA.parameters.paths import (
+    DATA_FOLDER, GIT_USER, GIT_REPO, GIT_BRANCH,
+    GIT_FOLDER, DESTINATION_PATH, OUTPUT_DIR
+)
+from TiMBA.data_management.Load_Data import load_data
 
-INPUT_UNIT_TEST_TIMBA_RESULT = (os.path.abspath(os.path.join(*Path(__file__).parts[:-1],
-                                                             r"test_data/DataContainer_Sc_scenario_input.pkl")))
-
-
-TEMPORARY_RESULT_FILE = os.path.abspath(os.path.join(*Path(__file__).parts[:-1], r".pytest_cache/tmp.csv"))
-TEMPORARY_TESTLOG_FILE = os.path.abspath(os.path.join(*Path(__file__).parts[:-1], r".pytest_cache"))
-
-world_version_unit_test = os.listdir(INPUT_WORLD_PATH)[0]
-
-os.environ["MAX_PERIOD"] = "1"
+INPUT_UNIT_TEST_TIMBA_RESULT = Path("test_data/DataContainer_Sc_scenario_input.pkl")
 
 class TestTiMBAClass(unittest.TestCase):
-    data_timba_test = DataManager.restore_from_pickle(INPUT_UNIT_TEST_TIMBA_RESULT)
+    @classmethod
+    def setUpClass(cls):
+        cls.PACKAGEDIR = Path(__file__).parent.absolute()
+        cls.INPUT_FOLDER = cls.PACKAGEDIR / DESTINATION_PATH
 
-    WorldDataCont = WorldDataCollector(INPUT_WORLD_PATH + "/" + world_version_unit_test)
-    AddInfoCont = AdditionalInformation(ADDITIONAL_INFORMATION_PATH)
-    WorldPriceCont = DataContainer(WORLDPRICE_PATH)
-    Logger = get_logger(TEMPORARY_TESTLOG_FILE)
-    ResultsHandler = ResultsWriter(TEMPORARY_RESULT_FILE, overwrite_file=True, header=RESULTS_HEADER)
-    UserData = ParameterCollector(user_input=user_input)
+        # Prepare parameters
+        user_input["max_period"] = 1
+        cls.Parameters = ParameterCollector(user_input=user_input)
 
-    flag_test_result_activate = user_input["test_timba_results"]
-    def setUp(self):
-        self.max_period = os.environ["MAX_PERIOD"]
-    def test_timba_run(self, test_activate=flag_test_result_activate, DataTest=data_timba_test):
+        # load input data from GitHub AddInfo repo
+        load_data(
+            user=GIT_USER,
+            repo=GIT_REPO,
+            branch=GIT_BRANCH,
+            source_folder=GIT_FOLDER,
+            dest_repo_path=DESTINATION_PATH,
+            dest_folder=cls.INPUT_FOLDER
+        )
 
-        try:
-            self.UserData.max_period = int(os.environ["MAX_PERIOD"])
-            print(f"Test suite is running with a user-defined number of {self.UserData.max_period} periods ")
-        except KeyError:
-            print(f"Test suite is running with a default number of {self.UserData.max_period} periods")
+        # run TiMBA
+        run_timba(Parameters=cls.Parameters, folderpath=cls.PACKAGEDIR)
 
-        DataManager.readin_preprocess(WorldData=self.WorldDataCont,
-                                      AdditionalInfo=self.AddInfoCont,
-                                      WorldPrices=self.WorldPriceCont,
-                                      UserOptions=self.UserData,
-                                      Logger=self.Logger)
+        # Load reference data
+        cls.data_timba_test = DataManager.restore_from_pickle(cls.PACKAGEDIR / INPUT_UNIT_TEST_TIMBA_RESULT)
 
-        data_ooptimba = TiMBA(Data=self.WorldDataCont,
-                              UserOptions=self.UserData,
-                              AdditionalInfo=self.AddInfoCont,
-                              WorldPriceData=self.WorldPriceCont,
-                              LogHandler=self.Logger,
-                              ResultHandler=self.ResultsHandler)
+        # reload TiMBA results
+        results_folder = cls.PACKAGEDIR / DATA_FOLDER / OUTPUT_DIR
+        results_file = list(results_folder.glob("*.pkl"))[0]
+        cls.data_timba = DataManager.restore_from_pickle(results_file)
 
-        data_ooptimba.compute(max_iteration=SolverParameters.MAX_ITERATION_UNIT_TEST.value,
-                              rel_accuracy=SolverParameters.REL_ACCURACY_UNIT_TEST.value,
-                              abs_accuracy=SolverParameters.ABS_ACCURACY_UNIT_TEST.value,
-                              dynamization_activated=True,
-                              constants=[False, False, False],
-                              capped_prices=False)
+    def test_timba_results(self):
+        if user_input.get("test_timba_results", False):
+            test_result = DataValidator.check_timba_results(
+                Data=self.data_timba,
+                DataTest=self.data_timba_test,
+                rel_tolerance=5e-02
+            )
+            self.assertTrue(test_result, "TiMBA results are not in line with reference data.")
 
-        if test_activate:
-            self.assertTrue(
-                DataValidator.check_timba_results(Data=self.WorldDataCont, DataTest=DataTest, rel_tolerance=5e-02),
-                "Produced TiMBA results do not correspond to provided validation results")
+    @classmethod
+    def tearDownClass(cls):
+        tiMBA_path = cls.PACKAGEDIR / "TiMBA"
+        if tiMBA_path.exists():
+            shutil.rmtree(tiMBA_path)
 
 
 if __name__ == '__main__':

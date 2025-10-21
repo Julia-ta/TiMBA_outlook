@@ -32,3 +32,6 @@ def get_logger(user_path: Union[str, Path, None],time_stamp:str):
         console.setFormatter(console_formatter)
         Logger.addHandler(console)
     return Logger
+
+def close_logger():
+    logging.shutdown()
