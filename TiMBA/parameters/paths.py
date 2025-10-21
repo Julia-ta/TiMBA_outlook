@@ -1,5 +1,5 @@
 # Data folder
-DATA_FOLDER = r"data/"
+DATA_FOLDER = r"TiMBA/data/"
 
 # Paths for input files
 INPUT_WORLD_PATH = r"input/01_Input_Files/"
@@ -24,4 +24,4 @@ GIT_USER="TI-Forest-Sector-Modelling"
 GIT_REPO="TiMBA_Additional_Information"
 GIT_BRANCH="main_add_TiMBA_input_data"
 GIT_FOLDER="Input_Data/default_scenario"
-DESTINATION_PATH=r"data/input/"
+DESTINATION_PATH=r"TiMBA/data/input/"

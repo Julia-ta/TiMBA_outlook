@@ -28,13 +28,14 @@ def load_data(
         source_path = os.path.join(repo_root, source_folder)
         if not os.path.exists(source_path):
             raise FileNotFoundError(f"Folder {source_folder} not found in {repo}")
+        
+        print("drp: ",dest_repo_path)
+        print("drf: ",dest_folder)
+        os.makedirs(os.path.dirname(dest_repo_path), exist_ok=True)
 
-        target_path = os.path.join(dest_repo_path, dest_folder)
-        os.makedirs(os.path.dirname(target_path), exist_ok=True)
+        if os.path.exists(dest_repo_path):
+            print(f" {dest_repo_path} already exist and will be overwritten")
+            shutil.rmtree(dest_repo_path)
 
-        if os.path.exists(target_path):
-            print(f" {target_path} already exist and will be overwritten")
-            shutil.rmtree(target_path)
-
-        shutil.copytree(source_path, target_path)
+        shutil.copytree(source_path, dest_repo_path)
         print(f"Input data is saved")

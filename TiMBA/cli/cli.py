@@ -70,7 +70,7 @@ def cli():
               show_default=True, required=False, type=bool,
               help="If true the logs will show verbose calculation informations.")
 @click.option('-FP', '--folderpath', 'folderpath', required=False, type=click.Path(
-    file_okay=False, writable=True, path_type=Path), default=Path.cwd() / "TiMBA", show_default=f"current working directory: {Path.cwd()}",
+    file_okay=False, writable=True, path_type=Path), default=Path.cwd(), show_default=f"current working directory: {Path.cwd()}",
     help="Path to directory with Input/Output folder.")
 
 
@@ -100,7 +100,7 @@ def timba_cli(year, max_period, calc_product_price, calc_world_price, material_b
               help="Name of the branch where stored the data.")
 @click.option('-F', '--folder', default=GIT_FOLDER, show_default=True, required=True,
               help="The folder path within the repository where stored the data.")
-@click.option('-D', '--destination', default=Path.cwd() / "TiMBA", show_default=f"current working directory: {Path.cwd()}",
+@click.option('-D', '--destination', default=Path.cwd(), show_default=f"current working directory: {Path.cwd()}",
               required=True, help="The destination where the data should be copied to.")
 def load_data_cli(user, repo, branch, folder, destination):
     """CLI wrapper for loading additional input data from GitHub"""
