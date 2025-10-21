@@ -23,8 +23,8 @@ def main(UserIO: ParameterCollector, world_version: list, time_stamp: str, Data_
     """
     start = default_timer()
     # TODO removal of ResultHandler/ move to analysis toolbox
-    ResultsHandler = get_results_writer(Data_Path, agg_flag=False)
-    ResultsHandlerAgg = get_results_writer(Data_Path, agg_flag=True)
+    #ResultsHandler = get_results_writer(Data_Path, agg_flag=False)
+    # ResultsHandlerAgg = get_results_writer(Data_Path, agg_flag=True)
     # TODO remove until here
     Logger = get_logger(user_path=Data_Path, time_stamp=time_stamp)
 
@@ -62,7 +62,7 @@ def main(UserIO: ParameterCollector, world_version: list, time_stamp: str, Data_
         DataManager.verify_base_year(WorldDataContent, UserIO, Logger)
     
     Model = TiMBA(Data=WorldDataContent, UserOptions=UserIO, AdditionalInfo=AddInfoContent,
-                  WorldPriceData=WorldPriceContent, LogHandler=Logger, ResultHandler=ResultsHandler)
+                  WorldPriceData=WorldPriceContent, LogHandler=Logger)#, ResultHandler=ResultsHandler)
     # Computation
     Model.compute(max_iteration=SolverParameters.MAX_ITERATION.value,
                   rel_accuracy=SolverParameters.REL_ACCURACY.value,

@@ -23,29 +23,29 @@ from .paths import (
     OUTPUT_DIR,
 )
 
-def get_results_writer(output_path: Union[str, Path, None], agg_flag: bool) -> ResultsWriter:
-    """
-    Spawns instance of Resultswriter based on user input. Allows to differentiate between exhaustive and aggregated
-    results.
-    :param output_path: Folderpath given by user
-    :return: Instance of ResultsWriter
-    """
-    if agg_flag is not True:
-        if output_path is None:
-            return ResultsWriter(output_name, filetype=".csv", overwrite_file=False, header=RESULTS_HEADER)
-        else:
-            fp = os.path.join(output_path, r"output/results.csv")
-            if not os.path.exists(output_path):
-                os.makedirs(fp, exist_ok=True)
-            return ResultsWriter(fp, filetype=".csv", overwrite_file=False, header=RESULTS_HEADER)
-    else:
-        if output_path is None:
-            return ResultsWriter(output_agg_name, filetype=".csv", overwrite_file=False, header=RESULTS_AGG_HEADER)
-        else:
-            fp = os.path.join(output_path, r"output/results_aggregated.csv")
-            if not os.path.exists(output_path):
-                os.makedirs(fp, exist_ok=True)
-            return ResultsWriter(fp, filetype=".csv", overwrite_file=False, header=RESULTS_AGG_HEADER)
+# def get_results_writer(output_path: Union[str, Path, None], agg_flag: bool) -> ResultsWriter:
+#     """
+#     Spawns instance of Resultswriter based on user input. Allows to differentiate between exhaustive and aggregated
+#     results.
+#     :param output_path: Folderpath given by user
+#     :return: Instance of ResultsWriter
+#     """
+#     if agg_flag is not True:
+#         if output_path is None:
+#             return ResultsWriter(output_name, filetype=".csv", overwrite_file=False, header=RESULTS_HEADER)
+#         else:
+#             fp = os.path.join(output_path, r"output/results.csv")
+#             if not os.path.exists(output_path):
+#                 os.makedirs(fp, exist_ok=True)
+#             return ResultsWriter(fp, filetype=".csv", overwrite_file=False, header=RESULTS_HEADER)
+#     else:
+#         if output_path is None:
+#             return ResultsWriter(output_agg_name, filetype=".csv", overwrite_file=False, header=RESULTS_AGG_HEADER)
+#         else:
+#             fp = os.path.join(output_path, r"output/results_aggregated.csv")
+#             if not os.path.exists(output_path):
+#                 os.makedirs(fp, exist_ok=True)
+#             return ResultsWriter(fp, filetype=".csv", overwrite_file=False, header=RESULTS_AGG_HEADER)
 
 
 def get_pkl_paths(DATA_PATH: Path) -> Tuple[Path, Path, Path]:
