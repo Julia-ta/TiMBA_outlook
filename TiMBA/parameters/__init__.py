@@ -48,7 +48,7 @@ def get_results_writer(output_path: Union[str, Path, None], agg_flag: bool) -> R
             return ResultsWriter(fp, filetype=".csv", overwrite_file=False, header=RESULTS_AGG_HEADER)
 
 
-def get_pkl_paths(DATA_PATH: Union[str, Path, None]) -> Tuple[str, str, str]:
+def get_pkl_paths(DATA_PATH: Path) -> Tuple[Path, Path, Path]:
     """
     Returns correct paths for and of serialized pkl-files based on user input.
     :param output_path: Folderpath given by user
@@ -60,7 +60,7 @@ def get_pkl_paths(DATA_PATH: Union[str, Path, None]) -> Tuple[str, str, str]:
     return pkl_world_path, pkl_add_info_path, pkl_worldprice_path
 
 
-def get_global_paths(data_path: Union[str, Path, None], worldversion: str) -> Tuple[str, str, str]:
+def get_global_paths(data_path: Path, worldversion: str) -> Tuple[Path, Path, Path]:
     """
     Returns correct paths for files based on user input.
     :param output_path: Folderpath given by user

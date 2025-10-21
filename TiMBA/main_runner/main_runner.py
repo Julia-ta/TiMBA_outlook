@@ -1,8 +1,6 @@
 from timeit import default_timer
 from TiMBA.logic.model import TiMBA
 from TiMBA.parameters import get_results_writer, get_global_paths, get_pkl_paths, get_output_paths
-# TODO reactivate and verify if time_stamp and world_version are transfered in output names
-# TODO check if all paths for outputs are provided
 from TiMBA.parameters import forest_output_name, output_agg_name, world_price_output_name
 from TiMBA.data_management.ParameterCollector import ParameterCollector
 from TiMBA.results_logging.base_logger import get_logger
@@ -10,8 +8,9 @@ from TiMBA.data_management.DataManager import DataManager
 from TiMBA.data_management.DataContainer import WorldDataCollector, DataContainer, AdditionalInformation
 from TiMBA.parameters.Defines import SolverParameters
 import os
+from pathlib import Path
 
-def main(UserIO: ParameterCollector, world_version: list, time_stamp: str, Data_Path: str, sc_name: str):
+def main(UserIO: ParameterCollector, world_version: list, time_stamp: str, Data_Path: Path, sc_name: str):
     """
     Main function of TiMBA. The function is structured as follow: (1) The read in of input data and the model setup,
     (2) the computation, (3) the extraction of the model outputs.
