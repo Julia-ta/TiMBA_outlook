@@ -29,14 +29,23 @@ def load_data(
             if not os.path.exists(source_path):
                 raise FileNotFoundError(f"Folder {source_folder} not found in {repo}")
             
-            os.makedirs(os.path.dirname(dest_folder), exist_ok=True)
-
             if os.path.exists(dest_folder):
                 print(f" {dest_folder} already exist and will be overwritten")
-                shutil.rmtree(dest_folder)
-
-            shutil.copytree(source_path, dest_folder)
-            print(f"Input data is saved")
+                try:
+                    shutil.rmtree(dest_folder)
+                except PermissionError as e:
+                    print(f"PermissionError to remove {e.filename}.",
+                          "Folder will not be overwritten.")
+            
+            try:
+                os.makedirs(os.path.dirname(dest_folder), exist_ok=True)
+                shutil.copytree(source_path, dest_folder)
+                print(f"Input data is saved")
+            except FileExistsError:
+                pass
+            except PermissionError as e:
+                    print(f"PermissionError for {e.filename}.",
+                          "File can not be saved at this location.")
 
     except URLError:
         print(f"Failed to download input data from GitHub.\n",

@@ -3,7 +3,7 @@ import click
 from TiMBA.main import run_timba
 from TiMBA.data_management.ParameterCollector import ParameterCollector
 from TiMBA.data_management.Load_Data import load_data
-from TiMBA.parameters.paths import GIT_USER,GIT_REPO,GIT_BRANCH,DESTINATION_PATH
+from TiMBA.parameters.paths import GIT_USER,GIT_REPO,GIT_BRANCH,DESTINATION_PATH,GIT_FOLDER
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 from TiMBA.user_io.default_parameters import (default_year, default_max_period, default_calc_product_price,
@@ -94,19 +94,21 @@ def timba_cli(year, max_period, calc_product_price, calc_world_price, material_b
               help="Name of the GitHub repository where stored the data.")
 @click.option('-B', '--branch', default=GIT_BRANCH, show_default=True, required=True,
               help="Name of the branch where stored the data.")
-@click.option('-D', '--destination', default=Path.cwd(), show_default=f"current working directory: {Path.cwd()}",
+@click.option('-F', '--folder', default=GIT_FOLDER, show_default=True, required=True,
+              help="folder at GitHub where data is stored.")
+@click.option('-FP', '--folderpath', default=Path.cwd(), show_default=f"current working directory: {Path.cwd()}",
               required=True, help="The destination where the data should be copied to.")
-def load_data_cli(user, repo, branch, folder, destination):
+def load_data_cli(user, repo, branch, folder, folderpath):
     """CLI wrapper for loading additional input data from GitHub"""
 
-    default = Path(destination) / DESTINATION_PATH
-    print("destination path: ",default)
+    dest_path = Path(folderpath) / DESTINATION_PATH
+    print("destination path: ",dest_path)
     load_data(
         user=user,
         repo=repo,
         branch=branch,
         source_folder=folder,
-        dest_folder=destination
+        dest_folder=dest_path
     )
 
 cli.add_command(timba_cli, name="timba")
