@@ -1,13 +1,9 @@
 from pathlib import Path
 import click
-import os
-import datetime as dt
-from urllib.error import URLError
 from TiMBA.main import run_timba
 from TiMBA.data_management.ParameterCollector import ParameterCollector
 from TiMBA.data_management.Load_Data import load_data
-from TiMBA.parameters import INPUT_WORLD_PATH
-from TiMBA.parameters.paths import OUTPUT_DIR, GIT_USER,GIT_REPO,GIT_BRANCH,GIT_FOLDER,DESTINATION_PATH
+from TiMBA.parameters.paths import GIT_USER,GIT_REPO,GIT_BRANCH,DESTINATION_PATH
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 from TiMBA.user_io.default_parameters import (default_year, default_max_period, default_calc_product_price,
@@ -98,8 +94,6 @@ def timba_cli(year, max_period, calc_product_price, calc_world_price, material_b
               help="Name of the GitHub repository where stored the data.")
 @click.option('-B', '--branch', default=GIT_BRANCH, show_default=True, required=True,
               help="Name of the branch where stored the data.")
-@click.option('-F', '--folder', default=GIT_FOLDER, show_default=True, required=True,
-              help="The folder path within the repository where stored the data.")
 @click.option('-D', '--destination', default=Path.cwd(), show_default=f"current working directory: {Path.cwd()}",
               required=True, help="The destination where the data should be copied to.")
 def load_data_cli(user, repo, branch, folder, destination):
@@ -107,19 +101,13 @@ def load_data_cli(user, repo, branch, folder, destination):
 
     default = Path(destination) / DESTINATION_PATH
     print("destination path: ",default)
-    try:
-        load_data(
-            user=user,
-            repo=repo,
-            branch=branch,
-            source_folder=folder,
-            dest_repo_path=default,
-            dest_folder=destination
-        )
-    except URLError:
-        print(f"Failed to download input data from GitHub.\n",
-              "Please check your internet connection, ensure that",
-              "'https://github.com' is reachable from your environment and try again.")
+    load_data(
+        user=user,
+        repo=repo,
+        branch=branch,
+        source_folder=folder,
+        dest_folder=destination
+    )
 
 cli.add_command(timba_cli, name="timba")
 cli.add_command(load_data_cli, name="load_data")

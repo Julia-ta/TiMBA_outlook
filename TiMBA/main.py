@@ -11,7 +11,8 @@ from TiMBA.results_logging.base_logger import close_logger
 def run_timba(Parameters:dict=None,folderpath:str=None):
     if Parameters is None:
         print("Paramerters need to be set before running TiMBA.",
-              "Now standard parameters are used from TiMBA.user_io.default_parameters")
+              "Note: For this simulation standard parameters are used from, ",
+              "TiMBA.user_io.default_parameters")
         Parameters = parameter_setter()
     PACKAGEDIR = Path(__file__).parent.absolute()
     if folderpath is None:
