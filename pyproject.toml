@@ -3,13 +3,12 @@ requires = ["setuptools==75.2.0", "wheel", "twine"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "TiMBA" 
-version = "1.0.3"
+name = "timba" 
+version = "1.1.1"
 authors = [{name = "TI-FSM", email = "wf-timba@thuenen.de"}]
 description = "TiMBA is a partial economic equilibrium model for the global forest products market"
 readme = "README.md"
-license = "AGPL-3.0-or-later"
-license-files = ["COPYING"]
+license = { text = "AGPL-3.0-or-later" }
 keywords = ["timba", "model", "optimization", "thuenen institute", "economics of forests", "research"]
 
 requires-python = ">=3.9"
@@ -50,6 +49,7 @@ run_timba = "TiMBA.cli.cli:timba_cli"
 load_timba = "TiMBA.cli.cli:load_data_cli"
 
 [tool.setuptools]
+license-files = ["COPYING"]
 include-package-data = true
 zip-safe = true
 
