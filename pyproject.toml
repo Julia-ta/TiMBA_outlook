@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools==75.2.0", "wheel"]
+requires = ["setuptools==75.2.0", "wheel", "twine"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,10 +8,11 @@ version = "1.0.3"
 authors = [{name = "TI-FSM", email = "wf-timba@thuenen.de"}]
 description = "TiMBA is a partial economic equilibrium model for the global forest products market"
 readme = "README.md"
-license = {file = "COPYING.txt"}
+license = "AGPL-3.0-or-later"
+license-files = ["COPYING"]
 keywords = ["timba", "model", "optimization", "thuenen institute", "economics of forests", "research"]
 
-requires-python = ">=3.8.9"
+requires-python = ">=3.9"
 dependencies = [
     "click==8.1.7",
     "coverage==7.6.3",
@@ -32,14 +33,15 @@ classifiers = [
     "Programming Language :: Python :: 3 :: Only",
     "Operating System :: Microsoft :: Windows",
     "Operating System :: Microsoft :: Windows :: Windows 10",
-    "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+    "Operating System :: MacOS",
+    "Operating System :: POSIX :: Linux",
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering"
 ]
 
 [project.urls]
-Homepage = "https://placeholder.com"
-Documentation = "https://placeholder.org"
+Homepage = "https://github.com/TI-Forest-Sector-Modelling/TiMBA"
+Documentation = "https://github.com/TI-Forest-Sector-Modelling/TiMBA/blob/main/documentation/documentation_TiMBA.pdf"
 Repository = "https://github.com/TI-Forest-Sector-Modelling/TiMBA"
 Issues = "https://github.com/TI-Forest-Sector-Modelling/TiMBA/issues"
 
@@ -55,7 +57,7 @@ zip-safe = true
 find = {namespaces = false}
 
 [tool.setuptools.package-data]
-"*" = ["README.md"]
+"*" = ["README.md", "COPYING", "COPYRIGHT", "CITATION.cff", "timba_logo_v3.png"]
 
 [tool.coverage.report]
 fail_under = 50
