@@ -85,9 +85,12 @@ Enable the virtual environment to isolate TiMBA dependencies.
     If the following error occurs: "ERROR: File "setup.py" or "setup.cfg" not found."
     you might need to update the pip version you use with: 
     >python.exe -m pip install --upgrade pip
-6. The package does not come with predefined data. To download the default input data along with additional information needed to run TiMBA use the command
-   >timba_load_data
 
+6. The package does not come with predefined data. To download the default input data along with additional information needed to run TiMBA use the command
+   >load_timba -FP your_path
+
+7. If the user does not set any folderpath the standard input data will be loaded to the current working directory or the folderpath which is set with:
+   >run_timba -FP your_path 
    
 
 ### Double check installation and test suite

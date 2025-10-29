@@ -7,6 +7,11 @@ import warnings
 import sys
 warnings.simplefilter(action='ignore', category=FutureWarning)
 from TiMBA.results_logging.base_logger import close_logger
+from TiMBA.parameters.paths import (
+    DATA_FOLDER, GIT_USER, GIT_REPO, GIT_BRANCH,
+    GIT_FOLDER, INPUT_WORLD_PATH, DESTINATION_PATH
+)
+from TiMBA.data_management.Load_Data import load_data
 
 def run_timba(Parameters:dict=None,folderpath:str=None):
     if Parameters is None:
@@ -14,16 +19,26 @@ def run_timba(Parameters:dict=None,folderpath:str=None):
               "Note: For this simulation standard parameters are used from, ",
               "TiMBA.user_io.default_parameters")
         Parameters = parameter_setter()
-    PACKAGEDIR = Path(__file__).parent.absolute()
+    PACKAGEDIR = Path(__file__).parent.parent.absolute()
     if folderpath is None:
             folderpath = PACKAGEDIR
     INPUT_PATH = folderpath / DATA_FOLDER / INPUT_WORLD_PATH
-    try:
-        world_list = os.listdir(INPUT_PATH)
-    except FileNotFoundError:
+    if os.path.exists(INPUT_PATH):
+        pass
+    else:
         print("FileNotFoundError at: ",INPUT_PATH)
-        print(f"Make sure input data is downloaded to {INPUT_PATH} \nor change the folder path where the data is stored.")
-        sys.exit(1)
+        print(f"Make sure input data is downloaded to {INPUT_PATH} \nor ",
+              "change the folder path where the data is stored.",
+              "Note: For this simulation standard input files will be loaded from GitHub",
+              f"and saved at {folderpath / DESTINATION_PATH}")
+        load_data(
+            user=GIT_USER,
+            repo=GIT_REPO,
+            branch=GIT_BRANCH,
+            source_folder=GIT_FOLDER,
+            dest_folder=folderpath / DESTINATION_PATH
+        )
+    world_list = os.listdir(INPUT_PATH)
     for world in world_list:
         current_dt = dt.datetime.now().strftime("%Y%m%dT%H-%M-%S")
         print("The model starts now:", (dt.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")),"\n")
