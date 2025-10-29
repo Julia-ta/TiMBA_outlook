@@ -54,6 +54,48 @@ with Windows and Ubuntu OS. The functionality with Python versions and different
 Actions Before proceeding, please ensure that Python is installed on your system. It can be downloaded and installed
 from [Python.org](https://www.python.org/downloads/release/python-3126/).
 
+## Installation
+
+The package can be installed from **PyPI** or directly from **GitHub**:
+
+### From PyPI:
+
+```bash
+pip install timba
+````
+
+### Importing and running TiMBA
+
+Once installed, `timba` can be imported with standard settings:
+
+```python
+from timba.main import run_timba
+
+run_timba()
+```
+
+To change the folder for input and output data, the user can use the `folderpath` option (note: the path must be a `Path` object from `pathlib`):
+
+```python
+from timba.main import run_timba
+from pathlib import Path
+
+run_timba(folderpath=Path(r"your_path"))
+```
+
+To modify specific parameters, the user can import `parameter_setter` from `TiMBA.main` and set new values:
+
+```python
+from timba.main import run_timba, parameter_setter
+
+parameters = parameter_setter()
+parameters.max_period = 2
+
+run_timba(Parameters=parameters)
+```
+
+### From GitHub:
+
 1. Clone the repository
 Begin by cloning the repository to your local machine using the following command: 
     >git clone https://github.com/TI-Forest-Sector-Modelling/TiMBA.git
@@ -95,14 +137,14 @@ Enable the virtual environment to isolate TiMBA dependencies.
 
 ### Double check installation and test suite
 Double check if installation was successful by running following command from terminal:  
-   >timba_run --help
+   >run_timba --help
 
 The help provides you information about the basic model settings which changed to adapt model runs to your needs 
 (see section [Model settings](#model-settings) for further details).
 
 Test if TiMBA is running by executing the model only for the first period:
 
-  >timba_run -MP=1
+  >run_timba -MP=1
 
 
 The TiMBA model comes with a test suite to ensure its functionality.
@@ -120,7 +162,7 @@ The coverage report of the TiMBA model can be accessed using:
 
 
 ## Use TiMBA
-The package comes with a built-in CLI to compute the TiMBA for various inputs. While the parametric input can be seen in cmd output calling `timba_run --help` from the terminal, an important part to mention is user input data that need to be imported from a selected folder. You shall not change the following structure within the data folder:
+The package comes with a built-in CLI to compute the TiMBA for various inputs. While the parametric input can be seen in cmd output calling `run_timba --help` from the terminal, an important part to mention is user input data that need to be imported from a selected folder. You shall not change the following structure within the data folder:
 TiMBA is provided with an input file (scenario_input.xlsx), including all input data necessary to run the model. The section [TiMBA extended model description](#timba-extended-model-description-) delivers a detailed description of the included input data.
 ```bash
 .
