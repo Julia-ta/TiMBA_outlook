@@ -1,5 +1,12 @@
 # Changelog
 
+## [v1.2.0] - 2025-11-05
+
+### Added
+- **Carbon Module implementation**
+  - Import and integration of the [Carbon Module](https://github.com/TI-Forest-Sector-Modelling/C-Module) into TiMBA
+  - Setup structure for further model extensions
+
 ## [v1.0.3] - 2025-04-09
 
 ### Added
