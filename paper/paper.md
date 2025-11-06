@@ -37,7 +37,7 @@ bibliography: paper.bib
 # Summary
 TiMBA is a partial economic equilibrium model to simulate interdependencies and developments of the global forest products market for 180 countries and 16 forest-based products. The model determines the market equilibrium by ensuring market clearance, balancing raw material needs with the manufacturing and demand of wood products while imposing constraints on trade, following principles similar to those of @Samuelson:1952. TiMBA recursively calculates the market equilibrium for each country and product endogenously over a given period by maximizing social surplus in the global forest sector. Scenario simulations are driven by both exogenous and endogenous parameters and assumptions about future market dynamics and policy directives. The model’s output includes detailed information on production, consumption, trade volumes, cost and prices, as well as forest area and stock developments.
 
-![timba_product_transformation\label{fig:1}](https://github.com/TI-Forest-Sector-Modelling/TiMBA_Additional_Information/raw/main/images/timba_product_transformation.png)
+![](https://github.com/TI-Forest-Sector-Modelling/TiMBA_Additional_Information/raw/main/images/timba_product_transformation.png)
 
 **Figure 1:** Product structure and processing flows in TiMBA. (*Product represented for visual purposes as aggregates)
 
