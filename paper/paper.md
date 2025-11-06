@@ -1,5 +1,5 @@
 ---
-title: 'TiMBA'
+title: 'TiMBA (Timber market Model for policy-Based Analysis)'
 
 tags:
   - Python
