@@ -301,7 +301,7 @@ Copyright ©, 2024, Thuenen Institute, TI-FSM, wf-timba@thuenen.de
 This work is the result of great joint efforts of the forest products market analysis team at the Thünen Institute of Forestry and others from 2018 to 2024. In the last years, many people made important contributions to this work. Without their support, reflection, and constructive criticism, this undertaking would not have been as successful as it turns out to be now. We would like express our gratitude to all of them. In particular, we would like to thank 
 -	Pixida GmbH and especially Tobias Hierlmeier for professional support in revising and restructuring the model architecture and code and being valuable help in programming tasks
 -	Thünen Institute Service Centre for Research Data Management and especially Harald von Waldow for providing expertise, consultation, and support during the release process
--	Holger Weimar and Matthias Dieter for the trustful and cooperative working environment, rational support and critical discussion and the opportunity to keep on going
+-	Holger Weimar and Matthias Dieter for the trustful and cooperative working environment, valuable support and critical discussion and the opportunity to keep on going
 -	Johanna Schliemann for technical support whenever needed
 -	The Thünen Institut of Forestry and its Head Matthias Dieter for providing financial resources over the years 
 - [makeareadme.com](https://www.makeareadme.com/) for providing the template this README is leaned on.
