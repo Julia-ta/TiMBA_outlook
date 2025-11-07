@@ -11,7 +11,7 @@ readme = "README.md"
 license = { text = "AGPL-3.0-or-later" }
 keywords = ["timba", "model", "optimization", "thuenen institute", "economics of forests", "research"]
 
-requires-python = ">=3.9"
+requires-python = ">=3.9,<3.12 "
 dependencies = [
     "click==8.1.7",
     "coverage==7.6.3",
@@ -24,11 +24,15 @@ dependencies = [
     "pandas==1.5.3",
     "pathlib==1.0.1",
     "tomli==2.0.2",
-    "typing==3.7.4.3" 
+    "typing==3.7.4.3" ,
+    "PyYAML==6.0.3"
 ]
 
 classifiers = [
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3 :: Only",
     "Operating System :: Microsoft :: Windows",
     "Operating System :: Microsoft :: Windows :: Windows 10",

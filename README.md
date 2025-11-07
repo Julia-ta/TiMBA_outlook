@@ -17,6 +17,8 @@
 - [TiMBA - Timber market Model for policy-Based Analysis](#timba---timber-market-model-for-policy-based-analysis)
   - [Cite TiMBA](#cite-timba)
   - [Install TiMBA](#install-timba)
+    - [Known Issues](#known-issues)
+    - [Installation Process](#installation-process)
     - [Double check installation and test suite](#double-check-installation-and-test-suite)
   - [Use TiMBA](#use-timba)
     - [Model settings](#model-settings)
@@ -49,10 +51,18 @@ The authors' collective is named Thünen Institute Forest Sector Modelling (TI-F
 Co-authors in alphabetical order. 
 ## Install TiMBA
 
-The package is developed and tested with Python 3.9 on Windows. TiMBA is compatible with all Python versions up to 3.12.6
+The package is developed and tested with Python 3.9 on Windows. TiMBA is compatible with Python versions between 3.9–3.11
 with Windows and Ubuntu OS. The functionality with Python versions and different OS is continuously tested using GitHub
-Actions Before proceeding, please ensure that Python is installed on your system. It can be downloaded and installed
-from [Python.org](https://www.python.org/downloads/release/python-3126/).
+Actions. 
+
+### Known Issues
+TiMBA currently has compatibility issues on macOS and with Python 3.12 and 3.13. Users may experience unexpected behavior during the optimization 
+process on macOS, as well as package installation problems when using Python 3.12 and 3.13.
+We recommend using Python 3.9–3.11 on Ubuntu or Windows for best results, until full support for Python 3.12 and 3.13 and macOS is implemented.
+
+### Installation Process
+Before proceeding, please ensure that Python is installed on your system. 
+It can be downloaded and installed from [Python.org](https://www.python.org/downloads/release/python-3119/).
 
 ## Installation
 
@@ -106,13 +116,13 @@ Navigate into the TiMBA project folder on your local machine.
    >
 3. Create a virtual environment  
 It is recommended to set up a virtual environment for TiMBA to manage dependencies. The package is tested for 
-   Python versions up to 3.12.6. With a newer Python version, we can not guarantee the full functionality of the package.
+   Python versions up to 3.11. With a newer Python version, we can not guarantee the full functionality of the package.
    Select the correct Python interpreter.   
    Show installed versions: 
    >py -0  
    >
    - If you have installed multiple versions of Python, activate the correct version using the py-Launcher.
-   >py -3.12.6 -m venv venv 
+   >py -3.11 -m venv venv 
    > 
    - If you are using only a single version of Python on your computer:
    >python -m venv venv
