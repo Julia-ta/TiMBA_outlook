@@ -112,6 +112,6 @@ with $\tau$ as the transportation cost elasticity, $g_f$ as the growth rate of f
 
 # Acknowledgements
 
-We acknowledge the contributions from Pixida GmbH and especially Tobias Hierlmeier to revise and improve the model code, the financial and rational support of the head of the Thünen Institute of Forestry, Matthias Dieter as well as the head of the working group on Forest Products Markets, Holger Weimar. We further thank for the technical support from the Thünen Institute Service Centre for Research Data Management, Harald von Waldow, and Johanna Schliemann, in charge of IT administration at Thünen Insitute of Forestry.
+We acknowledge the contributions from Pixida GmbH and especially Tobias Hierlmeier to revise and improve the model code, the financial and valuable support of the head of the Thünen Institute of Forestry, Matthias Dieter as well as the head of the working group on Forest Products Markets, Holger Weimar. We further thank for the technical support from the Thünen Institute Service Centre for Research Data Management, Harald von Waldow, and Johanna Schliemann, in charge of IT administration at Thünen Insitute of Forestry.
 
 # References
