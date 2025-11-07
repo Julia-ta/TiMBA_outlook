@@ -1,18 +1,16 @@
 from timeit import default_timer
 from TiMBA.logic.model import TiMBA
-from TiMBA.parameters import get_results_writer, get_global_paths, get_pkl_paths, get_output_paths
-# TODO reactivate and verify if time_stamp and world_version are transfered in output names
-# TODO check if all paths for outputs are provided
-from TiMBA.parameters import FOREST_OUTPUT, RESULTS_OUTPUT, RESULTS_OUTPUT_AGG, WORLD_PRICE_OUTPUT
+from TiMBA.parameters import get_global_paths, get_pkl_paths, get_output_paths
+from TiMBA.parameters import forest_output_name, output_agg_name, world_price_output_name
 from TiMBA.data_management.ParameterCollector import ParameterCollector
 from TiMBA.results_logging.base_logger import get_logger
 from TiMBA.data_management.DataManager import DataManager
 from TiMBA.data_management.DataContainer import WorldDataCollector, DataContainer, AdditionalInformation
 from TiMBA.parameters.Defines import SolverParameters
 import os
+from pathlib import Path
 
-
-def main(UserIO: ParameterCollector, world_version: list, time_stamp: str, package_dir, sc_name: str):
+def main(UserIO: ParameterCollector, world_version: list, time_stamp: str, Data_Path: Path, sc_name: str):
     """
     Main function of TiMBA. The function is structured as follow: (1) The read in of input data and the model setup,
     (2) the computation, (3) the extraction of the model outputs.
@@ -25,20 +23,20 @@ def main(UserIO: ParameterCollector, world_version: list, time_stamp: str, packa
     """
     start = default_timer()
     # TODO removal of ResultHandler/ move to analysis toolbox
-    ResultsHandler = get_results_writer(UserIO.folderpath, agg_flag=False)
-    ResultsHandlerAgg = get_results_writer(UserIO.folderpath, agg_flag=True)
+    #ResultsHandler = get_results_writer(Data_Path, agg_flag=False)
+    # ResultsHandlerAgg = get_results_writer(Data_Path, agg_flag=True)
     # TODO remove until here
-    Logger = get_logger(UserIO.folderpath)
+    Logger = get_logger(user_path=Data_Path, time_stamp=time_stamp)
 
-    input_world_path, add_info_path, world_price_path = get_global_paths(UserIO.folderpath, world_version)
+    input_world_path, add_info_path, world_price_path = get_global_paths(Data_Path, world_version)
     WorldDataContent = WorldDataCollector(input_world_path)
     AddInfoContent = AdditionalInformation(add_info_path)
     WorldPriceContent = DataContainer(world_price_path)
-    OUTPUT_PATH, latest_file, PKL_OUTPUT_PATH = get_output_paths(package_dir, time_stamp, sc_name)
+    OUTPUT_PATH, OUTPUT_DIR = get_output_paths(Data_Path, time_stamp, sc_name)
     DataManager.save_sc_info_as_yaml(sc_name=sc_name, Parameters=UserIO, time_stamp=time_stamp)
 
     # TODO rebase name for serialization_flag
-    if not UserIO.serialization or (not os.path.exists(get_pkl_paths(UserIO.folderpath)[0])):
+    if not UserIO.serialization or (not os.path.exists(get_pkl_paths(Data_Path)[0])):
         Logger.info(f"World.xlsx from: {input_world_path}")
         Logger.info(f"WorldPrice.xlsx from: {world_price_path}")
         Logger.info(f"AddInfo.xlsx from: {add_info_path}")
@@ -49,13 +47,13 @@ def main(UserIO: ParameterCollector, world_version: list, time_stamp: str, packa
                                       Logger=Logger)
         Logger.info(f"Readin + Pre-Processing complete.")
         Logger.info(f"Input Data prepared for serialization")
-        pkl_world_path, pkl_add_info_path, pkl_worldprice_path = get_pkl_paths(UserIO.folderpath)
+        pkl_world_path, pkl_add_info_path, pkl_worldprice_path = get_pkl_paths(Data_Path)
         DataManager.serialize_to_pickle(WorldDataContent, pkl_world_path)
         DataManager.serialize_to_pickle(AddInfoContent, pkl_add_info_path)
         DataManager.serialize_to_pickle(WorldPriceContent, pkl_worldprice_path)
     else:
         Logger.info(f"Restore serialized Input Data")
-        pkl_world_path, pkl_add_info_path, pkl_worldprice_path = get_pkl_paths(UserIO.folderpath)
+        pkl_world_path, pkl_add_info_path, pkl_worldprice_path = get_pkl_paths(Data_Path)
         Logger.info(f"World.pkl from: {pkl_world_path}")
         Logger.info(f"WorldPrice.pkl from: {pkl_worldprice_path}")
         Logger.info(f"AddInfo.pkl from: {pkl_add_info_path}")
@@ -65,7 +63,7 @@ def main(UserIO: ParameterCollector, world_version: list, time_stamp: str, packa
         DataManager.verify_base_year(WorldDataContent, UserIO, Logger)
     
     Model = TiMBA(Data=WorldDataContent, UserOptions=UserIO, AdditionalInfo=AddInfoContent,
-                  WorldPriceData=WorldPriceContent, LogHandler=Logger, ResultHandler=ResultsHandler)
+                  WorldPriceData=WorldPriceContent, LogHandler=Logger)#, ResultHandler=ResultsHandler)
     # Computation
     Model.compute(max_iteration=SolverParameters.MAX_ITERATION.value,
                   rel_accuracy=SolverParameters.REL_ACCURACY.value,
@@ -76,13 +74,12 @@ def main(UserIO: ParameterCollector, world_version: list, time_stamp: str, packa
     # Output
     print()
     Logger.info(f"Save optimization results")
-    output_path = {"output_path": OUTPUT_PATH, "pkl_output_path": PKL_OUTPUT_PATH}
-
     DataManager.save_model_output(model_data=Model.Data,
                                   time_stamp=time_stamp,
                                   world_version=world_version,
                                   logger=Logger,
-                                  output_path=output_path)
+                                  OUTPUT_PATH=OUTPUT_PATH,
+                                  OUTPUT_DIR=OUTPUT_DIR)
 
     Logger.info(f"Computing TiMBA complete")
     duration = round(default_timer() - start, 3)

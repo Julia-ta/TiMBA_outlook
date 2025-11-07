@@ -1,10 +1,10 @@
-![TiMBA Logo](timba_logo_v3.png)  
+![TiMBA Logo](https://github.com/TI-Forest-Sector-Modelling/TiMBA/blob/main/timba_logo_v3.png?raw=true)  
 
 -----------------
 
 # TiMBA - Timber market Model for policy-Based Analysis
 
-[![CI - Test](https://github.com/TI-Forest-Sector-Modelling/TiMBA_Workshop/actions/workflows/actions.yml/badge.svg)](https://github.com/TI-Forest-Sector-Modelling/TiMBA_Workshop/actions/workflows/actions.yml)
+[![CI - Test](https://img.shields.io/github/actions/workflow/status/TI-Forest-Sector-Modelling/TiMBA/actions.yml?label=CI%20-%20Test)](https://github.com/TI-Forest-Sector-Modelling/TiMBA/actions/workflows/actions.yml)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=TI-Forest-Sector-Modelling_TiMBA&metric=coverage)](https://sonarcloud.io/summary/new_code?id=TI-Forest-Sector-Modelling_TiMBA)
 ![GitHub Release](https://img.shields.io/github/v/release/TI-Forest-Sector-Modelling/TiMBA)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13842492.svg)](https://doi.org/10.5281/zenodo.13842492)
@@ -64,6 +64,48 @@ We recommend using Python 3.9–3.11 on Ubuntu or Windows for best results, unti
 Before proceeding, please ensure that Python is installed on your system. 
 It can be downloaded and installed from [Python.org](https://www.python.org/downloads/release/python-3119/).
 
+## Installation
+
+The package can be installed from **PyPI** or directly from **GitHub**:
+
+### From PyPI:
+
+```bash
+pip install timba
+````
+
+### Importing and running TiMBA
+
+Once installed, `timba` can be imported with standard settings:
+
+```python
+from timba.main import run_timba
+
+run_timba()
+```
+
+To change the folder for input and output data, the user can use the `folderpath` option (note: the path must be a `Path` object from `pathlib`):
+
+```python
+from timba.main import run_timba
+from pathlib import Path
+
+run_timba(folderpath=Path(r"your_path"))
+```
+
+To modify specific parameters, the user can import `parameter_setter` from `TiMBA.main` and set new values:
+
+```python
+from timba.main import run_timba, parameter_setter
+
+parameters = parameter_setter()
+parameters.max_period = 2
+
+run_timba(Parameters=parameters)
+```
+
+### From GitHub:
+
 1. Clone the repository
 Begin by cloning the repository to your local machine using the following command: 
     >git clone https://github.com/TI-Forest-Sector-Modelling/TiMBA.git
@@ -92,10 +134,15 @@ Enable the virtual environment to isolate TiMBA dependencies.
 5. Install TiMBA in the editable mode  
    >pip install -e .
 
-If the following error occurs: "ERROR: File "setup.py" or "setup.cfg" not found."
-you might need to update the pip version you use with: 
->python.exe -m pip install --upgrade pip
+    If the following error occurs: "ERROR: File "setup.py" or "setup.cfg" not found."
+    you might need to update the pip version you use with: 
+    >python.exe -m pip install --upgrade pip
 
+6. The package does not come with predefined data. To download the default input data along with additional information needed to run TiMBA use the command
+   >load_timba -FP your_path
+
+7. If the user does not set any folderpath the standard input data will be loaded to the current working directory or the folderpath which is set with:
+   >run_timba -FP your_path 
    
 
 ### Double check installation and test suite
@@ -183,10 +230,10 @@ TiMBA is delivered with a set of default settings, which were tested and validat
 The CLI provides to access basic model settings, and their default values. 
 Check if CLI command is registered and available on your computer by executing either:
 
-- >run_timba --help
+- >timba_run --help
 
 Default settings can be changed in the following way:
-- > run_timba -MP=5 -PP="calculated_PP" -WP="shadow_WP"
+- >timba_run -MP=5 -PP="calculated_PP" -WP="shadow_WP"
 
 For this example, TiMBA will simulate 5 periods using calculated prices as product prices and shadow prices as world market prices.
 

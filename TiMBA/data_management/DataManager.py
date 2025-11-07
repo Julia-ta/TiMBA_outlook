@@ -7,8 +7,8 @@ from TiMBA.data_management.DataContainer import DataContainer, InterfaceWorldDat
 from TiMBA.parameters.Defines import Constants
 from TiMBA.data_management.ParameterCollector import ParameterCollector
 from TiMBA.parameters.REGEX_patterns import PERIOD_PATTERN
-from TiMBA.parameters.paths import RESULTS_OUTPUT, RESULTS_OUTPUT_AGG, FOREST_OUTPUT, WORLD_PRICE_OUTPUT, MANUFACTURE_OUTPUT
-from TiMBA.parameters.Defines import VarNames, Constants
+from TiMBA.parameters.paths import output_name, output_agg_name, forest_output_name, world_price_output_name, manufacture_output_name
+from TiMBA.parameters.Defines import VarNames
 from TiMBA.logic.model_helpers import extract_product_groups
 from TiMBA.parameters import LOGGING_OUTPUT_FOLDER
 from pathlib import Path
@@ -748,7 +748,7 @@ class DataManager:
 
     @staticmethod
     def save_model_output(model_data: InterfaceWorldData, time_stamp: str, world_version: str, logger: classmethod,
-                          output_path: dict):
+                          OUTPUT_PATH: Path,OUTPUT_DIR: Path):
         """
         Saves model outputs for each input world as separate csv files and one merged pkl file.
         :param model_data: World data collection
@@ -758,17 +758,20 @@ class DataManager:
         :param logger: Model logger
         :param output_path: dict storing ouput paths for pkl files
         """
-        results_output = f"{RESULTS_OUTPUT}{time_stamp}_{world_version[:-5]}.csv"
-        results_output_agg = f"{RESULTS_OUTPUT_AGG}{time_stamp}_{world_version[:-5]}.csv"
-        forest_output = f"{FOREST_OUTPUT}{time_stamp}_{world_version[:-5]}.csv"
-        manufacture_output = f"{MANUFACTURE_OUTPUT}{time_stamp}_{world_version[:-5]}.csv"
-        world_price_output = f"{WORLD_PRICE_OUTPUT}{time_stamp}_{world_version[:-5]}.csv"
+        if not os.path.exists(OUTPUT_DIR):
+            os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-        results_output = path.abspath(path.join(*Path(__file__).parts[:-2], results_output))
-        results_output_agg = path.abspath(path.join(*Path(__file__).parts[:-2], results_output_agg))
-        forest_output = path.abspath(path.join(*Path(__file__).parts[:-2], forest_output))
-        manufacture_output = path.abspath(path.join(*Path(__file__).parts[:-2], manufacture_output))
-        world_price_output = path.abspath(path.join(*Path(__file__).parts[:-2], world_price_output))
+        results_output = f"{output_name}{time_stamp}_{world_version[:-5]}.csv"
+        results_output_agg = f"{output_agg_name}{time_stamp}_{world_version[:-5]}.csv"
+        forest_output = f"{forest_output_name}{time_stamp}_{world_version[:-5]}.csv"
+        manufacture_output = f"{manufacture_output_name}{time_stamp}_{world_version[:-5]}.csv"
+        world_price_output = f"{world_price_output_name}{time_stamp}_{world_version[:-5]}.csv"
+
+        results_output = OUTPUT_DIR / results_output
+        results_output_agg = OUTPUT_DIR / results_output_agg
+        forest_output = OUTPUT_DIR / forest_output
+        manufacture_output = OUTPUT_DIR / manufacture_output
+        world_price_output = OUTPUT_DIR / world_price_output
 
         model_data.Forest.forest_output.to_csv(forest_output, index=False)
         model_data.ManufactureCost.manufacture_output.to_csv(manufacture_output, index=False)
@@ -790,13 +793,7 @@ class DataManager:
         data_output.update({"ManufactureCoeff": model_data.ManufactureCoefficients.data_periods})
         data_output.update({"WorldPrices": model_data.WorldPrices.data_periods})
 
-        DataManager.serialize_to_pickle(data_output, output_path["output_path"])
-        if os.path.exists(Path(output_path["pkl_output_path"]).parent.absolute()):
-            DataManager.serialize_to_pickle(data_output, output_path["pkl_output_path"])
-        else:
-            logger.info(
-                "PKL output path for analysis toolbox doesn't exist, change path in paths.py to save pkl file in"
-                " toolbox")
+        DataManager.serialize_to_pickle(data_output, OUTPUT_PATH)
 
     @staticmethod
     def readin_preprocess(WorldData: InterfaceWorldData, AdditionalInfo: AdditionalInformation ,

@@ -9,3 +9,13 @@ recursive-include TiMBA/data/input *
 global-exclude *.py[cod]
 
 global-exclude *.log
+
+include timba_logo_v3.png
+
+include README.md
+
+include COPYING
+
+include CITATION.cff
+
+include COPYRIGHT

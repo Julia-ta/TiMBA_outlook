@@ -1,0 +1,53 @@
+from urllib.error import URLError
+import os
+import shutil
+import tempfile
+import zipfile
+import urllib.request
+
+
+def load_data(
+    user: str,
+    repo: str,
+    branch: str,
+    source_folder: str,
+    dest_folder: str,):
+
+    zip_url = f"https://github.com/{user}/{repo}/archive/refs/heads/{branch}.zip"
+
+    try:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            zip_path = os.path.join(tmpdir, f"{repo}.zip")
+            print(f" Load {zip_url} ...")
+            urllib.request.urlretrieve(zip_url, zip_path)
+
+            with zipfile.ZipFile(zip_path, "r") as zip_ref:
+                zip_ref.extractall(tmpdir)
+
+            repo_root = os.path.join(tmpdir, f"{repo}-{branch}")
+            source_path = os.path.join(repo_root, source_folder)
+            if not os.path.exists(source_path):
+                raise FileNotFoundError(f"Folder {source_folder} not found in {repo}")
+            
+            if os.path.exists(dest_folder):
+                print(f" {dest_folder} already exist and will be overwritten")
+                try:
+                    shutil.rmtree(dest_folder)
+                except PermissionError as e:
+                    print(f"PermissionError to remove {e.filename}.",
+                          "Folder will not be overwritten.")
+            
+            try:
+                os.makedirs(os.path.dirname(dest_folder), exist_ok=True)
+                shutil.copytree(source_path, dest_folder)
+                print(f"Input data is saved")
+            except FileExistsError:
+                pass
+            except PermissionError as e:
+                    print(f"PermissionError for {e.filename}.",
+                          "File can not be saved at this location.")
+
+    except URLError:
+        print(f"Failed to download input data from GitHub.\n",
+            "Please check your internet connection, ensure that",
+            "'https://github.com' is reachable from your environment and try again.")
