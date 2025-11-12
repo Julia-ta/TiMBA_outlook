@@ -10,10 +10,6 @@ tags:
 authors:
   - name: TI-FSM
     affiliation: 1
-  - name: Tomke Honkomp
-    orcid: 0000-0002-6719-0190
-    equal-contrib: true
-    affiliation: 1
   - name: Christian Morland
     orcid: 0000-0001-6600-570X
     equal-contrib: true
@@ -24,6 +20,10 @@ authors:
     affiliation: 1
   - name: Julia Tandetzki
     orcid: 0000-0002-0630-9434
+    equal-contrib: true
+    affiliation: 1
+  - name: Tomke Honkomp
+    orcid: 0000-0002-6719-0190
     equal-contrib: true
     affiliation: 1
 affiliations:
