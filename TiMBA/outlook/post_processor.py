@@ -10,16 +10,39 @@ be a source of confusion. For example
            'shadow_price', 'lower_bound', 'upper_bound'],
           dtype='object')
 
-In November 2025, we were tempted to fix case issues by replacing all column
-names with snake case. We dropped the attempt for now.
+In November 2025, we fixed case issues by replacing all column
+names in the output with snake case.
 
 """
 
+import re
 from pathlib import Path
 import gzip
-import pandas
 import pickle
-import re
+
+import pandas
+
+def to_snake_case(name):
+    """Convert column name to snake_case."""
+    # Convert to string and strip whitespace
+    name = str(name).strip()
+
+    # Replace spaces and non-alphanumeric characters with underscores
+    name = re.sub(r"[^\w]+", "_", name)
+
+    # Insert underscore before uppercase letters that follow lowercase letters
+    name = re.sub(r"([a-z0-9])([A-Z])", r"\1_\2", name)
+
+    # Insert underscore before uppercase letters that are followed by lowercase letters
+    name = re.sub(r"([A-Z]+)([A-Z][a-z])", r"\1_\2", name)
+
+    # Convert to lowercase
+    name = name.lower()
+
+    # Remove leading/trailing underscores and collapse multiple underscores
+    name = re.sub(r"_+", "_", name).strip("_")
+
+    return name
 
 
 def load_timba_output_pickle(file_name):
@@ -31,6 +54,7 @@ def load_timba_output_pickle(file_name):
     >>> pkl_file = "~/eu_cbm/TiMBA_Data/output/DataContainer_Sc_scenario_input_SSP2v3_2020_2050_new_20251112T17-05-24.pkl"
     >>> output = load_timba_output_pickle(pkl_file)
     >>> print(output.keys())
+    >>> print(output["data_periods"])
 
     """
     file = Path(file_name).expanduser()
@@ -38,7 +62,10 @@ def load_timba_output_pickle(file_name):
         raise FileNotFoundError(file)
     with gzip.open(file, "rb") as f:
         output = pickle.load(f)
-    return output
+    snake_case_output = {}
+    for key, df in output.items():
+        snake_case_output[to_snake_case(key)] = df.rename(columns=to_snake_case)
+    return snake_case_output
 
 
 def load_metadata(file_name, sheet_name="Specification"):
@@ -61,9 +88,11 @@ def load_metadata(file_name, sheet_name="Specification"):
     return {"region": df_region, "commodity": df_commodity, "property": df_property}
 
 
+# runner.df_region
+# runner.output.df
 
 
-# class ScenarioInput():
+# class runner():
 #
 #     def __init__(self):
 #         self.
