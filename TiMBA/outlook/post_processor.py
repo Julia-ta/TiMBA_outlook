@@ -15,29 +15,10 @@ names in the output with snake case.
 
 """
 
-import re
 from pathlib import Path
 import gzip
 import pickle
-
-import pandas
-
-def to_snake_case(name):
-    """Convert column name to snake_case."""
-    # Convert to string and strip whitespace
-    name = str(name).strip()
-    # Replace spaces and non-alphanumeric characters with underscores
-    name = re.sub(r"[^\w]+", "_", name)
-    # Insert underscore before uppercase letters that follow lowercase letters
-    name = re.sub(r"([a-z0-9])([A-Z])", r"\1_\2", name)
-    # Insert underscore before uppercase letters that are followed by lowercase letters
-    name = re.sub(r"([A-Z]+)([A-Z][a-z])", r"\1_\2", name)
-    # Convert to lowercase
-    name = name.lower()
-    # Remove leading/trailing underscores and collapse multiple underscores
-    name = re.sub(r"_+", "_", name).strip("_")
-    return name
-
+from TiMBA.outlook.metadata import to_snake_case
 
 def load_timba_output_pickle(file_name):
     """Load Timba simulation output from a pickle file.
@@ -62,43 +43,4 @@ def load_timba_output_pickle(file_name):
     return snake_case_output
 
 
-def load_metadata_from_world_input_file(file_name, sheet_name="Specification"):
-    """Load country and product names from the Excel specification sheet
 
-    Example use:
-
-    >>> from TiMBA.outlook.post_processor import load_metadata_from_world_input_file
-    >>> excel_file = "~/eu_cbm/TiMBA_Data/input/01_Input_Files/scenario_input_SSP2v3_2020_2050_new.xlsx"
-    >>> metadata = load_metadata_from_world_input_file(excel_file)
-    >>> print(metadata["region"])
-    >>> print(metadata["commodity"])
-    >>> print(metadata["property"])
-
-    """
-    Path(file_name).expanduser()
-    df = pandas.read_excel(file_name, sheet_name)
-    df = df.rename(columns=to_snake_case)
-    df_region = df[["region_code", "region_name"]].copy()
-    df_commodity = df[["commodity_code", "commodity_name"]].copy()
-    df_commodity = df_commodity.loc[~df_commodity["commodity_code"].isna()]
-    df_property = df[["property_name", "property_value"]].copy()
-    df_property = df_property.loc[~df_property["property_name"].isna()]
-    return {"region": df_region, "commodity": df_commodity, "property": df_property}
-
-
-
-# Toolbox/Input/Additional_Information/country_info.csv
-
-
-
-# runner.df_region
-# runner.output.df
-
-
-# class runner():
-#
-#     def __init__(self):
-#         self.
-#
-#     @property
-#     def region
