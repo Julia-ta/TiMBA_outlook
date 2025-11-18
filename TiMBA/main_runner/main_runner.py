@@ -11,7 +11,6 @@ from TiMBA.data_management.DataContainer import WorldDataCollector, DataContaine
 from TiMBA.parameters.Defines import SolverParameters
 import os
 
-
 def main(UserIO: ParameterCollector, world_version: list, time_stamp: str, package_dir, sc_name: str):
     """
     Main function of TiMBA. The function is structured as follow: (1) The read in of input data and the model setup,

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "TiMBA" 
-version = "1.1.0"
+version = "1.2.0"
 authors = [{name = "TI-FSM", email = "wf-timba@thuenen.de"}]
 description = "TiMBA is a partial economic equilibrium model for the global forest products market"
 readme = "README.md"
@@ -24,7 +24,8 @@ dependencies = [
     "pandas==1.5.3",
     "pathlib==1.0.1",
     "tomli==2.0.2",
-    "typing==3.7.4.3" 
+    "typing==3.7.4.3" ,
+    "Carbon-Module==1.1.1"
 ]
 
 classifiers = [
@@ -47,7 +48,8 @@ Repository = "https://github.com/TI-Forest-Sector-Modelling/TiMBA"
 Issues = "https://github.com/TI-Forest-Sector-Modelling/TiMBA/issues"
 
 [project.scripts]
-run_timba = "TiMBA.cli.cli:cli"
+run_timba = "TiMBA.cli.cli:timba_cli"
+run_carbon_module = "TiMBA.cli.cli:carbon_cli"
 
 [tool.setuptools]
 include-package-data = true

@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from typing import Union
+from TiMBA.parameters.Defines import ParamNames
 
 
 class ParameterCollector:
@@ -18,22 +19,36 @@ class ParameterCollector:
         :param param_x: EXEMPLARY ADDITIONAL PARAM  TODO: Drop
         :param param_y: EXEMPLARY ADDITIONAL PARAM  TODO: Drop
         """
-        self._year = user_input['year']
-        self._max_period = user_input['max_period']
-        self._calc_product_prices = user_input['product_price']
-        self._calc_world_prices = user_input['world_price']
-        self._transportation_imp_exp_bound_factor = user_input['transportation_factor']
-        self._material_balance = user_input['material_balance']
-        self._global_material_balance = user_input['global_material_balance']
-        self._serialization = user_input['serialization']
-        self._constants = user_input['constants']
-        self._dynamization_activated = user_input['dynamization_activated']
-        self._capped_prices = user_input['capped_prices']
-        self._cleaned_opt_quantity = user_input['cleaned_opt_quantity']
-        self._verbose_optimization_logger = user_input['verbose_optimization_logger']
-        self._verbose_calculation_logger = user_input['verbose_calculation_logger']
-        self._addInfo = user_input['addInfo']
+        self._year = user_input[ParamNames.year.value]
+        self._max_period = user_input[ParamNames.max_period.value]
+        self._calc_product_prices = user_input[ParamNames.product_price.value]
+        self._calc_world_prices = user_input[ParamNames.world_price.value]
+        self._transportation_imp_exp_bound_factor = user_input[ParamNames.transportation_factor.value]
+        self._material_balance = user_input[ParamNames.material_balance.value]
+        self._global_material_balance = user_input[ParamNames.global_material_balance.value]
+        self._serialization = user_input[ParamNames.serialization.value]
+        self._constants = user_input[ParamNames.constants.value]
+        self._dynamization_activated = user_input[ParamNames.dynamization_activated.value]
+        self._capped_prices = user_input[ParamNames.capped_prices.value]
+        self._cleaned_opt_quantity = user_input[ParamNames.cleaned_opt_quantity.value]
+        self._verbose_optimization_logger = user_input[ParamNames.verbose_optimization_logger.value]
+        self._verbose_calculation_logger = user_input[ParamNames.verbose_calculation_logger.value]
+        self._addInfo = user_input[ParamNames.addInfo.value]
         self._folderpath = folderpath
+        self._activate_add_on_cmodule = user_input[ParamNames.activate_cmodule.value]
+        self._sc_num = user_input[ParamNames.sc_num.value]
+        self._read_in_pkl = user_input[ParamNames.read_in_pkl.value]
+        self._calc_c_forest_agb = user_input[ParamNames.calc_c_forest_agb.value]
+        self._calc_c_forest_bgb = user_input[ParamNames.calc_c_forest_bgb.value]
+        self._calc_c_forest_soil = user_input[ParamNames.calc_c_forest_soil.value]
+        self._calc_c_forest_dwl = user_input[ParamNames.calc_c_forest_dwl.value]
+        self._calc_c_hwp = user_input[ParamNames.calc_c_hwp.value]
+        self._c_hwp_accounting_approach = user_input[ParamNames.c_hwp_accounting_approach.value]
+        self._historical_c_hwp = user_input[ParamNames.historical_c_hwp.value]
+        self._hist_hwp_start_year = user_input[ParamNames.hist_hwp_start_year.value]
+        self._hist_hwp_start_year_default = user_input[ParamNames.hist_hwp_start_year_default.value]
+        self._show_carbon_dashboard = user_input[ParamNames.show_carbon_dashboard.value]
+        self._fao_data_update = user_input[ParamNames.fao_data_update.value]
 
         # Run directly after __init__ to ensure correct user IO
         self.input_data_check()
@@ -166,6 +181,126 @@ class ParameterCollector:
     def cleaned_opt_quantity(self, value: bool):
         self._cleaned_opt_quantity = value
 
+    @property
+    def activate_add_on_cmodule(self) -> bool:
+        return self._activate_add_on_cmodule
+
+    @activate_add_on_cmodule.setter
+    def activate_add_on_cmodule(self, value: bool):
+        self._activate_add_on_cmodule = value
+
+    @property
+    def sc_num(self) -> int:
+        return self._sc_num
+
+    @sc_num.setter
+    def sc_num(self, value: int):
+        self._sc_num = value
+
+    @property
+    def read_in_pkl(self) -> bool:
+        return self._read_in_pkl
+
+    @read_in_pkl.setter
+    def read_in_pkl(self, value: bool):
+        self._read_in_pkl = value
+
+    @property
+    def calc_c_forest_agb(self) -> bool:
+        return self._calc_c_forest_agb
+
+    @calc_c_forest_agb.setter
+    def calc_c_forest_agb(self, value: bool):
+        self._calc_c_forest_agb = value
+
+    @property
+    def calc_c_forest_bgb(self) -> bool:
+        return self._calc_c_forest_bgb
+
+    @calc_c_forest_bgb.setter
+    def calc_c_forest_bgb(self, value: bool):
+        self._calc_c_forest_bgb = value
+
+    @property
+    def calc_c_forest_soil(self) -> bool:
+        return self._calc_c_forest_soil
+
+    @calc_c_forest_soil.setter
+    def calc_c_forest_soil(self, value: bool):
+        self._calc_c_forest_soil = value
+
+    @property
+    def calc_c_forest_dwl(self) -> bool:
+        return self._calc_c_forest_dwl
+
+    @calc_c_forest_dwl.setter
+    def calc_c_forest_dwl(self, value: bool):
+        self._calc_c_forest_dwl = value
+
+    @property
+    def calc_c_forest_dwl(self) -> bool:
+        return self._calc_c_forest_dwl
+
+    @calc_c_forest_dwl.setter
+    def calc_c_forest_dwl(self, value: bool):
+        self._calc_c_forest_dwl = value
+
+    @property
+    def calc_c_hwp(self) -> bool:
+        return self._calc_c_hwp
+
+    @calc_c_hwp.setter
+    def calc_c_hwp(self, value: bool):
+        self._calc_c_hwp = value
+
+    @property
+    def c_hwp_accounting_approach(self) -> str:
+        return self._c_hwp_accounting_approach
+
+    @c_hwp_accounting_approach.setter
+    def c_hwp_accounting_approach(self, value: str):
+        self._c_hwp_accounting_approach = value
+
+    @property
+    def historical_c_hwp(self) -> str:
+        return self._historical_c_hwp
+
+    @historical_c_hwp.setter
+    def historical_c_hwp(self, value: str):
+        self._historical_c_hwp = value
+
+    @property
+    def hist_hwp_start_year(self) -> str:
+        return self._hist_hwp_start_year
+
+    @hist_hwp_start_year.setter
+    def hist_hwp_start_year(self, value: str):
+        self._hist_hwp_start_year = value
+
+    @property
+    def hist_hwp_start_year_default(self) -> int:
+        return self._hist_hwp_start_year_default
+
+    @hist_hwp_start_year_default.setter
+    def hist_hwp_start_year_default(self, value: int):
+        self._hist_hwp_start_year_default = value
+
+    @property
+    def show_carbon_dashboard(self) -> bool:
+        return self._show_carbon_dashboard
+
+    @show_carbon_dashboard.setter
+    def show_carbon_dashboard(self, value: bool):
+        self._show_carbon_dashboard = value
+
+    @property
+    def fao_data_update(self) -> bool:
+        return self._fao_data_update
+
+    @fao_data_update.setter
+    def fao_data_update(self, value: bool):
+        self._fao_data_update = value
+
     def __repr__(self):
         return repr(f"year={self.year}, "
                     f"max_period={self.max_period}, "
@@ -191,6 +326,19 @@ class ParameterCollector:
         assert isinstance(self.verbose_calculation_logger, bool)
         assert isinstance(self.addInfo, bool)
         assert type(self.transportation_imp_exp_bound_factor) in [float, int]
+        assert isinstance(self.activate_add_on_cmodule, bool)
+        assert isinstance(self.sc_num, (int, type(None)))
+        assert isinstance(self.read_in_pkl, bool)
+        assert isinstance(self.calc_c_forest_agb, bool)
+        assert isinstance(self.calc_c_forest_bgb, bool)
+        assert isinstance(self.calc_c_forest_soil, bool)
+        assert isinstance(self.calc_c_forest_dwl, bool)
+        assert isinstance(self.calc_c_hwp, bool)
+        assert isinstance(self.historical_c_hwp, str)
+        assert isinstance(self.hist_hwp_start_year, str)
+        assert isinstance(self.hist_hwp_start_year_default, int)
+        assert isinstance(self.show_carbon_dashboard, bool)
+        assert isinstance(self.fao_data_update, bool)
 
         # TODO: Adapt tests for new params: Following are just exemplary.
         # assert self.param_x[0] > 0
