@@ -1,5 +1,5 @@
 ---
-title: 'TiMBA'
+title: 'TiMBA (Timber market Model for policy-Based Analysis)'
 
 tags:
   - Python
@@ -9,10 +9,6 @@ tags:
   - Wood markets
 authors:
   - name: TI-FSM
-    affiliation: 1
-  - name: Tomke Honkomp
-    orcid: 0000-0002-6719-0190
-    equal-contrib: true
     affiliation: 1
   - name: Christian Morland
     orcid: 0000-0001-6600-570X
@@ -26,6 +22,10 @@ authors:
     orcid: 0000-0002-0630-9434
     equal-contrib: true
     affiliation: 1
+  - name: Tomke Honkomp
+    orcid: 0000-0002-6719-0190
+    equal-contrib: true
+    affiliation: 1
 affiliations:
   - name: Thünen Institue of Forestry
     index: 1
@@ -37,7 +37,7 @@ bibliography: paper.bib
 # Summary
 TiMBA is a partial economic equilibrium model to simulate interdependencies and developments of the global forest products market for 180 countries and 16 forest-based products. The model determines the market equilibrium by ensuring market clearance, balancing raw material needs with the manufacturing and demand of wood products while imposing constraints on trade, following principles similar to those of @Samuelson:1952. TiMBA recursively calculates the market equilibrium for each country and product endogenously over a given period by maximizing social surplus in the global forest sector. Scenario simulations are driven by both exogenous and endogenous parameters and assumptions about future market dynamics and policy directives. The model’s output includes detailed information on production, consumption, trade volumes, cost and prices, as well as forest area and stock developments.
 
-![timba_product_transformation\label{fig:1}](https://github.com/TI-Forest-Sector-Modelling/TiMBA_Additional_Information/raw/main/images/timba_product_transformation.png)
+![](https://github.com/TI-Forest-Sector-Modelling/TiMBA_Additional_Information/raw/main/images/timba_product_transformation.png)
 
 **Figure 1:** Product structure and processing flows in TiMBA. (*Product represented for visual purposes as aggregates)
 
@@ -112,6 +112,6 @@ with $\tau$ as the transportation cost elasticity, $g_f$ as the growth rate of f
 
 # Acknowledgements
 
-We acknowledge the contributions from Pixida GmbH and especially Tobias Hierlmeier to revise and improve the model code, the financial and rational support of the head of the Thünen Institute of Forestry, Matthias Dieter as well as the head of the working group on Forest Products Markets, Holger Weimar. We further thank for the technical support from the Thünen Institute Service Centre for Research Data Management, Harald von Waldow, and Johanna Schliemann, in charge of IT administration at Thünen Insitute of Forestry.
+We acknowledge the contributions from Pixida GmbH and especially Tobias Hierlmeier to revise and improve the model code, the financial and valuable support of the head of the Thünen Institute of Forestry, Matthias Dieter as well as the head of the working group on Forest Products Markets, Holger Weimar. We further thank for the technical support from the Thünen Institute Service Centre for Research Data Management, Harald von Waldow, and Johanna Schliemann, in charge of IT administration at Thünen Insitute of Forestry.
 
 # References
