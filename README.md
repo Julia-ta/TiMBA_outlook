@@ -7,7 +7,7 @@
 [![CI - Test](https://img.shields.io/github/actions/workflow/status/TI-Forest-Sector-Modelling/TiMBA/actions.yml?label=CI%20-%20Test)](https://github.com/TI-Forest-Sector-Modelling/TiMBA/actions/workflows/actions.yml)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=TI-Forest-Sector-Modelling_TiMBA&metric=coverage)](https://sonarcloud.io/summary/new_code?id=TI-Forest-Sector-Modelling_TiMBA)
 ![GitHub Release](https://img.shields.io/github/v/release/TI-Forest-Sector-Modelling/TiMBA)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13842492.svg)](https://doi.org/10.5281/zenodo.13842492)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13842384.svg)](https://doi.org/10.5281/zenodo.13842384)
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.08034/status.svg)](https://doi.org/10.21105/joss.08034)
 [![License](https://img.shields.io/github/license/TI-Forest-Sector-Modelling/TiMBA)](https://github.com/TI-Forest-Sector-Modelling/TiMBA/blob/main/COPYING)
 
@@ -46,7 +46,7 @@ In the equilibrium processes, product supply, demand and price are balanced for 
 We are happy that you use TiMBA for your research. When publishing your work in articles, working paper, presentations 
 or elsewhere, please cite the model as 
 
-[TI-FSM, Morland, C., Schier, F., Tandetzki, J., & Honkomp, T. (2025). TiMBA (Timber market Model for policy-Based Analysis) (v1.0.3). Zenodo. https://doi.org/10.5281/zenodo.15182340](CITATION.cff)
+[TI-FSM, Morland, C., Schier, F., Tandetzki, J., Honkomp, T. (2025). TiMBA (Timber market Model for policy-Based Analysis). Journal of Open Source Software, 10(115), 8034, https://doi.org/10.21105/joss.08034](https://joss.theoj.org/papers/10.21105/joss.08034#)
 
 The authors' collective is named Thünen Institute Forest Sector Modelling (TI-FSM). The individual authors are listed as 
 Co-authors in alphabetical order. 
