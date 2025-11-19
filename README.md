@@ -294,7 +294,7 @@ Frequently check [TiMBA repository](https://github.com/TI-Forest-Sector-Modellin
 We welcome contributions, additions and suggestion to further develop or improve the code and the model. To check, discuss and include them into this project, we would like you to share your ideas with us so that we can agree on the requirements needed for accepting your contribution. 
 You can contact us directly via GITHUB by creating issues, or by writing an Email to:
 
-wf-timba@thuenen.de
+[wf-timba@thuenen.de](mailto:wf-timba@thuenen.de)
 
 A scientific documentation will follow and be linked here soon. So far, this README serves as a comprehensive introduction and guidance on how to get started. 
 
