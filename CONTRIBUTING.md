@@ -18,6 +18,8 @@ If you consider to contribute new code to TiMBA, please consider the following g
 - Keep commits small, clear, and focused.
 - Submit pull requests with a clear description of the changes and reference the related issue (`Closes #issue number`).
 
+*Note on branches and merge strategy*: Branching and merging follows an internal workflow of the TiMBA team. The main branch is always kept in a valid and stable state, and it is the branch where issues can be raised. These issues are then processed in dedicated feature or issue branches, which are subsequently merged back into main in a predefined order by the TiMBA team.
+
 If you are interested in adding a new feature to TiMBA, consider submitting your feature proposal via [wf-timba@thuenen.de](mailto:wf-timba@thuenen.de),
 which is the preferred forum for discussing new features.
 
