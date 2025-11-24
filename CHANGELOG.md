@@ -1,5 +1,24 @@
 # Changelog
 
+
+## [v1.2.0] - 2025-11-18
+
+### Added
+- **Carbon Module implementation**
+  - Import and integration of the [Carbon Module](https://github.com/TI-Forest-Sector-Modelling/C-Module) into TiMBA
+  - Setup structure for further model extensions
+
+## [v1.1.0] - 2025-10-20
+
+### Added
+- Add paper for peer-reviewed JOSS publication
+- Add workflow dispatch to enable manual activation of the GitHub Actions
+
+### Changed
+- Changed compatibility to Python <= 3.11
+- Update default scenario input and default results for test suite
+- Revisions of README to comply with JOSS reviews (add section for know issues and installation process)
+
 ## [v1.0.3] - 2025-04-09
 
 ### Added

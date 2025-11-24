@@ -1,5 +1,7 @@
 from TiMBA.main_runner.main_runner import main
 from TiMBA.parameters import INPUT_WORLD_PATH, DATA_FOLDER
+from TiMBA.logic.model_extensions import run_extensions
+from TiMBA.data_management.ParameterCollector import ParameterCollector
 from pathlib import Path
 import datetime as dt
 import os
@@ -72,4 +74,5 @@ if __name__ == '__main__':
     Parameters = parameter_setter()
     run_timba(Parameters=Parameters)#,folderpath=Path(r"E:/"))
 
+    run_extensions(UserIO=Parameters)
 
