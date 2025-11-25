@@ -126,6 +126,7 @@ def timba_cli(year, max_period, calc_product_price, calc_world_price, material_b
     
     Parameters = ParameterCollector(user_input=user_input_cli, folderpath=folderpath)
     run_timba(Parameters=Parameters,folderpath=folderpath)
+    run_extensions(UserIO=Parameters)
 
 
 @click.command()
@@ -151,12 +152,6 @@ def load_data_cli(user, repo, branch, folder, folderpath):
         source_folder=folder,
         dest_folder=dest_path
     )
-
-cli.add_command(timba_cli, name="timba")
-cli.add_command(load_data_cli, name="load_data")
-
-    run_extensions(UserIO=Parameters)
-
 
 # Carbon Module command
 @click.command()
@@ -214,5 +209,6 @@ def carbon_cli(calc_c_forest_agb, sc_num, calc_c_forest_bgb, calc_c_forest_soil,
 
 
 cli.add_command(timba_cli, name="timba")
+cli.add_command(load_data_cli, name="load_data")
 cli.add_command(carbon_cli, name="carbon")
 
