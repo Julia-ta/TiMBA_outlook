@@ -12,6 +12,9 @@ from TiMBA.parameters.paths import (
     GIT_FOLDER, DESTINATION_PATH, OUTPUT_DIR,INPUT_WORLD_PATH
 )
 from TiMBA.data_management.Load_Data import load_data
+import importlib
+import pkgutil
+import TiMBA
 
 INPUT_UNIT_TEST_TIMBA_RESULT = Path("test_data/DataContainer_Sc_scenario_input.pkl")
 
@@ -46,6 +49,9 @@ class TestTiMBAClass(unittest.TestCase):
         cls.data_timba = DataManager.restore_from_pickle(results_file)
 
     def test_timba_results(self):
+        """
+        test TiMBA results against standard output
+        """
         if user_input.get("test_timba_results", False):
             test_result = DataValidator.check_timba_results(
                 Data=self.data_timba,
@@ -125,6 +131,12 @@ class TestTiMBAClass(unittest.TestCase):
         WDC[domain_name].update_domain_name(TEST_NAME)
         actual_repr = repr(WDC[domain_name]).replace("'", "")
         self.assertEqual(actual_repr, expected_repr)
+
+    def test_import_all_timba_modules(self):
+        """Automatically import all TiMBA submodules to satisfy coverage for imports."""
+        package_path = Path(TiMBA.__file__).parent
+        for _, module_name, _ in pkgutil.walk_packages([str(package_path)], TiMBA.__name__ + "."):
+            importlib.import_module(module_name)
 
 
     @classmethod
