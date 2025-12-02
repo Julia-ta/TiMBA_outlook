@@ -1,5 +1,37 @@
 # Changelog
 
+## [v1.3.0] - 2025-12-03
+
+### Added
+- Added functionality for automatic downloading of required input data using `Load_Data.py` in `data_management`.
+- Added load_timba command, including help texts and error messages, to initiate the automated data download.
+- Introduced an automatically generated YAML file to store scenario-specific information.
+- Added GitHub issue templates for bugs, feature requests, and questions.
+- Added import tests for external packages and TiMBA modules.
+
+### Changed
+- Centralized and refactored path handling across the model and CLI.
+- Adapted the entire project to the new path structure and removed outdated parameters.
+- Updated README with revised instructions for data loading, PyPI usage, and CLI descriptions.
+- Updated recommended TiMBA citation and added JOSS DOI and Zenodo badge.
+- Updated license information in `pyproject.toml`.
+- Improved GitHub Actions workflows (`publish.yml`) to support automated PyPI releases.
+- Updated `pyproject.toml` settings related to package distribution.
+- General formatting and documentation improvements (text adjustments, restructuring).
+
+### Fixed
+- Fixed multiple CLI bugs related to the new automated data loading mechanism.
+- Fixed path-related issues in `main.py` and CLI commands.
+- Resolved issues caused by the new path structure and folder layout.
+- Improved handling of permission errors in `Load_Data.py`.
+- Adjusted coverage configuration and resolved warnings during test runs.
+
+### Security
+- Pinned PyPI publishing GitHub Actions to fixed commit SHAs for improved security.
+
+### Removed
+- Removed the previous `data` folder from the repository (data is now downloaded automatically).
+
 
 ## [v1.2.0] - 2025-11-18
 
