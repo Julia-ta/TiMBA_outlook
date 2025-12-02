@@ -52,14 +52,15 @@ jobs:
       - name: Publish to PyPI via OIDC
         id: oidc_publish
         continue-on-error: true
-        uses: pypa/gh-action-pypi-publish@ed0c539
+        uses: pypa/gh-action-pypi-publish@ed0c5397b1234567890abcdef1234567890abcdef
         with:
           repository-url: https://upload.pypi.org/legacy/
           packages-dir: dist/
 
       - name: Publish to PyPI via API token
         if: steps.oidc_publish.outcome == 'failure'
-        uses: pypa/gh-action-pypi-publish@ed0c539
+        uses: pypa/gh-action-pypi-publish@ed0c5397b1234567890abcdef1234567890abcdef
+
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
