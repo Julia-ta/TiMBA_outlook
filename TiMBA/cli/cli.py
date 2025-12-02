@@ -109,19 +109,19 @@ def timba_cli(year, max_period, calc_product_price, calc_world_price, material_b
                       ParamNames.verbose_calculation_logger.value: verbose_calculation_logger,
                       ParamNames.addInfo.value: read_additional_information_file,
                       ParamNames.activate_cmodule.value: activate_cmodule,
-                      ParamNames.sc_num.value: sc_num,
-                      ParamNames.read_in_pkl.value: read_in_pkl,
-                      ParamNames.calc_c_forest_agb.value: calc_c_forest_agb,
-                      ParamNames.calc_c_forest_bgb.value: calc_c_forest_bgb,
-                      ParamNames.calc_c_forest_soil.value: calc_c_forest_soil,
-                      ParamNames.calc_c_forest_dwl.value: calc_c_forest_dwl,
-                      ParamNames.calc_c_hwp.value: calc_c_hwp,
-                      ParamNames.c_hwp_accounting_approach.value: c_hwp_accounting_approach,
-                      ParamNames.historical_c_hwp.value: historical_c_hwp,
-                      ParamNames.hist_hwp_start_year.value: hist_hwp_start_year,
-                      ParamNames.hist_hwp_start_year_default.value: hist_hwp_start_year_default,
-                      ParamNames.show_carbon_dashboard.value: show_carbon_dashboard,
-                      ParamNames.fao_data_update.value: fao_data_update
+                    #   ParamNames.sc_num.value: sc_num,
+                    #   ParamNames.read_in_pkl.value: read_in_pkl,
+                    #   ParamNames.calc_c_forest_agb.value: calc_c_forest_agb,
+                    #   ParamNames.calc_c_forest_bgb.value: calc_c_forest_bgb,
+                    #   ParamNames.calc_c_forest_soil.value: calc_c_forest_soil,
+                    #   ParamNames.calc_c_forest_dwl.value: calc_c_forest_dwl,
+                    #   ParamNames.calc_c_hwp.value: calc_c_hwp,
+                    #   ParamNames.c_hwp_accounting_approach.value: c_hwp_accounting_approach,
+                    #   ParamNames.historical_c_hwp.value: historical_c_hwp,
+                    #   ParamNames.hist_hwp_start_year.value: hist_hwp_start_year,
+                    #   ParamNames.hist_hwp_start_year_default.value: hist_hwp_start_year_default,
+                    #   ParamNames.show_carbon_dashboard.value: show_carbon_dashboard,
+                    #   ParamNames.fao_data_update.value: fao_data_update
                       }
     
     Parameters = ParameterCollector(user_input=user_input_cli, folderpath=folderpath)
