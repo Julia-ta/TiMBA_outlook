@@ -47,5 +47,6 @@ jobs:
             -Dsonar.projectName=TiMBA
             -Dsonar.projectVersion=1.0.3
             -Dsonar.python.coverage.reportPaths=coverage.xml
+            -Dsonar.exclusions=test/**,**/test_*.py
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
