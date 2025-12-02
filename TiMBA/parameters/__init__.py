@@ -90,11 +90,11 @@ def get_output_paths(Data_Path: Path, time_stamp: str, sc_name: str):
 
 
 __all__ = [
-    "get_results_writer",
+    #"get_results_writer",
     "get_global_paths",
     "INPUT_WORLD_PATH",
     "ADDITIONAL_INFORMATION_PATH",
     "WORLDPRICE_PATH",
-    "RESULTS_OUTPUT",
+    #"RESULTS_OUTPUT",
     "LOGGING_OUTPUT_FOLDER"
 ]
