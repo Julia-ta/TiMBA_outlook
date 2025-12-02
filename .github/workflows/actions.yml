@@ -37,7 +37,7 @@ jobs:
     # Run test suite and generate coverage report in XML format
     - name: Run test suite with coverage
       run: |
-        pytest --cov=TiMBA --cov-report xml:coverage.xml
+        pytest --cov=TiMBA --cov-report xml:coverage.xml --cof-config=.coveragerc
 
     # Upload the coverage XML report as an artifact
     - name: Upload coverage XML artifact
