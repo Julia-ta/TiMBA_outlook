@@ -1,13 +1,14 @@
-![TiMBA Logo](timba_logo_v3.png)  
+![TiMBA Logo](https://github.com/TI-Forest-Sector-Modelling/TiMBA/blob/main/timba_logo_v3.png?raw=true)  
 
 -----------------
 
 # TiMBA - Timber market Model for policy-Based Analysis
 
-[![CI - Test](https://github.com/TI-Forest-Sector-Modelling/TiMBA_Workshop/actions/workflows/actions.yml/badge.svg)](https://github.com/TI-Forest-Sector-Modelling/TiMBA_Workshop/actions/workflows/actions.yml)
+[![CI - Test](https://img.shields.io/github/actions/workflow/status/TI-Forest-Sector-Modelling/TiMBA/actions.yml?label=CI%20-%20Test)](https://github.com/TI-Forest-Sector-Modelling/TiMBA/actions/workflows/actions.yml)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=TI-Forest-Sector-Modelling_TiMBA&metric=coverage)](https://sonarcloud.io/summary/new_code?id=TI-Forest-Sector-Modelling_TiMBA)
 ![GitHub Release](https://img.shields.io/github/v/release/TI-Forest-Sector-Modelling/TiMBA)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13842492.svg)](https://doi.org/10.5281/zenodo.13842492)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13842384.svg)](https://doi.org/10.5281/zenodo.13842384)
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.08034/status.svg)](https://doi.org/10.21105/joss.08034)
 [![License](https://img.shields.io/github/license/TI-Forest-Sector-Modelling/TiMBA)](https://github.com/TI-Forest-Sector-Modelling/TiMBA/blob/main/COPYING)
 
 -----------------
@@ -44,7 +45,7 @@ In the equilibrium processes, product supply, demand and price are balanced for 
 We are happy that you use TiMBA for your research. When publishing your work in articles, working paper, presentations 
 or elsewhere, please cite the model as 
 
-[TI-FSM, Morland, C., Schier, F., Tandetzki, J., & Honkomp, T. (2025). TiMBA (Timber market Model for policy-Based Analysis) (v1.0.3). Zenodo. https://doi.org/10.5281/zenodo.15182340](CITATION.cff)
+[TI-FSM, Morland, C., Schier, F., Tandetzki, J., Honkomp, T. (2025). TiMBA (Timber market Model for policy-Based Analysis). Journal of Open Source Software, 10(115), 8034, https://doi.org/10.21105/joss.08034](https://joss.theoj.org/papers/10.21105/joss.08034#)
 
 The authors' collective is named Thünen Institute Forest Sector Modelling (TI-FSM). The individual authors are listed as 
 Co-authors in alphabetical order. 
@@ -62,6 +63,48 @@ We recommend using Python 3.9–3.11 on Ubuntu or Windows for best results, unti
 ### Installation Process
 Before proceeding, please ensure that Python is installed on your system. 
 It can be downloaded and installed from [Python.org](https://www.python.org/downloads/release/python-3119/).
+
+## Installation
+
+The package can be installed from **PyPI** or directly from **GitHub**:
+
+### From PyPI:
+
+```bash
+pip install timba
+````
+
+### Importing and running TiMBA
+
+Once installed, `timba` can be imported with standard settings:
+
+```python
+from timba.main import run_timba
+
+run_timba()
+```
+
+To change the folder for input and output data, the user can use the `folderpath` option (note: the path must be a `Path` object from `pathlib`):
+
+```python
+from timba.main import run_timba
+from pathlib import Path
+
+run_timba(folderpath=Path(r"your_path"))
+```
+
+To modify specific parameters, the user can import `parameter_setter` from `TiMBA.main` and set new values:
+
+```python
+from timba.main import run_timba, parameter_setter
+
+parameters = parameter_setter()
+parameters.max_period = 2
+
+run_timba(Parameters=parameters)
+```
+
+### From GitHub:
 
 1. Clone the repository
 Begin by cloning the repository to your local machine using the following command: 
@@ -91,10 +134,15 @@ Enable the virtual environment to isolate TiMBA dependencies.
 5. Install TiMBA in the editable mode  
    >pip install -e .
 
-If the following error occurs: "ERROR: File "setup.py" or "setup.cfg" not found."
-you might need to update the pip version you use with: 
->python.exe -m pip install --upgrade pip
+    If the following error occurs: "ERROR: File "setup.py" or "setup.cfg" not found."
+    you might need to update the pip version you use with: 
+    >python.exe -m pip install --upgrade pip
 
+6. The package does not come with predefined data. To download the default input data along with additional information needed to run TiMBA use the command
+   >load_timba -FP your_path
+
+7. If the user does not set any folderpath the standard input data will be loaded to the current working directory or the folderpath which is set with:
+   >run_timba -FP your_path 
    
 
 ### Double check installation and test suite
@@ -187,7 +235,7 @@ Not all combinations of functionalities and settings have been tested or validat
 The CLI provides to access basic model settings, and their default values. 
 Check if CLI command is registered and available on your computer by executing either:
 
-- >run_timba --help
+- >timba_run --help
 
 Default settings can be changed in the following way: (Note: The change of default settings as described below is for demonstration purposes only, and the results have not been validated.):
 - > run_timba -MP=5 -MB="RCG_specific" -CP="True"
@@ -269,7 +317,7 @@ Frequently check [TiMBA repository](https://github.com/TI-Forest-Sector-Modellin
 We welcome contributions, additions and suggestion to further develop or improve the code and the model. To check, discuss and include them into this project, we would like you to share your ideas with us so that we can agree on the requirements needed for accepting your contribution. 
 You can contact us directly via GitHub by creating issues, or by writing an Email to:
 
-wf-timba@thuenen.de
+[wf-timba@thuenen.de](mailto:wf-timba@thuenen.de)
 
 A scientific documentation will follow and be linked here soon. So far, this README serves as a comprehensive introduction and guidance on how to get started. 
 

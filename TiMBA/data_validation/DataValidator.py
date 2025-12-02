@@ -33,7 +33,7 @@ class DataValidator:
         :param DataTest: TiMBA reference results
         """
         timba_validation_data = DataTest["data_periods"]
-        timba_data_to_validate = Data.OptimizationHelpers["data_periods"]
+        timba_data_to_validate = Data["data_periods"]
 
         max_period = max(timba_data_to_validate[VarNames.PERIOD_COLNAME.value])
 

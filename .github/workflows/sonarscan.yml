@@ -33,7 +33,7 @@ jobs:
       # Generate a coverage report
       - name: Run tests with coverage
         run: |
-          coverage run -m unittest discover
+          python -W ignore::DeprecationWarning -m coverage run --rcfile=.coveragerc -m unittest discover
           coverage report
           coverage xml -o coverage.xml
 
@@ -47,5 +47,6 @@ jobs:
             -Dsonar.projectName=TiMBA
             -Dsonar.projectVersion=1.0.3
             -Dsonar.python.coverage.reportPaths=coverage.xml
+            -Dsonar.exclusions=test/**,**/test_*.py
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

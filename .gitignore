@@ -42,9 +42,15 @@ target/
 .venv
 env/
 venv/
+venv-test
 ENV/
 env.bak/
 venv.bak/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+
+# Coverage
+.coverage
+coverage.xml
+htmlcov/

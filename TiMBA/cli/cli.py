@@ -1,5 +1,9 @@
 from pathlib import Path
 import click
+from TiMBA.main import run_timba
+from TiMBA.data_management.ParameterCollector import ParameterCollector
+from TiMBA.data_management.Load_Data import load_data
+from TiMBA.parameters.paths import GIT_USER,GIT_REPO,GIT_BRANCH,DESTINATION_PATH,GIT_FOLDER
 import os
 import datetime as dt
 from TiMBA.main_runner.main_runner import main
@@ -26,6 +30,10 @@ from TiMBA.user_io.default_parameters import (default_year, default_max_period, 
 def cli():
     pass
 
+
+@click.group()
+def cli():
+    pass
 
 @click.command()
 @click.option('-Y', '--year', default=default_year, 
@@ -74,10 +82,12 @@ def cli():
               show_default=True, required=False, type=bool,
               help="If true the logs will show verbose calculation informations.")
 @click.option('-FP', '--folderpath', 'folderpath', required=False, type=click.Path(
-    file_okay=False, writable=True, path_type=Path), help="Path to directory with Input/Output folder.")
+    file_okay=False, writable=True, path_type=Path), default=Path.cwd(), show_default=f"current working directory: {Path.cwd()}",
+    help="Path to directory with Input/Output folder.")
 @click.option('-C', '--activate_cmodule', 'activate_cmodule',
               default=False, show_default=True, required=False, type=bool,
               help="Flag to activate carbon module.")
+
 
 def timba_cli(year, max_period, calc_product_price, calc_world_price, material_balance, global_material_balance,
               transportation_impexp_factor, serialization, dynamization_activated, cleaned_opt_quantity, capped_prices,
@@ -115,33 +125,33 @@ def timba_cli(year, max_period, calc_product_price, calc_world_price, material_b
                       }
     
     Parameters = ParameterCollector(user_input=user_input_cli, folderpath=folderpath)
-    PACKAGEDIR = Path(__file__).parents[1]
-    world_list = os.listdir(INPUT_WORLD_PATH)
-    for world in world_list:
-        current_dt = dt.datetime.now().strftime("%Y%m%dT%H-%M-%S")
-        print(f"The model starts now:", (dt.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")),"\n")
-        print(f"Path:", INPUT_WORLD_PATH)
-        print(f"Name of input file:", world[:len(world) - 5],"\n")
-        print(f"User input for model settings:\n",
-              f"Start year: {Parameters.year}\n",
-              f"Number of periods: {Parameters.max_period}\n",
-              f"Calculation of prices by: {Parameters.calc_product_prices}\n",
-              f"Calculation of world prices by: {Parameters.calc_world_prices}\n",
-              f"Material balance: {Parameters.material_balance}\n",
-              f"Input data through serialization: {Parameters.serialization}\n",
-              f"Dynamization activated: {Parameters.dynamization_activated}\n",
-              f"Prices are capped: {Parameters.capped_prices}\n",
-              f"Optimization gives verbose logs: {Parameters.verbose_optimization_logger}\n",
-              f"TiMBA gives verbose logs: {Parameters.verbose_calculation_logger}\n",
-              f"Read additional informations: {Parameters.addInfo}\n")
-        main(UserIO=Parameters,
-             world_version=world,
-             time_stamp=current_dt,
-             package_dir=PACKAGEDIR,
-             sc_name=world[:len(world) - 5])
-
+    run_timba(Parameters=Parameters,folderpath=folderpath)
     run_extensions(UserIO=Parameters)
 
+
+@click.command()
+@click.option('-U', '--user', default=GIT_USER, show_default=True, required=True,
+              help="Name of the GitHub user who stored the data.")
+@click.option('-R', '--repo', default=GIT_REPO, show_default=True, required=True,
+              help="Name of the GitHub repository where stored the data.")
+@click.option('-B', '--branch', default=GIT_BRANCH, show_default=True, required=True,
+              help="Name of the branch where stored the data.")
+@click.option('-F', '--folder', default=GIT_FOLDER, show_default=True, required=True,
+              help="folder at GitHub where data is stored.")
+@click.option('-FP', '--folderpath', default=Path.cwd(), show_default=f"current working directory: {Path.cwd()}",
+              required=True, help="The destination where the data should be copied to.")
+def load_data_cli(user, repo, branch, folder, folderpath):
+    """CLI wrapper for loading additional input data from GitHub"""
+
+    dest_path = Path(folderpath) / DESTINATION_PATH
+    print("destination path: ",dest_path)
+    load_data(
+        user=user,
+        repo=repo,
+        branch=branch,
+        source_folder=folder,
+        dest_folder=dest_path
+    )
 
 # Carbon Module command
 @click.command()
@@ -199,5 +209,6 @@ def carbon_cli(calc_c_forest_agb, sc_num, calc_c_forest_bgb, calc_c_forest_soil,
 
 
 cli.add_command(timba_cli, name="timba")
+cli.add_command(load_data_cli, name="load_data")
 cli.add_command(carbon_cli, name="carbon")
 
