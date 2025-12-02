@@ -33,7 +33,7 @@ jobs:
       # Generate a coverage report
       - name: Run tests with coverage
         run: |
-          coverage run --rcfile=.coveragerc -m unittest discover
+          python -W ignore::DeprecationWarning -m coverage run --rcfile=.coveragerc -m unittest discover
           coverage report
           coverage xml -o coverage.xml
 
