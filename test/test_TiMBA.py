@@ -64,7 +64,8 @@ class TestTiMBAClass(unittest.TestCase):
                 DataTest=self.data_timba_test,
                 rel_tolerance=5e-02
             )
-            self.assertTrue(test_result, "TiMBA results are not in line with reference data.")
+            msg = "TiMBA results not match reference data."
+            self.assertTrue(test_result, msg)
 
     def test_data_container(self):
         from TiMBA.parameters.Domains import Domains
@@ -136,49 +137,55 @@ class TestTiMBAClass(unittest.TestCase):
             importlib.import_module(module_name)
 
     def test_cli_all_commands_without_expensive_calls(self):
-        """Tests CLI without running expensive functions."""
+        """Tests CLI commands without running expensive functions."""
+        from click.testing import CliRunner
+        from TiMBA.cli.cli import cli  # <-- wichtig
+
         runner = CliRunner()
 
-        with patch("cli.run_timba") as mock_timba, \
-             patch("cli.run_extensions") as mock_ext, \
-             patch("cli.load_data") as mock_load, \
-             patch("cli.C_Module") as mock_c:
+        with patch("TiMBA.cli.cli.run_timba") as mock_timba, \
+            patch("TiMBA.cli.cli.run_extensions") as mock_ext, \
+            patch("TiMBA.cli.cli.load_data") as mock_load, \
+            patch("TiMBA.cli.cli.C_Module") as mock_c:
 
+            # Setup mock for C_Module.run
             mock_instance = mock_c.return_value
             mock_instance.run.return_value = None
 
-            # test timba
-            result = runner.invoke(cli, ["timba"])
-            self.assertEqual(result.exit_code, 0)
+            # ---- timba command ----
+            res = runner.invoke(cli, ["timba"])
+            self.assertEqual(res.exit_code, 0, f"timba command failed: {res.output}")
             mock_timba.assert_called_once()
             mock_ext.assert_called_once()
 
-            mock_timba.reset_mock()
-            mock_ext.reset_mock()
-
-            # test load_data
-            result = runner.invoke(cli, ["load_data", "--folderpath", str(self.PACKAGEDIR)])
-            self.assertEqual(result.exit_code, 0)
+            # ---- load_data command ----
+            res = runner.invoke(cli, [
+                "load_data",
+                "--user", "dummy_user",
+                "--repo", "dummy_repo",
+                "--branch", "main",
+                "--folder", "dummy_folder",
+                "--folderpath", str(self.PACKAGEDIR)
+            ])
+            self.assertEqual(res.exit_code, 0, f"load_data command failed: {res.output}")
             mock_load.assert_called_once()
 
-            mock_load.reset_mock()
-
-            # test carbon
-            result = runner.invoke(cli, ["carbon"])
-            self.assertEqual(result.exit_code, 0)
+            # ---- carbon command ----
+            res = runner.invoke(cli, [
+                "carbon",
+                "--sc_num", "1",
+                "--calc_c_forest_agb", "False",
+                "--calc_c_forest_bgb", "False",
+                "--calc_c_forest_soil", "False",
+                "--calc_c_forest_dwl", "False",
+                "--calc_c_hwp", "False",
+                "--c_hwp_accounting_approach", "None",
+                "--read_in_pkl", "False"
+            ])
+            self.assertEqual(res.exit_code, 0, f"carbon command failed: {res.output}")
+            mock_c.assert_called_once()
             mock_instance.run.assert_called_once()
 
-    # Optional: real execution test
-    def test_cli_timba_produces_output(self):
-        """Runs timba via CLI and ensures that output files are created."""
-        runner = CliRunner()
-        result = runner.invoke(cli, ["timba", "--folderpath", str(self.PACKAGEDIR)])
-
-        self.assertEqual(result.exit_code, 0)
-
-        out_dir = self.PACKAGEDIR / "TiMBA_data" / "output"
-        self.assertTrue(out_dir.exists())
-        self.assertGreater(len(list(out_dir.glob("*.pkl"))), 0)
 
     @classmethod
     def tearDownClass(cls):

@@ -30,11 +30,6 @@ from TiMBA.user_io.default_parameters import (default_year, default_max_period, 
 def cli():
     pass
 
-
-@click.group()
-def cli():
-    pass
-
 @click.command()
 @click.option('-Y', '--year', default=default_year, 
               show_default=True, required=True, type=int, 
@@ -185,7 +180,8 @@ def carbon_cli(calc_c_forest_agb, sc_num, calc_c_forest_bgb, calc_c_forest_soil,
         # Adavanced settings not available via CLI
         ParamNames.historical_c_hwp.value: historical_c_hwp,
         ParamNames.hist_hwp_start_year.value: hist_hwp_start_year,
-        ParamNames.hist_hwp_start_year_default.value: hist_hwp_start_year_default,
+        ParamNames.hist_hwp_start_year_default.value: (
+            hist_hwp_start_year_default),
         ParamNames.fao_data_update.value: fao_data_update
     }
 
