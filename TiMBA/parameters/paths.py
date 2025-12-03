@@ -3,7 +3,8 @@ DATA_FOLDER = r"TiMBA/data/"
 
 # Paths for input files
 INPUT_WORLD_PATH = r"input/01_Input_Files/"
-ADDITIONAL_INFORMATION_PATH = r"input/02_Additional_Information/additional_information.xlsx"
+ADDITIONAL_INFORMATION_PATH = (
+    r"input/02_Additional_Information/additional_information.xlsx")
 WORLDPRICE_PATH = r"input/02_Additional_Information/worldprice_world500.xlsx"
 PKL_WORLD_PATH = r"input/03_Serialization/WorldDataContent.pkl"
 PKL_ADD_INFO_PATH = r"input/03_Serialization/AddInfoContent.pkl"
@@ -20,8 +21,8 @@ LOGGING_OUTPUT_FOLDER = r"output/logs/"
 OUTPUT_DIR = r"output/data/"
 
 # Input to adress data storage in GIT Repo
-GIT_USER="TI-Forest-Sector-Modelling"
-GIT_REPO="TiMBA_Additional_Information"
-GIT_BRANCH="main_add_TiMBA_input_data"
-GIT_FOLDER="Input_Data/default_scenario"
-DESTINATION_PATH=r"TiMBA/data/input/"
+GIT_USER = "TI-Forest-Sector-Modelling"
+GIT_REPO = "TiMBA_Additional_Information"
+GIT_BRANCH = "main_add_TiMBA_input_data"
+GIT_FOLDER = "Input_Data/default_scenario"
+DESTINATION_PATH = r"TiMBA/data/input/"
