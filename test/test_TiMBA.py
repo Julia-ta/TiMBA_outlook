@@ -9,16 +9,22 @@ from TiMBA.main import run_timba
 from TiMBA.user_io.default_parameters import user_input
 from TiMBA.parameters.paths import (
     DATA_FOLDER, GIT_USER, GIT_REPO, GIT_BRANCH,
-    GIT_FOLDER, DESTINATION_PATH, OUTPUT_DIR,INPUT_WORLD_PATH
+    GIT_FOLDER, DESTINATION_PATH, OUTPUT_DIR, INPUT_WORLD_PATH
 )
 from TiMBA.data_management.Load_Data import load_data
 import importlib
 import pkgutil
 import TiMBA
 
+from click.testing import CliRunner
+from unittest.mock import patch
+from TiMBA.cli import cli
+
 INPUT_UNIT_TEST_TIMBA_RESULT = Path("test_data/DataContainer_Sc_scenario_input.pkl")
 
+
 class TestTiMBAClass(unittest.TestCase):
+
     @classmethod
     def setUpClass(cls):
         cls.PACKAGEDIR = Path(__file__).parent.absolute()
@@ -28,7 +34,7 @@ class TestTiMBAClass(unittest.TestCase):
         user_input["max_period"] = 1
         cls.Parameters = ParameterCollector(user_input=user_input)
 
-        # load input data from GitHub AddInfo repo
+        # load input data
         load_data(
             user=GIT_USER,
             repo=GIT_REPO,
@@ -41,7 +47,9 @@ class TestTiMBAClass(unittest.TestCase):
         run_timba(Parameters=cls.Parameters, folderpath=cls.PACKAGEDIR)
 
         # Load reference data
-        cls.data_timba_test = DataManager.restore_from_pickle(cls.PACKAGEDIR / INPUT_UNIT_TEST_TIMBA_RESULT)
+        cls.data_timba_test = DataManager.restore_from_pickle(
+            cls.PACKAGEDIR / INPUT_UNIT_TEST_TIMBA_RESULT
+        )
 
         # reload TiMBA results
         results_folder = cls.PACKAGEDIR / DATA_FOLDER / OUTPUT_DIR
@@ -49,9 +57,7 @@ class TestTiMBAClass(unittest.TestCase):
         cls.data_timba = DataManager.restore_from_pickle(results_file)
 
     def test_timba_results(self):
-        """
-        test TiMBA results against standard output
-        """
+        """test TiMBA results against standard output"""
         if user_input.get("test_timba_results", False):
             test_result = DataValidator.check_timba_results(
                 Data=self.data_timba,
@@ -66,10 +72,9 @@ class TestTiMBAClass(unittest.TestCase):
         from TiMBA.data_management.DataContainer import DataContainer, InterfaceWorldData, WorldDataCollector
         cls = self.__class__
 
-        INPUT_PATH = cls.PACKAGEDIR / DATA_FOLDER / INPUT_WORLD_PATH        
+        INPUT_PATH = cls.PACKAGEDIR / DATA_FOLDER / INPUT_WORLD_PATH
         world_version_unit_test = os.listdir(cls.PACKAGEDIR)[0]
 
-        # Test DataContainer
         DC = DataContainer("test")
         self.assertIsInstance(DC, DataContainer)
         self.assertTrue(hasattr(DC, "filepath"))
@@ -78,7 +83,6 @@ class TestTiMBAClass(unittest.TestCase):
         self.assertTrue(DC.data.empty)
         self.assertIsNone(DC.domain)
 
-        # Test InterfaceWorldData
         def bad_interface():
             InterfaceWorldData("test")
         self.assertRaises(TypeError, bad_interface)
@@ -86,11 +90,9 @@ class TestTiMBAClass(unittest.TestCase):
         self.assertTrue(hasattr(InterfaceWorldData, "set_attribute"))
         self.assertTrue(issubclass(InterfaceWorldData, DataContainer))
 
-        # Test WorldDataCollector
         self.assertTrue(issubclass(WorldDataCollector, (InterfaceWorldData, DataContainer)))
         self.assertTrue(hasattr(WorldDataCollector, "set_attribute"))
 
-        # Test WorldDataCollector
         wdc_path = str(INPUT_PATH / world_version_unit_test)
         WDC = WorldDataCollector(wdc_path)
 
@@ -106,7 +108,6 @@ class TestTiMBAClass(unittest.TestCase):
         self.assertEqual(WDC.attr_test_2, [4, 5, 6])
         self.assertEqual(WDC["attr_test_2"], [4, 5, 6])
 
-        # Test Domains
         domain_name = str(Domains.Specification)
         self.assertFalse(hasattr(WDC, domain_name))
 
@@ -118,12 +119,6 @@ class TestTiMBAClass(unittest.TestCase):
         self.assertTrue(WDC[domain_name].data.empty)
         self.assertTrue(WDC.Specification.data.empty)
 
-        # # Test import
-        # WDC[domain_name].data = DataManager.read_excel(WDC.filepath, str(Domains.Specification))
-        # comparison = DataManager.read_excel(WDC.filepath, str(Domains.Specification))
-        # self.assertTrue(WDC[domain_name].data.compare(comparison).empty)
-
-        # Test __repr__
         TEST_NAME = "TEST_NAME"
         INPUT_WORLD_PATH_LOOPED = wdc_path
         expected_repr = f"Content from {os.path.basename(INPUT_WORLD_PATH_LOOPED)}; Sheet: {TEST_NAME}"
@@ -135,9 +130,55 @@ class TestTiMBAClass(unittest.TestCase):
     def test_import_all_timba_modules(self):
         """Automatically import all TiMBA submodules to satisfy coverage for imports."""
         package_path = Path(TiMBA.__file__).parent
-        for _, module_name, _ in pkgutil.walk_packages([str(package_path)], TiMBA.__name__ + "."):
+        for _, module_name, _ in pkgutil.walk_packages(
+            [str(package_path)], TiMBA.__name__ + "."
+        ):
             importlib.import_module(module_name)
 
+    def test_cli_all_commands_without_expensive_calls(self):
+        """Tests CLI without running expensive functions."""
+        runner = CliRunner()
+
+        with patch("cli.run_timba") as mock_timba, \
+             patch("cli.run_extensions") as mock_ext, \
+             patch("cli.load_data") as mock_load, \
+             patch("cli.C_Module") as mock_c:
+
+            mock_instance = mock_c.return_value
+            mock_instance.run.return_value = None
+
+            # test timba
+            result = runner.invoke(cli, ["timba"])
+            self.assertEqual(result.exit_code, 0)
+            mock_timba.assert_called_once()
+            mock_ext.assert_called_once()
+
+            mock_timba.reset_mock()
+            mock_ext.reset_mock()
+
+            # test load_data
+            result = runner.invoke(cli, ["load_data", "--folderpath", str(self.PACKAGEDIR)])
+            self.assertEqual(result.exit_code, 0)
+            mock_load.assert_called_once()
+
+            mock_load.reset_mock()
+
+            # test carbon
+            result = runner.invoke(cli, ["carbon"])
+            self.assertEqual(result.exit_code, 0)
+            mock_instance.run.assert_called_once()
+
+    # Optional: real execution test
+    def test_cli_timba_produces_output(self):
+        """Runs timba via CLI and ensures that output files are created."""
+        runner = CliRunner()
+        result = runner.invoke(cli, ["timba", "--folderpath", str(self.PACKAGEDIR)])
+
+        self.assertEqual(result.exit_code, 0)
+
+        out_dir = self.PACKAGEDIR / "TiMBA_data" / "output"
+        self.assertTrue(out_dir.exists())
+        self.assertGreater(len(list(out_dir.glob("*.pkl"))), 0)
 
     @classmethod
     def tearDownClass(cls):
