@@ -1,51 +1,16 @@
-import os.path
-from os import path
-from typing import Union, Tuple
-
+import os
+from typing import Tuple
 from pathlib import Path
-
-from TiMBA.results_logging.ResultsWriter import ResultsWriter
-from .headers import RESULTS_HEADER, RESULTS_AGG_HEADER
 from .paths import (
-    DATA_FOLDER,
     INPUT_WORLD_PATH,
     ADDITIONAL_INFORMATION_PATH,
     WORLDPRICE_PATH,
     PKL_WORLD_PATH,
     PKL_ADD_INFO_PATH,
     PKL_WORLDPRICE_PATH,
-    output_name,
-    output_agg_name,
-    forest_output_name,
-    world_price_output_name,
-    manufacture_output_name,
     LOGGING_OUTPUT_FOLDER,
     OUTPUT_DIR,
 )
-
-# def get_results_writer(output_path: Union[str, Path, None], agg_flag: bool) -> ResultsWriter:
-#     """
-#     Spawns instance of Resultswriter based on user input. Allows to differentiate between exhaustive and aggregated
-#     results.
-#     :param output_path: Folderpath given by user
-#     :return: Instance of ResultsWriter
-#     """
-#     if agg_flag is not True:
-#         if output_path is None:
-#             return ResultsWriter(output_name, filetype=".csv", overwrite_file=False, header=RESULTS_HEADER)
-#         else:
-#             fp = os.path.join(output_path, r"output/results.csv")
-#             if not os.path.exists(output_path):
-#                 os.makedirs(fp, exist_ok=True)
-#             return ResultsWriter(fp, filetype=".csv", overwrite_file=False, header=RESULTS_HEADER)
-#     else:
-#         if output_path is None:
-#             return ResultsWriter(output_agg_name, filetype=".csv", overwrite_file=False, header=RESULTS_AGG_HEADER)
-#         else:
-#             fp = os.path.join(output_path, r"output/results_aggregated.csv")
-#             if not os.path.exists(output_path):
-#                 os.makedirs(fp, exist_ok=True)
-#             return ResultsWriter(fp, filetype=".csv", overwrite_file=False, header=RESULTS_AGG_HEADER)
 
 
 def get_pkl_paths(DATA_PATH: Path) -> Tuple[Path, Path, Path]:
@@ -60,7 +25,9 @@ def get_pkl_paths(DATA_PATH: Path) -> Tuple[Path, Path, Path]:
     return pkl_world_path, pkl_add_info_path, pkl_worldprice_path
 
 
-def get_global_paths(data_path: Path, worldversion: str) -> Tuple[Path, Path, Path]:
+def get_global_paths(data_path: Path, worldversion: str) -> Tuple[Path,
+                                                                  Path,
+                                                                  Path]:
     """
     Returns correct paths for files based on user input.
     :param output_path: Folderpath given by user
@@ -90,11 +57,9 @@ def get_output_paths(Data_Path: Path, time_stamp: str, sc_name: str):
 
 
 __all__ = [
-    #"get_results_writer",
     "get_global_paths",
     "INPUT_WORLD_PATH",
     "ADDITIONAL_INFORMATION_PATH",
     "WORLDPRICE_PATH",
-    #"RESULTS_OUTPUT",
     "LOGGING_OUTPUT_FOLDER"
 ]

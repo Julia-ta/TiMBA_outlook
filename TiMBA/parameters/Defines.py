@@ -85,12 +85,17 @@ class Constants(Enum):
     Class to hold computational and floating point constants
     """
     NON_ZERO_PARAMETER = 0.0000000001
-    TRADE_INERTIA_DEVIATION = 0.005  # most accurate world prices with 0.05 with lose trade boundaries / with 0.005 with hard boundaries
-    TRADE_INERTIA_DEVIATION_ZY = 0.001  # most accurate world prices with 0.01 with lose trade boundaries / with 0.001 with hard boundaries
-    TRADE_BOUND_DEVIATION_PENALTY = 99999999  # Penalty term for deviation from trade bounds (retrieved from GFPM source code)
-    TRADE_PREV_DEVIATION_PENALTY = 0  # Penalty term for deviation from trade in previous period, set 0 to deactivate
+    # Trade inertias lose trade boundaries (0.05)/hard boundaries (0.005)
+    TRADE_INERTIA_DEVIATION = 0.005
+    # Rest of world trade inertias lose trade bounds (0.01)/hard bounds (0.001)
+    TRADE_INERTIA_DEVIATION_ZY = 0.001
+    # Penalty term for deviation from trade bounds (retrieved from GFPM)
+    TRADE_BOUND_DEVIATION_PENALTY = 99999999
+    # Penalty term for deviation from trade in previous period, 0 to deactivate
+    TRADE_PREV_DEVIATION_PENALTY = 0
     BOUND_OMITTED_VALUE = 99999999
-    PRICE_DEVIATION_THRESHOLD = 0.5 # Threshold for correction of shadow price in current period compared to previous period
+    # Threshold for correction of shadow price in current to previous period
+    PRICE_DEVIATION_THRESHOLD = 0.5
     fao_agg_country_code = 5000
 
 
@@ -100,8 +105,10 @@ class ConversionParameters(Enum):
 
 class SolverParameters(Enum):
     """
-    REL_ACCURACY: default 0.0025; best settings for optimal world prices: 0.00025 (with tighted trade boundaries 0.005, 0.001)
-    ABS_ACCURACY: default 0.0001; best settings for optimal world prices: 0.00001 (with tighted trade boundaries 0.005, 0.001)
+    REL_ACCURACY: default 0.0025; best settings for optimal world prices:
+        0.00025 (with tighted trade boundaries 0.005, 0.001)
+    ABS_ACCURACY: default 0.0001; best settings for optimal world prices:
+        0.00001 (with tighted trade boundaries 0.005, 0.001)
     """
     MAX_ITERATION = 500000
     REL_ACCURACY = 0.00025
