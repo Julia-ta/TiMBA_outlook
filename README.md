@@ -215,23 +215,23 @@ Multiple settings are integrated in TiMBA to allow users to interact with the mo
 Following chapter provides a brief overview of the model settings. A detailed description of the settings is provided in the documentation. 
 
 Basic model settings include:
-| Option (Short / Long)               | Parameter                      | Type    | Default                                | Description                                                                                                               |
-| ----------------------------------- | ------------------------------ | ------- | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `-Y`, `--year`                      | `year`                         | `int`   | `default_year`                         | Starting year of the model.                                                                                               |
-| `-MP`, `--max_period`               | `max_period`                   | `int`   | `default_max_period`                   | Number of periods to be forecasted.                                                                                       |
-| `-PP`, `--calc_product_price`       | `calc_product_price`           | `str`   | `default_calc_product_price`           | Determines how product prices are calculated: `shadow_PP` or `calculated_PP` (only shadow validated extensively).         |
-| `-WP`, `--calc_world_price`         | `calc_world_price`             | `str`   | `default_calc_world_price`             | Determines how world prices are calculated: `shadow_WP`, `constant_WP`, `average_WP` (only shadow validated extensively). |
-| `-MB`, `--material_balance`         | `material_balance`             | `str`   | `default_MB`                           | Selects material balance type: `C_specific_MB`, `RC_specific_MB`, `RCG_specific_MB`.                                      |
-| `-GMB`, `--global_material_balance` | `global_material_balance`      | `bool`  | `global_material_balance`              | Activates global material balance across all wood flows.                                                                  |
-| `-TF`, `--trans_imp_exp_factor`     | `transportation_impexp_factor` | `float` | `default_transportation_impexp_factor` | Computation factor for import/export transport flows.                                                                     |
-| `-S`, `--serialization`             | `serialization`                | `bool`  | `serialization_flag`                   | If enabled, input data will be read from stored `.pkl` files.                                                             |
-| `-D`, `--dynamization`              | `dynamization_activated`       | `bool`  | `dynamization_activated`               | Activates dynamic development of the model.                                                                               |
-| `-COQ`, `--cleaned_opt_quantity`    | `cleaned_opt_quantity`         | `bool`  | `cleaned_opt_quantity`                 | Cleans optimization quantities after extraction.                                                                          |
-| `-CP`, `--capped_prices`            | `capped_prices`                | `bool`  | `capped_prices`                        | Activates price caps (non-validated in standard setup).                                                                   |
-| `-VO`, `--verb_opt_log`             | `verbose_optimization_logger`  | `bool`  | `verbose_optimization_logger`          | Shows verbose optimization log output.                                                                                    |
-| `-VT`, `--verb_calc_log`            | `verbose_calculation_logger`   | `bool`  | `verbose_calculation_logger`           | Shows verbose calculation log output.                                                                                     |
-| `-FP`, `--folderpath`               | `folderpath`                   | `Path`  | `Path.cwd()`                           | Path to a directory containing Input/Output folders.                                                                      |
-| `-C`, `--activate_cmodule`          | `activate_cmodule`             | `bool`  | `False`                                | Activates the carbon module.                                                                                              |
+| Option                              | Parameter                      | Type  | Default                              |
+| ----------------------------------- | ------------------------------ | ----- | ------------------------------------ |
+| `-Y`, `--year`                      | `year`                         | int   | default_year                         |
+| `-MP`, `--max_period`               | `max_period`                   | int   | default_max_period                   |
+| `-PP`, `--calc_product_price`       | `calc_product_price`           | str   | default_calc_product_price           |
+| `-WP`, `--calc_world_price`         | `calc_world_price`             | str   | default_calc_world_price             |
+| `-MB`, `--material_balance`         | `material_balance`             | str   | default_MB                           |
+| `-GMB`, `--global_material_balance` | `global_material_balance`      | bool  | global_material_balance              |
+| `-TF`, `--trans_imp_exp_factor`     | `transportation_impexp_factor` | float | default_transportation_impexp_factor |
+| `-S`, `--serialization`             | `serialization`                | bool  | serialization_flag                   |
+| `-D`, `--dynamization`              | `dynamization_activated`       | bool  | dynamization_activated               |
+| `-COQ`, `--cleaned_opt_quantity`    | `cleaned_opt_quantity`         | bool  | cleaned_opt_quantity                 |
+| `-CP`, `--capped_prices`            | `capped_prices`                | bool  | capped_prices                        |
+| `-VO`, `--verb_opt_log`             | `verbose_optimization_logger`  | bool  | verbose_optimization_logger          |
+| `-VT`, `--verb_calc_log`            | `verbose_calculation_logger`   | bool  | verbose_calculation_logger           |
+| `-FP`, `--folderpath`               | `folderpath`                   | Path  | `cwd`                                |
+| `-C`, `--activate_cmodule`          | `activate_cmodule`             | bool  | False                                |
 
 
 Basic add-on module settings include (see [add-on modules for TiMBA](#add-on-modules-for-timba)):
