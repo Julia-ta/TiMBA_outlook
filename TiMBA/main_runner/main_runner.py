@@ -1,7 +1,7 @@
 from timeit import default_timer
 from TiMBA.logic.model import TiMBA
 from TiMBA.parameters import get_global_paths, get_pkl_paths, get_output_paths
-from TiMBA.parameters import forest_output_name, output_agg_name, world_price_output_name
+#from TiMBA.parameters import forest_output_name, output_agg_name, world_price_output_name
 from TiMBA.data_management.ParameterCollector import ParameterCollector
 from TiMBA.results_logging.base_logger import get_logger
 from TiMBA.data_management.DataManager import DataManager

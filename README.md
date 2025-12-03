@@ -130,7 +130,10 @@ It is recommended to set up a virtual environment for TiMBA to manage dependenci
 4. Activate the virtual environment  
 Enable the virtual environment to isolate TiMBA dependencies. 
    >venv\Scripts\activate
-   >
+
+   Or for Linux:
+      >source venv/bin/activate
+
 5. Install TiMBA in the editable mode  
    >pip install -e .
 
@@ -140,6 +143,7 @@ Enable the virtual environment to isolate TiMBA dependencies.
 
 6. The package does not come with predefined data. To download the default input data along with additional information needed to run TiMBA use the command
    >load_timba -FP your_path
+   By default, load_timba loads all necessary datasets from the external data repository.
 
 7. If the user does not set any folderpath the standard input data will be loaded to the current working directory or the folderpath which is set with:
    >run_timba -FP your_path 
@@ -211,18 +215,24 @@ Multiple settings are integrated in TiMBA to allow users to interact with the mo
 Following chapter provides a brief overview of the model settings. A detailed description of the settings is provided in the documentation. 
 
 Basic model settings include:
-- The base year of simulation (year in which is simulation starts)
-- The maximum number of periods for the simulations
-- A flag to use product prices as shadow or calculated prices [default: shadow_PP]
-- A flag to compute world prices as shadow, constant or average prices [default: shadow_WP]
-- A flag to specify the adopted material balance [default: C_specific_MB]
-- A flag to activate global material balance balancing all wood flows globally [default: False]
-- A computation factor for Transportation Import/Export [default: 1]
-- A flag for the use of serialized input pkl files [default: False]
-- A flag for the use of dynamized developments in TiMBA [default: True]
-- A flag which will cap prices by a maximum [default: False]
-- A flag to show verbose optimization output [default: True]
-- A flag to show verbose calculation information [default: False]
+| Option (Short / Long)               | Parameter                      | Type    | Default                                | Description                                                                                                               |
+| ----------------------------------- | ------------------------------ | ------- | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `-Y`, `--year`                      | `year`                         | `int`   | `default_year`                         | Starting year of the model.                                                                                               |
+| `-MP`, `--max_period`               | `max_period`                   | `int`   | `default_max_period`                   | Number of periods to be forecasted.                                                                                       |
+| `-PP`, `--calc_product_price`       | `calc_product_price`           | `str`   | `default_calc_product_price`           | Determines how product prices are calculated: `shadow_PP` or `calculated_PP` (only shadow validated extensively).         |
+| `-WP`, `--calc_world_price`         | `calc_world_price`             | `str`   | `default_calc_world_price`             | Determines how world prices are calculated: `shadow_WP`, `constant_WP`, `average_WP` (only shadow validated extensively). |
+| `-MB`, `--material_balance`         | `material_balance`             | `str`   | `default_MB`                           | Selects material balance type: `C_specific_MB`, `RC_specific_MB`, `RCG_specific_MB`.                                      |
+| `-GMB`, `--global_material_balance` | `global_material_balance`      | `bool`  | `global_material_balance`              | Activates global material balance across all wood flows.                                                                  |
+| `-TF`, `--trans_imp_exp_factor`     | `transportation_impexp_factor` | `float` | `default_transportation_impexp_factor` | Computation factor for import/export transport flows.                                                                     |
+| `-S`, `--serialization`             | `serialization`                | `bool`  | `serialization_flag`                   | If enabled, input data will be read from stored `.pkl` files.                                                             |
+| `-D`, `--dynamization`              | `dynamization_activated`       | `bool`  | `dynamization_activated`               | Activates dynamic development of the model.                                                                               |
+| `-COQ`, `--cleaned_opt_quantity`    | `cleaned_opt_quantity`         | `bool`  | `cleaned_opt_quantity`                 | Cleans optimization quantities after extraction.                                                                          |
+| `-CP`, `--capped_prices`            | `capped_prices`                | `bool`  | `capped_prices`                        | Activates price caps (non-validated in standard setup).                                                                   |
+| `-VO`, `--verb_opt_log`             | `verbose_optimization_logger`  | `bool`  | `verbose_optimization_logger`          | Shows verbose optimization log output.                                                                                    |
+| `-VT`, `--verb_calc_log`            | `verbose_calculation_logger`   | `bool`  | `verbose_calculation_logger`           | Shows verbose calculation log output.                                                                                     |
+| `-FP`, `--folderpath`               | `folderpath`                   | `Path`  | `Path.cwd()`                           | Path to a directory containing Input/Output folders.                                                                      |
+| `-C`, `--activate_cmodule`          | `activate_cmodule`             | `bool`  | `False`                                | Activates the carbon module.                                                                                              |
+
 
 Basic add-on module settings include (see [add-on modules for TiMBA](#add-on-modules-for-timba)):
 - The activation of the carbon module [default: True]
