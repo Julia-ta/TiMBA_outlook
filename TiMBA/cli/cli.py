@@ -1,6 +1,6 @@
 from pathlib import Path
 import click
-from TiMBA.main import run_timba
+from TiMBA.main import run_timba, parameter_setter
 from TiMBA.data_management.ParameterCollector import ParameterCollector
 from TiMBA.data_management.Load_Data import load_data
 from TiMBA.parameters.paths import GIT_USER,GIT_REPO,GIT_BRANCH,DESTINATION_PATH,GIT_FOLDER
@@ -93,42 +93,27 @@ def timba_cli(year, max_period, calc_product_price, calc_world_price, material_b
               transportation_impexp_factor, serialization, dynamization_activated, cleaned_opt_quantity, capped_prices,
               verbose_optimization_logger, verbose_calculation_logger, folderpath, activate_cmodule):
     
-    user_input_cli = {ParamNames.year.value: year,
-                      ParamNames.max_period.value: max_period,
-                      ParamNames.product_price.value: calc_product_price,
-                      ParamNames.world_price.value: calc_world_price,
-                      ParamNames.transportation_factor.value: transportation_impexp_factor,
-                      ParamNames.material_balance.value: material_balance,
-                      ParamNames.global_material_balance.value: global_material_balance,
-                      ParamNames.serialization.value: serialization,
-                      ParamNames.constants.value: constants,
-                      ParamNames.dynamization_activated.value: dynamization_activated,
-                      ParamNames.cleaned_opt_quantity.value: cleaned_opt_quantity,
-                      ParamNames.capped_prices.value: capped_prices,
-                      ParamNames.verbose_optimization_logger.value: verbose_optimization_logger,
-                      ParamNames.verbose_calculation_logger.value: verbose_calculation_logger,
-                      ParamNames.addInfo.value: read_additional_information_file,
-                      ParamNames.activate_cmodule.value: activate_cmodule,
-                    #   ParamNames.sc_num.value: sc_num,
-                    #   ParamNames.read_in_pkl.value: read_in_pkl,
-                    #   ParamNames.calc_c_forest_agb.value: calc_c_forest_agb,
-                    #   ParamNames.calc_c_forest_bgb.value: calc_c_forest_bgb,
-                    #   ParamNames.calc_c_forest_soil.value: calc_c_forest_soil,
-                    #   ParamNames.calc_c_forest_dwl.value: calc_c_forest_dwl,
-                    #   ParamNames.calc_c_hwp.value: calc_c_hwp,
-                    #   ParamNames.c_hwp_accounting_approach.value: c_hwp_accounting_approach,
-                    #   ParamNames.historical_c_hwp.value: historical_c_hwp,
-                    #   ParamNames.hist_hwp_start_year.value: hist_hwp_start_year,
-                    #   ParamNames.hist_hwp_start_year_default.value: hist_hwp_start_year_default,
-                    #   ParamNames.show_carbon_dashboard.value: show_carbon_dashboard,
-                    #   ParamNames.fao_data_update.value: fao_data_update
-                      }
-    
-    Parameters = ParameterCollector(user_input=user_input_cli, folderpath=folderpath)
+    Parameters = parameter_setter()
+    Parameters.year = year
+    Parameters.max_period = max_period
+    Parameters.calc_product_prices = calc_product_price
+    Parameters.calc_world_prices = calc_world_price
+    Parameters.transportation_imp_exp_bound_factor = transportation_impexp_factor
+    Parameters.material_balance = material_balance
+    Parameters.global_material_balance = global_material_balance
+    Parameters.serialization = serialization
+    Parameters.constants = constants
+    Parameters.dynamization_activated = dynamization_activated
+    Parameters.cleaned_opt_quantity = cleaned_opt_quantity
+    Parameters.capped_prices = capped_prices
+    Parameters.verbose_optimization_logger = verbose_optimization_logger
+    Parameters.verbose_calculation_logger = verbose_calculation_logger
+    Parameters.addInfo = read_additional_information_file
+    Parameters.activate_add_on_cmodule = activate_cmodule
     run_timba(Parameters=Parameters,folderpath=folderpath)
     run_extensions(UserIO=Parameters)
 
-
+# Load data command
 @click.command()
 @click.option('-U', '--user', default=GIT_USER, show_default=True, required=True,
               help="Name of the GitHub user who stored the data.")
