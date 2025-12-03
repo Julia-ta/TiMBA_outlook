@@ -18,9 +18,11 @@ import TiMBA
 
 from click.testing import CliRunner
 from unittest.mock import patch
-from TiMBA.cli import cli
+from TiMBA.cli.cli import cli
 
-INPUT_UNIT_TEST_TIMBA_RESULT = Path("test_data/DataContainer_Sc_scenario_input.pkl")
+INPUT_UNIT_TEST_TIMBA_RESULT = Path(
+    "test_data/DataContainer_Sc_scenario_input.pkl"
+    )
 
 
 class TestTiMBAClass(unittest.TestCase):
@@ -70,7 +72,8 @@ class TestTiMBAClass(unittest.TestCase):
     def test_data_container(self):
         from TiMBA.parameters.Domains import Domains
         from TiMBA.data_management.DataManager import DataManager
-        from TiMBA.data_management.DataContainer import DataContainer, InterfaceWorldData, WorldDataCollector
+        from TiMBA.data_management.DataContainer import (
+            DataContainer, InterfaceWorldData, WorldDataCollector)
         cls = self.__class__
 
         INPUT_PATH = cls.PACKAGEDIR / DATA_FOLDER / INPUT_WORLD_PATH
@@ -91,7 +94,8 @@ class TestTiMBAClass(unittest.TestCase):
         self.assertTrue(hasattr(InterfaceWorldData, "set_attribute"))
         self.assertTrue(issubclass(InterfaceWorldData, DataContainer))
 
-        self.assertTrue(issubclass(WorldDataCollector, (InterfaceWorldData, DataContainer)))
+        self.assertTrue(issubclass(WorldDataCollector,
+                                   (InterfaceWorldData, DataContainer)))
         self.assertTrue(hasattr(WorldDataCollector, "set_attribute"))
 
         wdc_path = str(INPUT_PATH / world_version_unit_test)
@@ -112,7 +116,8 @@ class TestTiMBAClass(unittest.TestCase):
         domain_name = str(Domains.Specification)
         self.assertFalse(hasattr(WDC, domain_name))
 
-        DataManager.set_attribute(WDC, domain_name, DataContainer(WDC.filepath))
+        DataManager.set_attribute(WDC, domain_name,
+                                  DataContainer(WDC.filepath))
         self.assertTrue(hasattr(WDC, domain_name))
         self.assertTrue(hasattr(WDC[domain_name], "data"))
         self.assertEqual(WDC.filepath, wdc_path)
@@ -122,14 +127,18 @@ class TestTiMBAClass(unittest.TestCase):
 
         TEST_NAME = "TEST_NAME"
         INPUT_WORLD_PATH_LOOPED = wdc_path
-        expected_repr = f"Content from {os.path.basename(INPUT_WORLD_PATH_LOOPED)}; Sheet: {TEST_NAME}"
+        iwpl_path = os.path.basename(INPUT_WORLD_PATH_LOOPED)
+        expected_repr = f"Content from {iwpl_path}; Sheet: {TEST_NAME}"
 
         WDC[domain_name].update_domain_name(TEST_NAME)
         actual_repr = repr(WDC[domain_name]).replace("'", "")
         self.assertEqual(actual_repr, expected_repr)
 
     def test_import_all_timba_modules(self):
-        """Automatically import all TiMBA submodules to satisfy coverage for imports."""
+        """
+        Automatically import all TiMBA submodules to
+        satisfy coverage for imports.
+        """
         package_path = Path(TiMBA.__file__).parent
         for _, module_name, _ in pkgutil.walk_packages(
             [str(package_path)], TiMBA.__name__ + "."
@@ -137,16 +146,16 @@ class TestTiMBAClass(unittest.TestCase):
             importlib.import_module(module_name)
 
     def test_cli_all_commands_without_expensive_calls(self):
-        """Tests CLI commands without running expensive functions."""
-        from click.testing import CliRunner
-        from TiMBA.cli.cli import cli  # <-- wichtig
+        """
+        Tests CLI commands without running expensive functions.
+        """
 
         runner = CliRunner()
 
         with patch("TiMBA.cli.cli.run_timba") as mock_timba, \
-            patch("TiMBA.cli.cli.run_extensions") as mock_ext, \
-            patch("TiMBA.cli.cli.load_data") as mock_load, \
-            patch("TiMBA.cli.cli.C_Module") as mock_c:
+             patch("TiMBA.cli.cli.run_extensions") as mock_ext, \
+             patch("TiMBA.cli.cli.load_data") as mock_load, \
+             patch("TiMBA.cli.cli.C_Module") as mock_c:
 
             # Setup mock for C_Module.run
             mock_instance = mock_c.return_value
@@ -154,7 +163,8 @@ class TestTiMBAClass(unittest.TestCase):
 
             # ---- timba command ----
             res = runner.invoke(cli, ["timba"])
-            self.assertEqual(res.exit_code, 0, f"timba command failed: {res.output}")
+            self.assertEqual(res.exit_code, 0,
+                             f"timba command failed: {res.output}")
             mock_timba.assert_called_once()
             mock_ext.assert_called_once()
 
@@ -167,7 +177,8 @@ class TestTiMBAClass(unittest.TestCase):
                 "--folder", "dummy_folder",
                 "--folderpath", str(self.PACKAGEDIR)
             ])
-            self.assertEqual(res.exit_code, 0, f"load_data command failed: {res.output}")
+            self.assertEqual(res.exit_code, 0,
+                             f"load_data command failed: {res.output}")
             mock_load.assert_called_once()
 
             # ---- carbon command ----
@@ -182,10 +193,10 @@ class TestTiMBAClass(unittest.TestCase):
                 "--c_hwp_accounting_approach", "None",
                 "--read_in_pkl", "False"
             ])
-            self.assertEqual(res.exit_code, 0, f"carbon command failed: {res.output}")
+            self.assertEqual(res.exit_code, 0,
+                             f"carbon command failed: {res.output}")
             mock_c.assert_called_once()
             mock_instance.run.assert_called_once()
-
 
     @classmethod
     def tearDownClass(cls):
