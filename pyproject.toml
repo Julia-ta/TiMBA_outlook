@@ -3,7 +3,7 @@ requires = ["setuptools==75.2.0", "wheel", "twine"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "TiMBA" 
+name = "timba" 
 version = "1.3.0"
 authors = [{name = "TI-FSM", email = "wf-timba@thuenen.de"}]
 description = "TiMBA is a partial economic equilibrium model for the global forest products market"
