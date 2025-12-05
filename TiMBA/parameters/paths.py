@@ -23,6 +23,6 @@ OUTPUT_DIR = r"output/data/"
 # Input to adress data storage in GIT Repo
 GIT_USER = "TI-Forest-Sector-Modelling"
 GIT_REPO = "TiMBA_Additional_Information"
-GIT_BRANCH = "main_add_TiMBA_input_data"
+GIT_BRANCH = "main"
 GIT_FOLDER = "Input_Data/default_scenario"
 DESTINATION_PATH = r"TiMBA/data/input/"
