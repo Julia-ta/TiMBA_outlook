@@ -38,7 +38,7 @@ def interpolate_quantity(df):
     Example use :
 
     >>> from TiMBA.outlook.carbon_budget_model import interpolate_quantity
-    >>> interpolate_quantity(df)
+    >>> df2 = interpolate_quantity(df)
 
     """
     index = ['region_name', 'region_code', 'commodity_name', 'commodity_code', 'domain']

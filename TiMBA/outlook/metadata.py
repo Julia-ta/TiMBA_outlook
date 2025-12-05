@@ -65,6 +65,7 @@ def load_metadata_from_world_input_file(file_name, sheet_name="Specification"):
     """
     Path(file_name).expanduser()
     df = pandas.read_excel(file_name, sheet_name)
+    # TODO: store a mapping of old to new column names
     df = df.rename(columns=to_snake_case)
     df_region = df[["region_code", "region_name"]].copy()
     df_commodity = df[["commodity_code", "commodity_name"]].copy()
