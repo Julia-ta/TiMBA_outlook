@@ -31,14 +31,14 @@ class TiMBA(object):
                  AdditionalInfo: AdditionalInformation,
                  WorldPriceData: WorldPriceData,
                  LogHandler: Logger,
-                 ResultHandler: ResultsWriter,
+                 #ResultHandler: ResultsWriter,
                  ):
         self.Data = Data
         self.UserOptions = UserOptions
         self.AdditionalInfo = AdditionalInfo
         self.WorldPriceData = WorldPriceData
         self.Logger = LogHandler
-        self.ResultHandler = ResultHandler
+        #self.ResultHandler = ResultHandler
         self.period_df = actual_period(self.Data.periods_forecast, self.UserOptions.year, self.UserOptions.max_period)
 
         # Runner Variables

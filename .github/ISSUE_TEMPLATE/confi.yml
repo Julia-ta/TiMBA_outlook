@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+
+contact_links:
+  - name: TiMBA Team
+    email: wf-timba@thuenen.de
+    about: If you need help or have questions, contact us.
+
+issue_template:
+  - bug_report.md
+  - feature_request.md
+  - question.md
